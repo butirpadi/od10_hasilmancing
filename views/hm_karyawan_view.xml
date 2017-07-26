@@ -1,0 +1,72 @@
+<openerp>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="hm_karyawan_list">
+      <field name="name">hm_karyawan_list</field>
+      <field name="model">hm_karyawan</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="kode"/>
+          <field name="name"/>
+          <field name="panggilan"/>
+          <field name="jabatan"/>
+          <field name="armada_id" />
+          <!-- <field name="aktif"/> -->
+        </tree>
+      </field>
+    </record>
+
+    <!-- Form Karyawan -->
+    <record id="karyawan_form" model="ir.ui.view">
+      <field name="name">karyawan_form</field>
+      <field name="model">hm_karyawan</field>
+      <field name="priority">1</field>
+      <field name="arch" type="xml">
+        <form string="karyawan form" >
+          <sheet>
+            <!-- <div class="oe_title">
+              <label for="name" string="Nama"/>
+              <h1>
+                <field name="name"/>
+              </h1>
+            </div> -->
+            <group>
+                <field name="name"/>              
+            </group>
+            <group>
+              <group name="group_kiri" >
+                  <field name="kode" readonly="1" />
+                  <field name="panggilan" />
+                  <field name="tempat_lahir"/>
+                  <field name="tgl_lahir"/>     
+                  <field name="ktp"/>
+                  <field name="jabatan"/>
+                  <field name="gaji_per_shift" attrs="{'invisible':[('jabatan','!=','STF')]}"  />
+                  <field name="armada_id" attrs="{'invisible':[('jabatan','!=','DRV')]}" options='{"no_create": 1, "no_create_edit": 1, "no_open":1}' />
+              </group>
+              <group name="group_kiri" >
+                  <field name="alamat"/>
+                  <field name="provinsi_id" options='{"no_create": 1, "no_create_edit": 1, "no_open":1}'/>
+                  <field name="kabupaten_id" options='{"no_create": 1, "no_create_edit": 1, "no_open":1}' domain="[('provinsi_id', '=', provinsi_id)]"/>
+                  <field name="kecamatan_id" options='{"no_create": 1, "no_create_edit": 1, "no_open":1}' domain="[('kabupaten_id', '=', kabupaten_id)]"/>
+                  <field name="telp"/>
+              </group>              
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    
+
+    <!-- actions opening views on models -->
+    
+    <record model="ir.actions.act_window" id="hm_action_karyawan">
+      <field name="name">Karyawan</field>
+      <field name="res_model">hm_karyawan</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    
+
+  </data>
+</openerp>

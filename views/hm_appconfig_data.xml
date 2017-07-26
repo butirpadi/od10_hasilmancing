@@ -1,0 +1,43 @@
+<openerp>
+    <data noupdate="1">
+        <!-- Data Setting -->
+        <record id="first_course_item" model="hm_appconfig">
+            <field name="name">driver_kode_prefix</field>
+            <field name="desc">Kode Driver Prefix</field>
+            <field name="value">SPR</field>
+        </record>
+        <record id="second_course_item" model="hm_appconfig">
+            <field name="name">driver_kode_counter</field>
+            <field name="desc">Kode Driver Counter</field>
+            <field name="value">1</field>
+        </record>
+        <record id="third_course_item" model="hm_appconfig">
+            <field name="name">staff_kode_prefix</field>
+            <field name="desc">Kode Staff Prefix</field>
+            <field name="value">STF</field>
+        </record>
+        <record id="4_course_item" model="hm_appconfig">
+            <field name="name">staff_kode_counter</field>
+            <field name="desc">Kode Staff Counter</field>
+            <field name="value">1</field>
+        </record>
+        <record id="5_course_item" model="hm_appconfig">
+            <field name="name">delivery_slip_with_logo</field>
+            <field name="desc">Tampilkan Logo di Delivery Slip</field>
+            <field name="value">1</field>
+        </record>
+        <record id="8_course_item" model="hm_appconfig">
+            <field name="name">catatan_pay_slip</field>
+            <field name="desc">Catatan Pay Slip/Slip Gaji</field>
+            <field name="value">PERHATIAN :     
+1.  Teliti dahulu struk pembayaran sebelum meninggalkan kantor.
+2.  Laporkan kepada bagian administrasi jika terjadi kesalahan.</field>
+        </record>
+        <record id="9_course_item" model="hm_appconfig">
+            <field name="name">direct_print_address</field>
+            <field name="desc">Direct Print Address</field>
+            <field name="value">localhost/LX310</field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,43 @@
+<openerp>
+	<data>
+		<!-- List View -->
+		<record model="ir.ui.view" id="hm_armada_list">
+	      <field name="name">hm_armada_list</field>
+	      <field name="model">hm_armada</field>
+	      <field name="arch" type="xml">
+	        <tree>
+	          <field name="name"/>
+	          <field name="keterangan"/>
+	        </tree>
+	      </field>
+	    </record>
+
+	    <record id="hm_armada_form" model="ir.ui.view">
+	      <field name="name">hm_armada_form</field>
+	      <field name="model">hm_armada</field>
+	      <field name="priority">1</field>
+	      <field name="arch" type="xml">
+	        <form string="armada form">
+	          <sheet>
+	            <group>
+	            	<group>
+	                	<field name="name"/>
+	            	</group>
+	            	<group>
+	                	<field name="keterangan" />
+	            	</group>
+	            </group>
+	          </sheet>
+	        </form>
+	      </field>
+	    </record>
+	    
+
+	    <!-- actions opening views on models -->	    
+	    <record model="ir.actions.act_window" id="hm_action_armada">
+	      <field name="name">Armada</field>
+	      <field name="res_model">hm_armada</field>
+	      <field name="view_mode">tree,form</field>
+	    </record>
+	</data>
+</openerp>

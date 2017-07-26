@@ -1,0 +1,53 @@
+<openerp>
+  <data>
+    <!-- explicit list view definition -->    
+    <record model="ir.ui.view" id="hm_provinsi_list">
+      <field name="name">hm_provinsi.list</field>
+      <field name="model">hm_provinsi</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="hm_provinsi_form" model="ir.ui.view">
+      <field name="name">hm_provinsi.form</field>
+      <field name="model">hm_provinsi</field>
+      <field name="priority">1</field>
+      <field name="arch" type="xml">
+        <form string="provinsi form">
+          <sheet>
+            <div class="oe_title">
+              <label for="name" string="Nama"/>
+              <h1>
+                <field name="name"/>
+              </h1>
+            </div>
+            <notebook>
+              <page string="Data Kabupaten">
+                <tree string="Data Kabupaten" >
+                  <field name="kabupaten_ids" context="{'provinsi_id':id}">
+                    <tree editable="bottom" >
+                      <field name="name" />
+                    </tree>
+                  </field>
+                </tree>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="hm_action_provinsi">
+      <field name="name">Provinsi</field>
+      <field name="res_model">hm_provinsi</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+      
+    
+  </data>
+</openerp>

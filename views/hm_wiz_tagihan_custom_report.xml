@@ -1,0 +1,274 @@
+<openerp>
+	<data>
+		<!-- REPORT SHIPPING -->
+        <report 
+            id="hm_wiz_tagihan_custom_report" 
+            model="hm_wiz_tagihan" 
+            string="tagihan_custom Report" 
+            report_type="qweb-pdf" 
+            name="hasilmancing.hm_wiz_tagihan_custom_report_template" 
+            paperformat="paperformat_sale_order"
+            />
+
+        <template id="hm_wiz_tagihan_custom_report_template">
+            <div class="header" >
+                <t t-foreach="docs" t-as="o">
+                    <div class="row" >
+                        <div class="col-xs-2 rpt_header text-center" >
+                            <img  class="img img-responsive" src="/udhasman/static/description/logo.png"/>
+                        </div>
+                        <div class="col-xs-10 rpt_header" > 
+                            <h4>RINCIAN TAGIHAN MATERIAL</h4>
+                            <span>Periode : <span t-field="o.tanggal_awal" /> - <span t-field="o.tanggal_akhir" /> </span>
+                        </div>
+                        <div class="col-xs-12" style="border-bottom: solid thin #000;height:10px;" ></div>
+                    </div>
+                </t>
+            </div>
+            <div class="page">
+                <style>
+                    div.rpt_header label, div.rpt_header p, div.rpt_header h3{
+                        margin:0;
+                        padding:0;
+                    }
+                    div.rpt_header h3{
+                        font-weight:bold;
+                    }
+
+                    .div-round{
+                        border:solid thin darkgrey;
+                        border-radius: 5px;
+                        padding-top:5px;
+                        padding-bottom:5px;
+                        height:125px;
+                    }
+                    .div-round p{
+                        margin: 0;
+                        padding 0;
+                    }
+                    .div-round table{
+                        margin:0;
+                    }
+
+                    table.table.table-bordered, table.table.table-bordered tr th, table.table.table-bordered tr, table.table.table-bordered tr td{
+                        border-color: darkgrey;
+                    }
+
+                    table.table.rpt-table, table.table.rpt-table tr, table.table.rpt-table tr td {
+                        border: none;
+                        border-bottom: solid thin darkgrey;
+                        border-top: solid thin darkgrey;
+                    }
+
+                    table.table.rpt-table-header, table.table.rpt-table-header tr, table.table.rpt-table-header tr td {
+                        border: none;
+                    }
+                    table.table.rpt-table-header tr td{
+                        padding-top:0;
+                        padding-bottom:0;
+                    }
+
+                    table.table thead tr th{
+                        text-align: center;
+                        vertical-align: middle;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="o">
+                    <table class="table rpt-table-header table-condensed" >
+                        <tbody>
+                            <tr>
+                                <td class="col-xs-1" >
+                                    <label>Customer</label>
+                                </td>
+                                <td style="width:5px;" >:</td>
+                                <td class="col-xs-5" >
+                                    <t t-esc="o.customer_id.name" />
+                                    <t t-if="not o.customer_id">
+                                        -
+                                    </t>
+                                </td>
+                                <td class="col-xs-1" >
+                                    <label>Material</label>
+                                </td>
+                                <td style="width:5px;" >:</td>
+                                <td class="col-xs-5" >
+                                    <t t-esc="o.product_id.name" />
+                                    <t t-if="not o.product_id">
+                                        -
+                                    </t>
+                                </td>
+                            </tr>      
+                            <tr>
+                                <td class="col-xs-1" >
+                                    <label>Pekerjaan</label>
+                                </td>
+                                <td style="width:5px;" >:</td>
+                                <td class="col-xs-5" >
+                                    <t t-esc="o.pekerjaan_id.name" />
+                                    <t t-if="not o.pekerjaan_id">
+                                        -
+                                    </t>
+                                </td>
+                                <td class="col-xs-1" >
+                                </td>
+                                <td style="width:5px;" ></td>
+                                <td class="col-xs-5" >
+                                    
+                                </td>
+                            </tr>                            
+                        </tbody>
+                    </table>
+
+                    
+                    <table class="table table-bordered table-condensed">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" >No</th>
+                                <th rowspan="2" >Ref#</th>
+                                <th rowspan="2" >Tanggal</th>
+                                <th rowspan="2" >Nopol</th>
+                                <th rowspan="2" >Material</th>
+                                <t t-if="o.kalkulasi=='kubikasi'">
+                                    <th colspan="3" >Ukuran</th>
+                                    <th rowspan="2" >Vol</th>
+                                </t>
+                                <t t-if="o.kalkulasi=='tonase'">
+                                    <th colspan="2" >Ukuran</th>
+                                    <th rowspan="2" >Net</th>
+                                </t>
+                                <t t-if="o.kalkulasi=='ritase'">
+                                    <th rowspan="2" >Rit</th>
+                                </t>
+                                <th rowspan="2" >Harga</th>
+                                <th rowspan="2" >Jumlah</th>
+                            </tr>
+                            <tr>
+                                <t t-if="o.kalkulasi=='kubikasi'">
+                                    <th>P</th>
+                                    <th>L</th>
+                                    <th>T</th>
+                                </t>
+                                <t t-if="o.kalkulasi=='tonase'">
+                                    <th>Gross</th>
+                                    <th>Tare</th>
+                                </t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="row_idx" t-value="1" />
+                            <t t-foreach="o.order_ids" t-as="so">  
+                                <tr>
+                                    <td>
+                                        <t t-esc="row_idx" />
+                                        <t t-set="row_idx" t-value="row_idx + 1" />
+                                    </td>
+                                    <td>
+                                        <span t-field="so.name" />
+                                    </td>
+                                    <td>
+                                        <span t-field="so.tanggal" />
+                                    </td>
+                                    <td>
+                                        <span t-field="so.armada_id" />
+                                    </td>
+                                    <td>
+                                        <span t-field="so.material" />
+                                    </td>
+                                    <t t-if="not o.kalkulasi">
+                                        <td>
+                                            <span t-field="so.kalkulasi" />
+                                        </td>
+                                        <td class="text-right" >
+                                            <t t-if="so.kalkulasi=='ritase'">
+                                                <span t-field="so.quantity" />
+                                            </t>
+                                            <t t-if="not so.kalkulasi=='ritase'">
+                                                -
+                                            </t>
+                                        </td>
+                                        <td class="text-right" >
+                                            <t t-if="so.kalkulasi=='kubikasi'">
+                                                <t t-esc="'{0:.2f}'.format(float(so.volume))" />
+                                            </t>
+                                            <t t-if="not so.kalkulasi=='kubikasi'">
+                                                -
+                                            </t>
+                                        </td>
+                                        <td class="text-right" >
+                                            <t t-if="so.kalkulasi=='tonase'">
+                                                <t t-esc="'{0:.2f}'.format(float(so.netto))" />
+                                            </t>
+                                            <t t-if="not so.kalkulasi=='tonase'">
+                                                -
+                                            </t>
+                                        </td>
+                                    </t>
+                                    <t t-if="o.kalkulasi=='kubikasi'">
+                                        <td class="text-right" >
+                                            <t t-esc="'{0:.2f}'.format(float(so.panjang))" />
+                                        </td>
+                                        <td class="text-right" >
+                                            <t t-esc="'{0:.2f}'.format(float(so.lebar))" />
+                                        </td>
+                                        <td class="text-right" >
+                                            <t t-esc="'{0:.2f}'.format(float(so.tinggi))" />
+                                        </td>
+                                        <td class="text-right" >
+                                            <t t-esc="'{0:.2f}'.format(float(so.volume))" />
+                                        </td>
+                                    </t>
+                                    <t t-if="o.kalkulasi=='tonase'">
+                                        <td class="text-right" >
+                                            <t t-esc="'{0:.2f}'.format(float(so.gross))" />
+                                        </td>
+                                        <td class="text-right" >
+                                            <t t-esc="'{0:.2f}'.format(float(so.tare))" />
+                                        </td>
+                                        <td class="text-right" >
+                                            <t t-esc="'{0:.2f}'.format(float(so.netto))" />
+                                        </td>
+                                    </t>
+                                    <t t-if="o.kalkulasi=='ritase'">
+                                        <td class="text-right" >
+                                            <span t-field="so.quantity" />
+                                        </td>
+                                    </t>
+                                    <td class="text-right" >
+                                         <t t-esc="'{0:,.2f}'.format(float(so.harga_satuan))" />
+                                    </td>
+                                    <td class="text-right" >
+                                        <t t-esc="'{0:,.2f}'.format(float(so.harga_total))" />
+                                    </td>
+                                </tr>
+                            </t>
+                            <!-- FOOTER TABLE -->
+                            <tr>
+                                <t t-if="o.kalkulasi=='kubikasi'">
+                                    <td colspan="10" ></td>
+                                    <td class="text-right" >
+                                        <strong t-esc="'{0:,.2f}'.format(float(o.grand_total))" />
+                                    </td>
+                                </t>
+                                <t t-if="o.kalkulasi=='tonase'">
+                                    <td colspan="9" ></td>
+                                    <td class="text-right" >
+                                        <strong t-esc="'{0:,.2f}'.format(float(o.grand_total))" />
+                                    </td>
+                                </t>
+                                <t t-if="o.kalkulasi=='ritase'">
+                                    <td colspan="7" ></td>
+                                    <td class="text-right" >
+                                        <strong t-esc="'{0:,.2f}'.format(float(o.grand_total))" />
+                                    </td>
+                                </t>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </div>
+        </template>
+
+
+	</data>
+</openerp>

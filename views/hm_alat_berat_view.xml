@@ -1,0 +1,43 @@
+<openerp>
+	<data>
+		<!-- List View -->
+		<record model="ir.ui.view" id="hm_alat_berat_list">
+	      <field name="name">hm_alat_berat_list</field>
+	      <field name="model">hm_alat_berat</field>
+	      <field name="arch" type="xml">
+	        <tree>
+	          <field name="kode"/>
+	          <field name="name"/>
+	        </tree>
+	      </field>
+	    </record>
+
+	    <record id="hm_alat_berat_form" model="ir.ui.view">
+	      <field name="name">hm_alat_berat_form</field>
+	      <field name="model">hm_alat_berat</field>
+	      <field name="priority">1</field>
+	      <field name="arch" type="xml">
+	        <form string="alat_berat form">
+	          <sheet>
+	            <group>
+	            	<group>
+	                	<field name="name"/>	            		
+	            	</group>
+	            	<group>
+	                	<field name="kode" />
+	            	</group>
+	            </group>
+	          </sheet>
+	        </form>
+	      </field>
+	    </record>
+	    
+
+	    <!-- actions opening views on models -->	    
+	    <record model="ir.actions.act_window" id="hm_action_alat_berat">
+	      <field name="name">Alat Berat</field>
+	      <field name="res_model">hm_alat_berat</field>
+	      <field name="view_mode">tree,form</field>
+	    </record>
+	</data>
+</openerp>

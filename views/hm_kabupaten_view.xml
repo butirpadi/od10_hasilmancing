@@ -1,0 +1,66 @@
+<openerp>
+  <data>
+    <!-- explicit list view definition -->    
+    <record model="ir.ui.view" id="hm_kabupaten_list">
+      <field name="name">hm_kabupaten.list</field>
+      <field name="model">hm_kabupaten</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="provinsi_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="hm_kabupaten_form" model="ir.ui.view">
+      <field name="name">hm_kabupaten.form</field>
+      <field name="model">hm_kabupaten</field>
+      <field name="priority">1</field>
+      <field name="arch" type="xml">
+        <form string="kabupaten form">
+          <sheet>
+            <!-- <div class="oe_title">
+              <label for="name" string="Nama"/>
+              <h1>
+                <field name="name"/>
+              </h1>
+            </div>
+            <group>
+                <field name="provinsi_id" />
+            </group> -->
+            <group>
+              <group>
+                <field name="name" />
+              </group>
+              <group>
+                <field name="provinsi_id" options="{'no_create_edit': True, 'no_open': True}" />
+              </group>
+            </group>
+            
+            <notebook>
+              <page string="Data Kecamatan">
+                <tree string="Data Kecamatan" >
+                  <field name="kecamatan_ids" context="{'kecamatan_id':id}">
+                    <tree editable="bottom" >
+                      <field name="name" />
+                    </tree>
+                  </field>
+                </tree>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    
+
+    <!-- actions opening views on models -->    
+    <record model="ir.actions.act_window" id="hm_action_kabupaten">
+      <field name="name">Kabupaten</field>
+      <field name="res_model">hm_kabupaten</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+   
+    
+  </data>
+</openerp>

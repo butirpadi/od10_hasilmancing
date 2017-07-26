@@ -1,0 +1,34 @@
+<openerp>
+	<data>
+		<menuitem name="Master" id="hm_menu_root_master" sequence="1"/>    
+		    <!-- menu categories -->    
+		    <menuitem name="Master" id="hm_menu_sub_root_master" parent="hm_menu_root_master" sequence="2"/>
+			    <!-- actions -->    
+			    <menuitem name="Provinsi" id="hm_menu_provinsi" parent="hm_menu_sub_root_master" action="hasilmancing.hm_action_provinsi" sequence="3" />
+			    <menuitem name="Kabupaten" id="hm_menu_kabupaten" parent="hm_menu_sub_root_master" action="hasilmancing.hm_action_kabupaten" sequence="4" />
+			    <menuitem name="Kecamatan" id="hm_menu_kecamatan" parent="hm_menu_sub_root_master" action="hasilmancing.hm_action_kecamatan" sequence="5" />
+			    <menuitem name="Lokasi Galian" id="hm_menu_lokasi_galian" parent="hm_menu_sub_root_master" action="hasilmancing.hm_action_galian" sequence="6" />
+			    <menuitem name="Alat Berat" id="hm_menu_alat_berat" parent="hm_menu_sub_root_master" action="hasilmancing.hm_action_alat_berat" sequence="7" />
+			    <menuitem name="Armada" id="hm_menu_armada" parent="hm_menu_sub_root_master" action="hasilmancing.hm_action_armada" sequence="8" />
+			    <menuitem name="Karyawan" id="hm_menu_karyawan" parent="hm_menu_sub_root_master" action="hasilmancing.hm_action_karyawan" sequence="9" />
+			    <menuitem name="Material" id="hm_menu_material" parent="hm_menu_sub_root_master" action="hasilmancing.hm_material_template_action" sequence="10" />
+			    <menuitem name="Sparepart" id="hm_menu_sparepart" parent="hm_menu_sub_root_master" action="hasilmancing.hm_sparepart_template_action" sequence="11" />
+			    <menuitem name="Customer" id="hm_menu_customer" parent="hm_menu_sub_root_master" action="hasilmancing.hm_action_customer" sequence="12" />
+			    <menuitem name="Supplier" id="hm_menu_supplier" parent="hm_menu_sub_root_master" action="hasilmancing.hm_action_supplier" sequence="13" />
+			    
+		    <menuitem name="System" id="hm_menu_sub_root_system" parent="hm_menu_root_master" sequence="14"/>
+			    <menuitem name="Setting" id="hm_menu_setting" parent="hm_menu_sub_root_system" action="hasilmancing.hm_action_appconfig" sequence="15" />
+
+		<menuitem name="Sales" id="hm_menu_root_sales" sequence="2"/>    
+		    <!-- menu categories -->    
+		    <menuitem name="Sales" id="hm_menu_sub_root_sales" parent="hm_menu_root_sales" sequence="21"/>
+			    <!-- actions -->    
+			    <menuitem name="Sales Orders" id="hm_menu_sales_order" parent="hm_menu_sub_root_sales" action="hasilmancing.hm_sale_action_orders" sequence="22" />
+			    <!-- <menuitem name="Customer Invoices" action="hasilmancing.hm_action_invoice" id="hm_menu_action_invoice" parent="hm_menu_sub_root_sales" sequence="23"/> -->
+			    
+		    <menuitem name="Reports" id="hm_menu_sub_root_reports" parent="hm_menu_root_sales" sequence="24"/>
+			    <menuitem name="Sales" id="hm_menu_report_sales_order" parent="hm_menu_sub_root_reports" action="hasilmancing.hm_wiz_sale_action" sequence="25" />
+			    <menuitem name="Tagihan" id="hm_menu_report_tagihan" parent="hm_menu_sub_root_reports" action="hasilmancing.hm_wiz_tagihan_action" sequence="26" />
+
+	</data>
+</openerp>

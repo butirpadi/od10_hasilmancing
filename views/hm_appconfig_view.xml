@@ -1,0 +1,50 @@
+<openerp>
+	<data>
+		 <!-- Data Setting One Step Purchasing -->
+        <record id="data_setting_1" model="ir.config_parameter">
+            <field name="key">one_step_purchasing</field>
+            <field name="desc">One Step Puchasing</field>
+            <field name="value">True</field>
+        </record>
+        
+		<!-- List View -->
+		<record model="ir.ui.view" id="hm_appconfig_list">
+	      <field name="name">hm_appconfig.list</field>
+	      <field name="model">hm_appconfig</field>
+	      <field name="arch" type="xml">
+	        <tree create="false" >
+	          <field name="desc"/>
+	          <field name="value"/>
+	        </tree>
+	      </field>
+	    </record>
+
+	    <record id="hm_appconfig_form" model="ir.ui.view">
+	      <field name="name">hm_appconfig.form</field>
+	      <field name="model">hm_appconfig</field>
+	      <field name="priority">1</field>
+	      <field name="arch" type="xml">
+	        <form string="appconfig form" create="false">
+	          <sheet>
+	            <div class="oe_title">
+	              <label for="desc" />
+	              <h1>
+	                <field name="desc" readonly="1" />
+	              </h1>
+	            </div>
+	            <group>
+	                <field name="value" />
+	            </group>
+	          </sheet>
+	        </form>
+	      </field>
+	    </record>	    
+
+	    <!-- actions opening views on models -->	    
+	    <record model="ir.actions.act_window" id="hm_action_appconfig">
+	      <field name="name">System Setting</field>
+	      <field name="res_model">hm_appconfig</field>
+	      <field name="view_mode">tree,form</field>
+	    </record>
+	</data>
+</openerp>

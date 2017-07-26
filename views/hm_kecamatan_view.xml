@@ -1,0 +1,52 @@
+<openerp>
+  <data>
+    <!-- explicit list view definition -->    
+    <record model="ir.ui.view" id="hm_kecamatan_list">
+      <field name="name">hm_kecamatan.list</field>
+      <field name="model">hm_kecamatan</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="kabupaten_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="hm_kecamatan_form" model="ir.ui.view">
+      <field name="name">hm_kecamatan.form</field>
+      <field name="model">hm_kecamatan</field>
+      <field name="priority">1</field>
+      <field name="arch" type="xml">
+        <form string="kecamatan form">
+          <sheet>
+            <!-- <div class="oe_title">
+              <label for="name" string="Nama"/>
+              <h1>
+                <field name="name"/>
+              </h1>
+            </div>
+            <group>
+                <field name="kabupaten_id" />
+            </group> -->
+            <group>
+              <group>
+                <field name="name" />
+              </group>
+              <group>
+                <field name="kabupaten_id" options="{'no_create_edit': True, 'no_open': True}" />
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>    
+
+    <!-- actions opening views on models -->    
+    <record model="ir.actions.act_window" id="hm_action_kecamatan">
+      <field name="name">Kecamatan</field>
+      <field name="res_model">hm_kecamatan</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    
+  </data>
+</openerp>
