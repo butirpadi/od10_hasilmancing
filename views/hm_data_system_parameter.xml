@@ -1,0 +1,9 @@
+<odoo>
+	 <data noupdate="1">
+		<record id="hm_sp_auto_create_invoice" model="ir.config_parameter">
+            <field name="key">auto_create_invoice</field>
+            <field name="desc">Auto create invoice immediately after validate nota timbang</field>
+            <field name="value">True</field>
+        </record>
+	</data>
+</odoo>

@@ -19,3 +19,5 @@ import hm_product
 import hm_wiz_sale
 import hm_product_selection
 import hm_wiz_tagihan
+import hm_purchase_order
+import hm_wiz_purchase

@@ -30,5 +30,11 @@
 			    <menuitem name="Sales" id="hm_menu_report_sales_order" parent="hm_menu_sub_root_reports" action="hasilmancing.hm_wiz_sale_action" sequence="25" />
 			    <menuitem name="Tagihan" id="hm_menu_report_tagihan" parent="hm_menu_sub_root_reports" action="hasilmancing.hm_wiz_tagihan_action" sequence="26" />
 
+		<menuitem name="Purchase" id="hm_menu_root_purchase" sequence="3"/>
+		    <menuitem name="Purchase" id="hm_menu_sub_root_purchase" parent="hm_menu_root_purchase" sequence="31"/>
+				<menuitem action="hm_purchase_form_action" id="hm_menu_purchase_form_action" parent="hm_menu_sub_root_purchase" sequence="32"/>    
+
+		    <menuitem name="Reports" id="hm_menu_sub_root_purchase_reports" parent="hm_menu_root_purchase" sequence="33"/>
+			    <menuitem name="Sales" id="hm_menu_report_purchase" parent="hm_menu_sub_root_purchase_reports" action="hasilmancing.hm_wiz_sale_action" sequence="34" />
 	</data>
 </openerp>

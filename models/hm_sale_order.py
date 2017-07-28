@@ -169,6 +169,12 @@ class hm_sale_order(models.Model):
 				})
 				inventory.action_done() 
 				print('Reset Quantity Done')
+
+				# set auto create invoice 
+				is_auto_generate_invoice = self.env['ir.config_parameter'].get_param('auto_create_invoice')
+				if is_auto_generate_invoice: 
+					print 'Auto generate invoice: Call call_action_invoice_create'
+					self.call_action_invoice_create()
 		else:
 			print('Nota timbang already validated atau dalam status "DRAFT"')
 

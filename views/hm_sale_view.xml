@@ -8,6 +8,12 @@
             <field name="arch" type="xml">
                 <search string="Search Sales Order">
                     <field name="name" string="Sales Order" filter_domain="['|',('name','ilike',self),('client_order_ref','ilike',self)]"/>
+                    <field name="tanggal" string="Tanggal" filter_domain="[('tanggal','=',self)]"/>
+                    <field name="partner_id" string="Customer" filter_domain="[('partner_id.name','ilike',self)]"/>
+                    <field name="pekerjaan_id" string="Pekerjaan" filter_domain="[('pekerjaan_id.name','ilike',self)]"/>
+                    <field name="galian_id" string="Lokasi Galian" filter_domain="[('galian_id.name','ilike',self)]"/>
+                    <field name="armada_id" string="Nopol" filter_domain="[('armada_id.name','ilike',self)]"/>
+                    <field name="material" string="Material" filter_domain="[('material.name','ilike',self)]"/>
                </search>
             </field>
         </record>

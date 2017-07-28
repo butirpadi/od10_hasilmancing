@@ -29,7 +29,9 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        # 'views/hm_demo_data.xml',
+        # 'views/hm_data_demo.xml',
+        'views/hm_data_system_parameter.xml',
+        'views/hm_data_provinsi_kabupaten_kecamatan.xml',
         'views/hm_appconfig_data.xml',
         'views/hm_provinsi_view.xml',
         'views/hm_kabupaten_view.xml',
@@ -52,6 +54,7 @@
         'views/hm_wiz_tagihan_custom_report.xml',
         'views/hm_wiz_tagihan_view.xml',
         'views/hm_account_invoice_view.xml',
+        'views/hm_purchase_view.xml',
         'views/menu.xml',
         # 'views/templates.xml',
     ],
