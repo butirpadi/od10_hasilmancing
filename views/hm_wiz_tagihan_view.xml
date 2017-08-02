@@ -54,22 +54,22 @@
 
 						<notebook >
 							<page string="Data Order">
-								<field name="order_ids" readonly="1" >
-									<tree default_order="tanggal,name asc" >
-										<field name="name" string="Ref#"/>
-										<field name="tanggal" />
-										<field name="armada_id" />
+								<field name="order_ids" readonly="1"  >
+									<tree default_order="tanggal,name asc" options="{'no_edit': true, 'no_open': True}" >
+										<field name="name" string="Ref#" options="{'no_create': true, 'no_edit': true, 'no_open': true}"/>
+										<field name="tanggal" options="{'no_create': true, 'no_edit': true, 'no_open': true}"/>
+										<field name="armada_id" options="{'no_create': true, 'no_edit': true, 'no_open': true}" />
 										<!-- <field name="partner_id" /> -->
 										<!-- <field name="pekerjaan_id" /> -->
 										<!-- <field name="galian_id" /> -->
-										<field name="material" />
+										<field name="material" options="{'no_create': true, 'no_edit': true, 'no_open': true}" />
 										<!-- <field name="karyawan_id" /> -->
-										<field name="kalkulasi" />
-										<field name="volume" />
-										<field name="netto" />
-										<field name="quantity" />
-										<field name="harga_satuan" />
-										<field name="harga_total" sum='Total' />
+										<field name="kalkulasi" options="{'no_create': true, 'no_edit': true, 'no_open': true}" />
+										<field name="volume" options="{'no_create': true, 'no_edit': true, 'no_open': true}" />
+										<field name="netto" options="{'no_create': true, 'no_edit': true, 'no_open': true}" />
+										<field name="quantity" options="{'no_create': true, 'no_edit': true, 'no_open': true}" />
+										<field name="harga_satuan" options="{'no_create': true, 'no_edit': true, 'no_open': true}" />
+										<field name="harga_total" sum='Total' options="{'no_create': true, 'no_edit': true, 'no_open': true}" />
 										<field name="state" invisible="1" />
 									</tree>
 								</field>

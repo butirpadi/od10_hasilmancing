@@ -1,0 +1,22 @@
+@${'UD HASIL MANCING'.ljust(75)} E ${'SURAT JALAN'.rjust(41)} F   
+${'Jl. Ikan Tongkol, B-15, Banyuwangi'.ljust(75)} E ${so_name.rjust(41)} F
+${'T. 0343-8067909 E.info@hasilmancing.co.id'.ljust(75)}
+=====================================================================================================================
+
+KEPADA           : ${cust.ljust(50)} TANGGAL		:  ${tanggal}
+PEKERJAAN        : ${pekerjaan.ljust(50)} NOPOL 		:  ${nopol}
+ALAMAT           : ${alamat.ljust(50)} ARMADA		:  ${armada}
+
++------+----------------------------------------------------------------------------------------------+-------------+
+| NO   |  MATERIAL                                                                                    |  QUANTITY   |
++------+----------------------------------------------------------------------------------------------+-------------+
+|    1 |  ${material}                                                                                 |           1 |
++------+----------------------------------------------------------------------------------------------+-------------+
+
+
+${'Dicetak,'.center(38)}${'Dikirim,'.center(38)}${'Diterima,'.center(38)}
+
+
+
+
+${dicetak.center(38)}${dikirim.center(38)}${diterima.center(38)}

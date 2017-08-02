@@ -6,6 +6,13 @@ from pprint import pprint
 from odoo.exceptions import UserError, ValidationError
 import requests
 import odoo.addons.decimal_precision as dp
+# import pooler
+import re
+from mako.template import Template
+from mako.lookup import TemplateLookup
+import time
+import os
+import locale
 
 class hm_sale_order(models.Model):
 	_inherit = 'sale.order'
@@ -44,7 +51,107 @@ class hm_sale_order(models.Model):
 
 	# call php api
 	def cetak_surat_jalan(self):
-		print 'cetak surat jalan'
+		# Membuat temporary file yang akan dicetak beserta pathnya   
+		# filename = '/tmp/odoo-print.txt' 
+		
+		# Mengisi file tersebut dengan data yang telah dirender
+		# nota = ('')
+
+		# condensed = chr(27) + chr(33) + chr(4)
+		# bold1 = chr(27) + chr(69)
+		# bold0 = chr(27) + chr(70)
+		# draft_font = chr(27)+ chr(120)+chr(48)
+		# roman_font = chr(27)+ chr(107)+chr(48)
+		# initialized = chr(27)+chr(64)
+		# condensed1 = chr(15)
+		# condensed0 = chr(18)
+		# double_width = chr(14)
+		# centering = chr(27)+chr(97)+chr(1)
+		# left = chr(27)+chr(97)+chr(0)
+		# right = chr(27)+chr(97)+chr(2)
+		# left_margin = chr(27) + chr(108) +chr(5) 
+		# right_margin = chr(27) + chr(81) +chr(5)
+		# reverse_linefeed = chr(27)+ chr(106)+ chr(1)
+		# page_width_in_line = chr(27)+ chr(67)+ chr(127) #//27 67 n
+		# page_width_in_inch = chr(27)+ chr(67)+ chr(48)+ chr(21) #//27 67 48 n
+
+		# # # INITIALISASI PRINTER
+		# Data = initialized
+		# Data += page_width_in_inch
+		# # // Data  += left_margin
+		# # // Data  += right_margin
+		# Data += draft_font
+		# # // Data += condensed1
+
+		# # // HEADER
+		# Data += centering
+		# Data += double_width
+		# Data += bold1+"SALES ORDER\n"
+		# Data += condensed1
+		# Data += bold0+"UD HASIL MANCING\n"
+		# Data += "JL. TAMBONG, KABAT, BANYUWANGI, JAWA TIMUR\n"
+		# Data += "T. 0812348762386 | E. info@hasilmancing.com\n"
+
+		# Data += "+-----------------------------------------------------------------------------------------------------+-------------+"
+		# Data += "|                                  M A T E R I A L                                                    |    Q T Y    |"
+		# Data += "+-----------------------------------------------------------------------------------------------------+-------------+"
+		# Data += "|                                  M A T E R I A L                                                    |    Q T Y    |"
+
+		# # nota = Data 
+
+		# MYDIR = os.path.dirname(__file__)
+		# with open(os.path.join(MYDIR, 'test.txt')) as f:
+		# pass
+
+		# Mendefinikan template report berdasarkan path modul terkait 
+		tpl_lookup = TemplateLookup(directories=[os.path.dirname(__file__)])
+		tpl = tpl_lookup.get_template('so_main.txt')
+		# tpl_line = tpl_lookup.get_template('so_line.txt')
+
+		# Mempersiapkan data-data yang diperlukan                
+		# user = self.pool.get('res.users').browse(cr, uid, uid)
+		# order = self.browse(cr, uid, ids)[0]            
+		# date = time.strftime('%d/%m/%Y %H:%M', time.strptime(order.date,'%Y-%m-%d %H:%M:%S'))   
+
+		# no = 0
+		# rows = []
+		# for line in self.order_line:
+		# 	s = tpl_line.render(MATERIAL=line.product_id.name)
+		# 	rows.append(s)
+		 
+		# Merender data yang telah disiapkan ke dalam template report text
+		s = tpl.render(so_name='WH/OUT/'+self.name,
+		               cust=self.partner_id.name,
+		               pekerjaan=self.pekerjaan_id.name,
+		               alamat="ALAMAT CUSTOMERE",
+		               tanggal=self.tanggal,
+		               nopol=self.armada_id.name,
+		               armada=self.armada_id.keterangan,
+		               material=self.material.name,
+		               dicetak=self.user_id.name,
+		               dikirim=self.karyawan_id.name,
+		               diterima='(_________________________)',
+		               )
+		         
+
+		# Membuat temporary file yang akan dicetak beserta pathnya   
+		filename = '/tmp/odoo-delivery-tempt.txt'
+		 
+		# Mengisi file tersebut dengan data yang telah dirender
+		f = open(filename, 'w')
+		f.write(s)
+		f.close()
+
+		# --------------------------------------------------------
+
+		# f = open(filename, "w")
+		# f.write(nota)
+		# f.close()
+		# Proses cetak dijalankan dan pastikan variabel nama_printer adalah nama printer yang anda setting atau tambahkan dengan webmin diatas
+		os.system('lpr -PLX-300 %s' % filename)
+		# Hapus file yang telah dicetak
+		os.remove(filename)
+		return True
 
 	def cetak_invoice(self):
 		print 'cetak invoice'

@@ -11,8 +11,8 @@ import hm_karyawan
 import hm_material
 import hm_res_partner
 import hm_pekerjaan
-import hm_sale_order
-import hm_sale_order_line
+# import hm_sale_order
+# import hm_sale_order_line
 import hm_account_invoice
 import hm_account_invoice_line
 import hm_product
@@ -21,3 +21,5 @@ import hm_product_selection
 import hm_wiz_tagihan
 import hm_purchase_order
 import hm_wiz_purchase
+
+import hm_new_sale

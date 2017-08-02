@@ -1,7 +1,32 @@
 <openerp>
   <data>
-    <!-- explicit list view definition -->
 
+    <!-- Search View -->
+    <record id="hm_view_karyawan_filter" model="ir.ui.view">
+        <field name="name">karyawan.select.list</field>
+        <field name="model">hm_karyawan</field>
+        <field name="arch" type="xml">
+            <search string="Search Karyawan">
+                <field name="name" string="Nama" />
+                <field name="kode" string="Kode" />
+                <field name="panggilan" string="Panggilan" />
+                <field name="jabatan" string="Jabatan" />
+                <field name="armada_id" string="Armada" />
+           </search>
+        </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    
+    <record model="ir.actions.act_window" id="hm_action_karyawan">
+      <field name="name">Karyawan</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">hm_karyawan</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="hm_view_karyawan_filter"/>
+    </record>
+
+    <!-- explicit list view definition -->
     <record model="ir.ui.view" id="hm_karyawan_list">
       <field name="name">hm_karyawan_list</field>
       <field name="model">hm_karyawan</field>
@@ -59,13 +84,6 @@
     </record>
     
 
-    <!-- actions opening views on models -->
-    
-    <record model="ir.actions.act_window" id="hm_action_karyawan">
-      <field name="name">Karyawan</field>
-      <field name="res_model">hm_karyawan</field>
-      <field name="view_mode">tree,form</field>
-    </record>
     
 
   </data>

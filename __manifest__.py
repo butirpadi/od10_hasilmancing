@@ -45,7 +45,7 @@
         'views/hm_sparepart_view.xml',
         'views/hm_customer_view.xml',
         'views/hm_supplier_view.xml',
-        'views/hm_sale_view.xml',
+        # 'views/hm_sale_view.xml',
         'views/hm_report_paper_format.xml',
         'views/hm_delivery_report_view.xml',
         'views/hm_wiz_sale_report.xml',
@@ -55,6 +55,12 @@
         'views/hm_wiz_tagihan_view.xml',
         'views/hm_account_invoice_view.xml',
         'views/hm_purchase_view.xml',
+        'views/hm_wiz_purchase_view.xml',
+
+
+        'views/hm_new_sale_view.xml',
+
+
         'views/menu.xml',
         # 'views/templates.xml',
     ],

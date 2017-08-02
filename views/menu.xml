@@ -19,22 +19,28 @@
 		    <menuitem name="System" id="hm_menu_sub_root_system" parent="hm_menu_root_master" sequence="14"/>
 			    <menuitem name="Setting" id="hm_menu_setting" parent="hm_menu_sub_root_system" action="hasilmancing.hm_action_appconfig" sequence="15" />
 
-		<menuitem name="Sales" id="hm_menu_root_sales" sequence="2"/>    
-		    <!-- menu categories -->    
-		    <menuitem name="Sales" id="hm_menu_sub_root_sales" parent="hm_menu_root_sales" sequence="21"/>
-			    <!-- actions -->    
-			    <menuitem name="Sales Orders" id="hm_menu_sales_order" parent="hm_menu_sub_root_sales" action="hasilmancing.hm_sale_action_orders" sequence="22" />
-			    <!-- <menuitem name="Customer Invoices" action="hasilmancing.hm_action_invoice" id="hm_menu_action_invoice" parent="hm_menu_sub_root_sales" sequence="23"/> -->
-			    
-		    <menuitem name="Reports" id="hm_menu_sub_root_reports" parent="hm_menu_root_sales" sequence="24"/>
-			    <menuitem name="Sales" id="hm_menu_report_sales_order" parent="hm_menu_sub_root_reports" action="hasilmancing.hm_wiz_sale_action" sequence="25" />
-			    <menuitem name="Tagihan" id="hm_menu_report_tagihan" parent="hm_menu_sub_root_reports" action="hasilmancing.hm_wiz_tagihan_action" sequence="26" />
+		<menuitem name="Purchase" id="hm_menu_root_purchase" sequence="2"/>
+		    <menuitem name="Purchase" id="hm_menu_sub_root_purchase" parent="hm_menu_root_purchase" sequence="21"/>
+				<menuitem action="hm_purchase_form_action" id="hm_menu_purchase_form_action" parent="hm_menu_sub_root_purchase" sequence="22"/>    
 
-		<menuitem name="Purchase" id="hm_menu_root_purchase" sequence="3"/>
-		    <menuitem name="Purchase" id="hm_menu_sub_root_purchase" parent="hm_menu_root_purchase" sequence="31"/>
-				<menuitem action="hm_purchase_form_action" id="hm_menu_purchase_form_action" parent="hm_menu_sub_root_purchase" sequence="32"/>    
+		    <menuitem name="Reports" id="hm_menu_sub_root_purchase_reports" parent="hm_menu_root_purchase" sequence="23"/>
+			    <menuitem name="Purchase" id="hm_menu_report_purchase" parent="hm_menu_sub_root_purchase_reports" action="hasilmancing.hm_wiz_purchase_action" sequence="24" />
 
-		    <menuitem name="Reports" id="hm_menu_sub_root_purchase_reports" parent="hm_menu_root_purchase" sequence="33"/>
-			    <menuitem name="Sales" id="hm_menu_report_purchase" parent="hm_menu_sub_root_purchase_reports" action="hasilmancing.hm_wiz_sale_action" sequence="34" />
+		<!-- <menuitem name="Sales" id="hm_menu_root_sales" sequence="3"/>        
+		    <menuitem name="Sales" id="hm_menu_sub_root_sales" parent="hm_menu_root_sales" sequence="31"/>    
+			    <menuitem name="Sales Orders" id="hm_menu_sales_order" parent="hm_menu_sub_root_sales" action="hasilmancing.hm_sale_action_orders" sequence="32" />			    
+		    <menuitem name="Reports" id="hm_menu_sub_root_reports" parent="hm_menu_root_sales" sequence="33"/>
+			    <menuitem name="Sales" id="hm_menu_report_sales_order" parent="hm_menu_sub_root_reports" action="hasilmancing.hm_wiz_sale_action" sequence="34" />
+			    <menuitem name="Tagihan" id="hm_menu_report_tagihan" parent="hm_menu_sub_root_reports" action="hasilmancing.hm_wiz_tagihan_action" sequence="35" /> -->
+
+
+		<menuitem name="Sales" id="hm_menu_root_sales_new" sequence="4"/>        
+		    <menuitem name="Sales" id="hm_menu_sub_root_sales_new" parent="hm_menu_root_sales_new" sequence="41"/>
+			    <menuitem name="Sales Orders" id="hm_menu_new_sales_order" parent="hm_menu_sub_root_sales_new" action="hasilmancing.hm_new_sale_action_orders" sequence="42" />
+			<menuitem name="Reports" id="hm_menu_sub_root_reports_new" parent="hm_menu_root_sales_new" sequence="43"/>
+			    <menuitem name="Sales" id="hm_menu_report_new_sales_order" parent="hm_menu_sub_root_reports_new" action="hasilmancing.hm_wiz_sale_action" sequence="44" />
+			    <menuitem name="Tagihan" id="hm_menu_report_new_tagihan" parent="hm_menu_sub_root_reports_new" action="hasilmancing.hm_wiz_tagihan_action" sequence="45" />
+
+		
 	</data>
 </openerp>

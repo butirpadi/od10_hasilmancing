@@ -19,7 +19,6 @@
             <field name="name">Customers</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.partner</field>
-            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('customer','=',1),('is_company','=',1)]</field>
             <field name="context">{'default_customer':1,'default_supplier':0,'default_is_company':1,'default_company_type':'company','default_country_id':101}</field>
