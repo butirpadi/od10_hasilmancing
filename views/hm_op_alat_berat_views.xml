@@ -1,0 +1,86 @@
+<openerp>
+	<data>
+		
+		<record model="ir.actions.act_window" id="hm_action_op_alat">
+	      <field name="name">Operational Alat Berat</field>
+	      <field name="res_model">hm_op_alat</field>
+	      <field name="view_mode">tree,form</field>
+	    </record>
+
+		<!-- List View -->
+		<record model="ir.ui.view" id="hm_op_alat_tree">
+	      <field name="name">hm_op_alat.tree</field>
+	      <field name="model">hm_op_alat</field>
+	      <field name="arch" type="xml">
+	        <tree>
+	          <field name="name"/>
+	          <field name="tanggal"/>
+	          <field name="alat_berat_id"/>
+	          <field name="lokasi_galian_id"/>
+	          <field name="pengawas_id" />
+	          <field name="operator_id" />
+	          <field name="total_jam_kerja" />
+	          <field name="solar" sum="Total Solar" />
+	          <field name="oli" sum="Total Oli" />
+	        </tree>
+	      </field>
+	    </record>
+
+	    <record id="hm_op_alat_form" model="ir.ui.view">
+	      <field name="name">hm_op_alat.form</field>
+	      <field name="model">hm_op_alat</field>
+	      <field name="arch" type="xml">
+	        <form string="Operational Alat Berat">
+	          <sheet>
+	            <div class="oe_title">
+	              <h1>
+	                <field name="name"/>
+	              </h1>
+	            </div>
+	            <group>
+	            	<group>
+	                	<field name="tanggal" widget="date"  />
+	                	<field name="alat_berat_id" options='{"no_create": 1, "no_create_edit": 1, "no_open":1}'/>
+	                	<field name="lokasi_galian_id" options='{"no_create": 1, "no_create_edit": 1, "no_open":1}'/>
+	                	<field name="pengawas_id" options='{"no_create": 1, "no_create_edit": 1, "no_open":1}' domain="[('jabatan', '=', 'STF')]" />
+	                	<field name="operator_id" options='{"no_create": 1, "no_create_edit": 1, "no_open":1}' domain="[('jabatan', '=', 'STF')]" />
+	                	<label for="jam_kerja_start" string="Jam Kerja"/>
+                        <div class="o_address_format">
+                        	<div class="row" >
+	                        	<div class="col-sm-4" >
+	                            	<field widget="mask" class="o_address_street" data-inputmask="'mask': '99:99'" name="jam_kerja_start" placeholder="Awal" />
+	                        	</div>
+	                        	<div class="col-sm-4" >
+	                            	<field widget="mask" class="o_address_street" data-inputmask="'mask': '99:99'" name="jam_kerja_end" placeholder="Akhir" />	
+	                        	</div>
+	                        </div>
+                        </div>
+                        
+	            	</group>
+	            	<group>
+	            		<label for="istirahat_start" string="Jam Istirahat"/>
+                        <div class="o_address_format">
+                        	<div class="row" >
+	                        	<div class="col-sm-4" >
+	                            	<field widget="mask" class="o_address_street" data-inputmask="'mask': '99:99'" name="istirahat_start" placeholder="Awal" />
+	                        	</div>
+	                        	<div class="col-sm-4" >
+	                            	<field widget="mask" class="o_address_street" data-inputmask="'mask': '99:99'" name="istirahat_end" placeholder="Akhir" />	
+	                        	</div>
+	                        </div>
+                        </div>
+	                	<field name="total_jam_kerja" readonly="1" />						
+	                	<field name="solar" />						
+	                	<field name="oli" />	
+	                	<field name="keterangan" /> 					
+	                			
+	            	</group>
+	            </group>
+				
+	          </sheet>
+	        </form>
+	      </field>
+	    </record>
+	    
+	</data>
+</openerp>

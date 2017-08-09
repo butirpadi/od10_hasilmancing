@@ -1,0 +1,63 @@
+<odoo>
+	<data>
+
+		<!-- Actin View -->
+		<act_window id="hm_wiz_jurnal_action"
+            name="Jurnal.Kas.Action"
+            src_model="hm_finance_cash"
+            res_model="hm_wiz_jurnal"
+            view_mode="form"
+            target="inline"
+            key2="client_action_multi"
+            />
+
+            <record id="hm_wiz_jurnal_form" model="ir.ui.view">
+                  <field name="name">Jurnal Kas</field>
+                  <field name="model">hm_wiz_jurnal</field>
+                  <field name="arch" type="xml">
+                        <form>
+                              <h1>Jurnal Kas</h1>
+                              <group>
+                                    <group>
+                                          <field name="tanggal_awal" required="1" options="{'no_create': true, 'no_edit': true, 'no_open': true}" />  
+                                    </group>
+                                    <group>
+                                          <field name="tanggal_akhir" required="1" options="{'no_create': true, 'no_edit': true, 'no_open': true}"/>  
+                                          <field name="state" invisible="1" />
+                                    </group>
+                              </group>
+
+                              <div class="row" >
+                                    <div class="col-xs-12 text-center" >
+                                          <button type="object" name="action_get_data_kas" string="Submit" class="btn btn-primary"  />
+                                          <!-- <button type="object" name="do_generate_report" string="Print Report" class="btn" icon="fa-print" attrs="{'invisible': [('state','=','draft')]}" style="margin-left:5px;" /> -->
+                                          <button name="%(hm_report_jurnal)d" string="Print" type="action" class="btn btn-default" attrs="{'invisible': [('state','=','draft')]}" style="margin-left:5px;" />
+                                    </div>
+                              </div>
+
+                              <notebook >
+                                    <page string="Data Kas">
+                                      <field name="data_kas" readonly="1" >
+                                        <tree order="tanggal asc" >
+                                          <field name="tanggal" />
+                                          <field name="name" readonly="1" />
+                                          <field name="keterangan" />
+                                          <field name="debet" sum="Total Pendapatan" />
+                                          <field name="kredit" sum="Total Pengeluaran" />
+                                        </tree>
+                                      </field>
+                                      <group class="oe_subtotal_footer oe_right" name="jurnal_total">
+                                          <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                              <label for="total_saldo" />
+                                          </div>
+                                          <field name="total_saldo" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' readonly="1" />
+                                      </group>
+                                    </page>
+                              </notebook>
+                        </form>
+                  </field>
+            </record>
+
+
+      </data>
+</odoo>

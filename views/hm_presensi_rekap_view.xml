@@ -1,0 +1,74 @@
+<openerp>
+	<data>
+
+		<!-- actions opening views on models -->	    
+	    <record model="ir.actions.act_window" id="hm_action_rekap_presensi">
+	      <field name="name">Rekap Presensi</field>
+	      <field name="res_model">hm_presensi_karyawan_rel</field>
+	      <field name="view_mode">tree</field>
+	      <!-- <field name="domain">[('partner_id.customer','=',1)]</field> -->
+	    </record>
+
+		<!-- List View -->
+		<record model="ir.ui.view" id="hm_rekap_presensi_tree">
+	      <field name="name">hm_presensi.rekap.tree</field>
+	      <field name="model">hm_presensi_karyawan_rel</field>
+	      <field name="arch" type="xml">
+	        <tree create="false" edit="false">
+	          <field name="tanggal"/>
+	          <field name="karyawan_id"/>
+	          <field name="pagi" />
+	          <field name="siang" />
+	        </tree>
+	      </field>
+	    </record>
+
+	    <!-- <record id="hm_presensi_form" model="ir.ui.view">
+	      <field name="name">hm_presensi.rekap.form</field>
+	      <field name="model">hm_presensi_karyawan_rel</field>
+	      <field name="priority">1</field>
+	      <field name="arch" type="xml">
+	        <form string="pekerjaan form">
+	          <sheet>
+	            <div class="oe_title">
+	              <h1>
+	                <field name="name"/>
+	              </h1>
+	            </div>
+	            <group>
+	            	<group>
+	                	<field name="tanggal" widget="date" attrs="{'readonly': [('name','!=','New')]}" />
+	            	</group>
+	            	<group>
+						<button type="object" name="generate_data_karyawan" string="Submit" class="btn btn-primary" attrs="{'invisible': [('name','!=','New')]}"/>
+	            	</group>
+	            </group>
+	            <notebook>
+                  <page string="Data Presensi">
+                    <field name="karyawan_rel_ids" context="{'default_presensi_id':id}" >
+                    	<form>
+                    		<sheet>
+                    			<group>
+                    				<field name="karyawan_id" domain="[('jabatan','=','STF')]" />
+                    				<field name="pagi" />
+                    				<field name="siang" />
+                    				<field name="presensi_id" invisible="1" />
+                    			</group>
+                    		</sheet>
+                    	</form>
+                    	<tree create="false" edit="true" editable="bottom" >
+                    		<field name="karyawan_id" options='{"no_create": 1, "no_create_edit": 1, "no_open":1}' />
+                    		<field name="pagi" />
+                    		<field name="siang" />
+                    	</tree>
+                    </field>
+                  </page>
+                </notebook>
+	          </sheet>
+	        </form>
+	      </field>
+	    </record> -->
+	    
+
+	</data>
+</openerp>

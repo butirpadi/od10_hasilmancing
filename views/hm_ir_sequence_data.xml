@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Sequences for sale.order -->
+        <record id="seq_hm_finance_cash_in" model="ir.sequence">
+            <field name="name">Hm Finance Cash In</field>
+            <field name="code">hm.finance.cash.in</field>
+            <field name="prefix">CASH.IN/%(range_year)s/</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_hm_finance_cash_out" model="ir.sequence">
+            <field name="name">Hm Finance Cash Out</field>
+            <field name="code">hm.finance.cash.out</field>
+            <field name="prefix">CASH.OUT/%(range_year)s/</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_hm_op_alat" model="ir.sequence">
+            <field name="name">Hm Operator Alat Berat</field>
+            <field name="code">hm.op.alat</field>
+            <field name="prefix">OPT/%(range_year)s/</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_hm_presensi" model="ir.sequence">
+            <field name="name">Hm Presensi</field>
+            <field name="code">hm.presensi.seq</field>
+            <field name="prefix">PRES/%(range_year)s/</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_hm_payroll" model="ir.sequence">
+            <field name="name">Hm Payroll</field>
+            <field name="code">hm.payroll.seq</field>
+            <field name="prefix">PAY/%(range_year)s/</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

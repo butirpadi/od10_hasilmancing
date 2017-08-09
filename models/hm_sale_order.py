@@ -49,6 +49,15 @@ class hm_sale_order(models.Model):
 	order_line_len = fields.Integer('Order Line Length',compute="_compute_get_order_line_length")
 	material = fields.Many2one('product.product', 'Material', compute="_compute_set_material", store=True,)
 
+
+	# spesial function 
+	# auto confirm semua sale order yang status nya draft
+	def action_confirm_all(self):
+		# sales = self.env['sale.order']
+		# for sale in sales:
+		# 	print 'Reference : ' + sale.name
+		print 'inside action confirm all'
+
 	# call php api
 	def cetak_surat_jalan(self):
 		# Membuat temporary file yang akan dicetak beserta pathnya   
@@ -179,11 +188,11 @@ class hm_sale_order(models.Model):
 				sale.material = line.product_id
 
 
-	@api.multi
-	def action_confirm(self):
-		super(hm_sale_order,self).action_confirm()
-		print 'ACTION CONFIRMED OVERRIDE'
-		self._compute_get_stock_picking()
+	# @api.multi
+	# def action_confirm(self):
+	# 	super(hm_sale_order,self).action_confirm()
+	# 	print 'ACTION CONFIRMED OVERRIDE'
+	# 	self._compute_get_stock_picking()
 
 	@api.depends('write_date')
 	def _compute_get_stock_picking(self):

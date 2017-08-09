@@ -1,0 +1,64 @@
+<openerp>
+  <data>
+
+    <record model="ir.actions.act_window" id="hm_action_finance_cash_credit_view">
+      <field name="name">Pendapatan</field>
+      <field name="res_model">hm_finance_cash</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="context">{'default_tipe':'credit'}</field>
+      <field name="domain">[('tipe','=','credit')]</field>
+    </record>
+
+    <record model="ir.ui.view" id="hm_finance_cash_credit_tree">
+      <field name="name">hm.cash.credit.tree</field>
+      <field name="model">hm_finance_cash</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="tanggal"/>
+          <field name="keterangan"/>
+          <field name="jumlah" sum="Total Pengeluaran" widget="monetary"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="hm_finance_cash_credit_form" >
+        <field name="name">finance.cash.credit.form</field>
+        <field name="model">hm_finance_cash</field>
+        <field name="arch" type="xml">
+            <form string="Finance Cash" class="o_sale_order">
+            <sheet>
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="keterangan" />
+                        <field name="tanggal"/>
+                        <field name="tipe" invisible="1" />
+                    </group>
+                    <group>
+                        <field name="jumlah"/>
+                    </group>
+                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record model="ir.actions.act_window.view" id="hm_action_finance_cash_credit_tree">
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref="hm_finance_cash_credit_tree"/>
+      <field name="act_window_id" ref="hm_action_finance_cash_credit_view"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="hm_action_finance_cash_credit_form">
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="hm_finance_cash_credit_form"/>
+      <field name="act_window_id" ref="hm_action_finance_cash_credit_view"/>
+    </record>
+    
+  </data>
+</openerp>

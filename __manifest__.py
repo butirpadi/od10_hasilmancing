@@ -56,11 +56,20 @@
         'views/hm_account_invoice_view.xml',
         'views/hm_purchase_view.xml',
         'views/hm_wiz_purchase_view.xml',
-
-
         'views/hm_new_sale_view.xml',
+        'views/hm_op_alat_berat_views.xml',
+        'views/hm_report_payroll_driver.xml',
+        'views/hm_payroll_driver_view.xml',
+        'views/hm_presensi_views.xml',
+        'views/hm_presensi_rekap_view.xml',
+        'views/hm_finance_cash_pendapatan_views.xml',
+        'views/hm_finance_cash_pengeluaran_views.xml',
+        'views/hm_finance_jurnal_kas_form.xml',
+        'views/hm_finance_jurnal_kas_views.xml',
+        'views/hm_report_jurnal.xml',
+        'views/hm_wiz_jurnal_view.xml',
 
-
+        'views/hm_ir_sequence_data.xml',
         'views/menu.xml',
         # 'views/templates.xml',
     ],

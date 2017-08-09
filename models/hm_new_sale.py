@@ -13,6 +13,7 @@ from mako.lookup import TemplateLookup
 import time
 import os
 import locale
+import math
 
 class hm_new_sale(models.Model):
 	_inherit = 'sale.order'
@@ -58,6 +59,46 @@ class hm_new_sale(models.Model):
         ('cancel', 'Cancelled'),
         ], string='Status', readonly=True, copy=False, index=True, track_visibility='onchange', default='draft')
 
+	# spesial function 
+	# auto confirm semua sale order yang status nya draft
+	def action_confirm_all(self):
+		sales = self.env.cr.execute("select * from sale_order")
+		for sale in self.env.cr.fetchall():
+			sales = self.env['sale.order'].search([('id','=',sale[0]),('state','=','draft')])
+			# print 'confirm sale'
+			for sale in sales:
+				print 'Confirm : ' + sale.name
+				sale.action_confirm()
+				sale.status_nota_timbang == 'open'
+				sale.hitung_harga_total()
+				sale.write({'status_nota_timbang':'open'})
+				sale.action_validate_nota_timbang()
+			# 	# print 'Reference : ' + sale.name
+			# 	if sale.state == 'draft':
+			# 		sale.action_confirm()
+			# 	else:
+			# 		print 'sale order state not in draft'
+			# # print 'inside action confirm all'
+
+	# cancel all sale order
+	def action_cancel_all(self):
+		sales = self.env.cr.execute("select * from sale_order")
+		for sale in self.env.cr.fetchall():
+			sales = self.env['sale.order'].search([('id','=',sale[0]),('state','!=','draft')])
+			# print 'confirm sale'
+			for sale in sales:
+				print 'cancel : ' + sale.name
+				sale.action_cancel()
+				sale.action_draft()
+				sale.status_nota_timbang = 'draft'
+			# 	# print 'Reference : ' + sale.name
+			# 	if sale.state == 'sale':
+			# 		sale.action_cancel()
+			# 		sale.action_draft()
+			# 	else:
+			# 		print 'sale order state not in sale'
+			
+
 
 	@api.depends('order_line')
 	def _compute_set_material(self):
@@ -96,10 +137,38 @@ class hm_new_sale(models.Model):
 	def action_validate_nota_timbang(self):
 		print('Validate Nota Timbang')
 		if self.kalkulasi and self.status_nota_timbang == 'open' :
-			# # check has picking
 			# set status nota timbang to done
 			self.status_nota_timbang = 'done'
-			
+
+			# reset qty on hand
+			for line in self.order_line:
+				# reset quantity of product
+				Inventory = self.env['stock.inventory']
+				print 'Product uom qty : ' + str(line.product_uom_qty)
+				print 'Self QTY : ' + str(self.quantity)
+				new_qty = math.ceil(line.product_id.qty_available+line.product_uom_qty)
+				print 'New QTY : ' + str(new_qty)
+				inventory = Inventory.create({
+					# 'name': ('INV: %s') % tools.ustr(line.product_id.name),
+					'name': ('Auto Adjustment: %s') % tools.ustr(line.product_id.name),
+					'filter': 'product',
+					'product_id': line.product_id.id,
+					'location_id': 15,
+					# 'lot_id': wizard.lot_id.id,
+					'line_ids': [(0, 0, {
+				               'product_qty': new_qty,
+				               'location_id': 15,
+				               'product_id': line.product_id.id,
+				               # 'product_uom_id': self.product_id.uom_id.id,
+				               'theoretical_qty': new_qty,
+				               # 'prod_lot_id': self.lot_id.id,
+				        })],
+				})
+				inventory.action_done() 
+				print('Reset Quantity Done')
+
+			# for line in self.order_line:
+			# 	print 'QTY Available : ' + str(line.product_id.qty_available)
 		else:
 			print('Nota timbang already validated atau dalam status "DRAFT"')
 
@@ -189,6 +258,7 @@ class hm_new_sale(models.Model):
 				line.netto = self.netto
 
 		# 	# calculate price_total
+			print 'compute amount ........................'
 			line._compute_amount()
 
 	# override method write

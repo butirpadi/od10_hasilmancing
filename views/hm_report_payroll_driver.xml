@@ -1,0 +1,196 @@
+<odoo>
+    <data>
+        
+         <report 
+            id="payroll_driver_report"
+            model="hm_payroll_driver"
+            string="Slip Gaji"
+            report_type="qweb-pdf"
+            name="hasilmancing.pay_slip_report_template"
+            paperformat="paperformat_slip_gaji"
+             />
+
+        <template id="pay_slip_report_template">
+            <div class="header">
+                <div class="row" >
+                    <div class="col-xs-4" > 
+                        <!-- <div class="row" >
+                            <div class="4" >
+                                <img style="width:25%" src="/hasilmancing/static/description/logo.png"/>
+                            </div>
+                            <div class="7" >
+                                <ul class="list-unstyled">
+                                    <li><label>UD HASIL MANCING</label></li>
+                                    <li>Banyuwangi, Jawa Timur</li>
+                                    <li>(0234) 8876783</li>
+                                </ul>
+                            </div>
+                        </div> -->
+                        <img  class="img img-responsive" src="/hasilmancing/static/description/logo.png"/>
+                    </div>
+                    <div class="col-xs-8 text-right" >
+                        <h3>SLIP GAJI</h3>
+                        <t t-foreach="docs" t-as="o">
+                            <label><p t-field="o.name" /></label>
+                        </t>
+                    </div>
+                </div>
+            </div>
+            <div class="page">
+                <t t-foreach="docs" t-as="o">
+                    <div class="row">
+                        <div class="col-xs-12" >
+                            <table class="table table-bordered table-condensed" >
+                                <tbody>
+                                    <tr>
+                                        <td class="col-xs-2">
+                                            <label>Tanggal</label>
+                                        </td>
+                                        <td class="col-xs-4" >
+                                            <span t-field="o.tanggal" />
+                                        </td>
+                                        <td class="col-xs-2" >
+                                            <label>Driver</label>
+                                        </td>
+                                        <td class="col-xs-4" >
+                                            <span t-field="o.karyawan_id.name" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2" >
+                                            <label>Periode</label>
+                                        </td>
+                                        <td class="col-xs-4" >
+                                            <span t-field="o.periode_awal" /> - <span t-field="o.periode_akhir" /> 
+                                        </td>
+                                        <td class="col-xs-2" >
+                                            <label>Armada</label>
+                                        </td>
+                                        <td class="col-xs-4" >
+                                            <span t-field="o.karyawan_id.armada_id.name" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-xs-12">
+                            <table class="table table-bordered table-condensed" >
+                                <thead>
+                                    <tr>
+                                        <th>MATERIAL</th>
+                                        <th>TUJUAN</th>
+                                        <th>VOL</th>
+                                        <th>NETT</th>
+                                        <th>RIT</th>
+                                        <th>HARGA</th>
+                                        <th>JUMLAH</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.material_rel_ids" t-as="mat">
+                                        <tr>
+                                            <td>
+                                                <span t-field="mat.material_id" />
+                                            </td>
+                                            <td>
+                                                <span t-field="mat.pekerjaan_id" />
+                                            </td>
+                                            <td class="text-right" >
+                                                <span t-field="mat.vol" />
+                                            </td>
+                                            <td class="text-right" >
+                                                <span t-field="mat.netto" />
+                                            </td>
+                                            <td class="text-right" >
+                                                <span t-field="mat.rit" />
+                                            </td>
+                                            <td class="text-right" >
+                                                <span t-field="mat.harga" />
+                                            </td>
+                                            <td class="text-right" >
+                                                <span t-field="mat.jumlah" />
+                                            </td>
+                                        </tr>
+                                    </t>    
+                                    <tr>
+                                        <td colspan="7" ></td>
+                                    </tr>                                       
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="6" class="text-right" style="background-color:#EFEFF8"  >
+                                            <label>TOTAL</label>
+                                        </td>
+                                        <td class="text-right">
+                                            <label t-field="o.total" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" class="text-right" style="background-color:#EFEFF8"  >
+                                            <label>Potongan Bahan</label>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.potongan_bahan" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" class="text-right" style="background-color:#EFEFF8"  >
+                                            <label>Potongan Bon</label>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.potongan_bon" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" class="text-right" style="background-color:#EFEFF8"  >
+                                            <label>Sisa Bayaran Kemarin</label>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.sisa_bayaran_kemarin" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" class="text-right" style="background-color:#EFEFF8"  >
+                                            <label>DP</label>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.downpayment" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" class="text-right" style="background-color:#EFEFF8"  >
+                                            <label>NETT</label>
+                                        </td>
+                                        <td class="text-right">
+                                            <label t-field="o.nett" />
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                            <table class="table table-bordered" >
+                                <tbody>
+                                    <tr>
+                                        <td class="col-xs-8" >
+                                            <label>Catatan :</label>
+                                            <p t-field="o.notes" />
+                                        </td>
+                                        <td class="text-center col-xs-4" >
+                                            Hormat Kami,
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <label t-field="o.env.user.name" ></label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </t>                    
+            </div>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,393 @@
+<openerp>
+	<data>
+		<!-- REPORT SHIPPING -->
+        <report 
+            id="hm_report_jurnal" 
+            model="hm_wiz_jurnal" 
+            string="Jurnal Report" 
+            report_type="qweb-pdf" 
+            name="hasilmancing.hm_report_jurnal_template" 
+            paperformat="paperformat_tagihan"
+            />
+
+        <template id="hm_report_jurnal_template">
+            <div class="header" >
+                <style>
+                    table.table.rpt-table-header, table.table.rpt-table-header tr, table.table.rpt-table-header tr td {
+                        border: none;
+                    }
+                    table.table.rpt-table-header tr td{
+                        padding-top:0;
+                        padding-bottom:0;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="o">
+                    <!-- <div class="row" >
+                        <div class="col-xs-2 rpt_header text-center" >
+                            <img  class="img img-responsive" src="/udhasman/static/description/logo.png"/>
+                        </div>
+                        <div class="col-xs-10 rpt_header" > 
+                            <h4>REKAPITULASI DATA PENGIRIMAN MATERIAL</h4>
+                            <span>Periode : <span t-field="o.tanggal_awal" /> - <span t-field="o.tanggal_akhir" /> </span>
+                        </div>
+                        <div class="col-xs-12" style="border-bottom: solid thin #000;height:10px;" ></div>
+                    </div> -->
+
+                    <!-- <div class="row" >
+                        <div class="col-xs-3" style="vertical-align:middle;" >
+                            <img  class="img img-responsive" src="/udhasman/static/description/logo.png"/>
+                        </div>
+                        <div class="col-xs-9" >
+                            <h4 style="font-weight:bold;margin-left:5px;" >REKAPITULASI DATA PENGIRIMAN MATERIAL</h4>
+
+                            <table class="table rpt-table-header table-condensed no-border" >
+                                <tbody>
+                                    <tr>
+                                        <td class="col-xs-2" >
+                                            <label>Periode</label>
+                                        </td>
+                                        <td style="width:5px;" >:</td>
+                                        <td class="col-xs-4" >
+                                            <span t-field="o.tanggal_awal" /> - <span t-field="o.tanggal_akhir" />
+                                        </td>
+                                        <td class="col-xs-2" >
+                                            <label>Lokasi Galian</label>
+                                        </td>
+                                        <td style="width:5px;" >:</td>
+                                        <td class="col-xs-4" >
+                                            <t t-esc="o.galian_id.name" />
+                                            <t t-if="not o.galian_id">
+                                                -
+                                            </t>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2" >
+                                            <label>Customer</label>
+                                        </td>
+                                        <td style="width:5px;" >:</td>
+                                        <td class="col-xs-4" >
+                                            <t t-esc="o.customer_id.name" />
+                                            <t t-if="not o.customer_id">
+                                                -
+                                            </t>
+                                        </td>
+                                        <td class="col-xs-1" >
+                                            <label>Driver</label>
+                                        </td>
+                                        <td style="width:5px;" >:</td>
+                                        <td>
+                                            <t t-esc="o.karyawan_id.name" /> / <t t-esc="o.nopol" />
+                                            <t t-if="not o.karyawan_id">
+                                                -
+                                            </t>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2" >
+                                            <label>Pekerjaan</label>
+                                        </td>
+                                        <td style="width:5px;" >:</td>
+                                        <td class="col-xs-4" >
+                                            <t t-esc="o.pekerjaan_id.name" />
+                                            <t t-if="not o.pekerjaan_id">
+                                                -
+                                            </t>
+                                        </td>
+                                        <td class="col-xs-1" >
+                                            <label>Material</label>    
+                                        </td>
+                                        <td style="width:5px;" >:</td>
+                                        <td>
+                                            <t t-esc="o.product_id.name" />
+                                            <t t-if="not o.product_id">
+                                                -
+                                            </t>
+                                        </td>
+                                    </tr>    
+                                    <tr>
+                                        <td class="col-xs-1" >
+                                            <label>Kalkulasi</label>    
+                                        </td>
+                                        <td style="width:5px;" >:</td>
+                                        <td>
+                                            <t t-esc="o.kalkulasi" />
+                                            <t t-if="not o.kalkulasi">
+                                                -
+                                            </t>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>                                
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> -->
+                </t>
+            </div>
+            <div class="page">
+                <style>
+                    div.rpt_header label, div.rpt_header p, div.rpt_header h3{
+                        margin:0;
+                        padding:0;
+                    }
+                    div.rpt_header h3{
+                        font-weight:bold;
+                    }
+
+                    .div-round{
+                        border:solid thin darkgrey;
+                        border-radius: 5px;
+                        padding-top:5px;
+                        padding-bottom:5px;
+                        height:125px;
+                    }
+                    .div-round p{
+                        margin: 0;
+                        padding 0;
+                    }
+                    .div-round table{
+                        margin:0;
+                    }
+
+                    table.table.table-bordered, table.table.table-bordered tr th, table.table.table-bordered tr, table.table.table-bordered tr td{
+                        border-color: darkgrey;
+                    }
+
+                    table.table.rpt-table, table.table.rpt-table tr, table.table.rpt-table tr td {
+                        border: none;
+                        border-bottom: solid thin darkgrey;
+                        border-top: solid thin darkgrey;
+                    }
+
+                    table.table.rpt-table-header, table.table.rpt-table-header tr, table.table.rpt-table-header tr td {
+                        border: none;
+                    }
+                    table.table.rpt-table-header tr td{
+                        padding-top:0;
+                        padding-bottom:0;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="o">
+                    <!-- <table class="table rpt-table-header table-condensed" >
+                        <tbody>
+                            <tr>
+                                <td class="col-xs-2" >
+                                    <label>Customer</label>
+                                </td>
+                                <td style="width:5px;" >:</td>
+                                <td class="col-xs-4" >
+                                    <t t-esc="o.customer_id.name" />
+                                    <t t-if="not o.customer_id">
+                                        -
+                                    </t>
+                                </td>
+                                <td class="col-xs-1" >
+                                    <label>Driver</label>
+                                </td>
+                                <td style="width:5px;" >:</td>
+                                <td>
+                                    <t t-esc="o.karyawan_id.name" /> / <t t-esc="o.nopol" />
+                                    <t t-if="not o.karyawan_id">
+                                        -
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-xs-2" >
+                                    <label>Pekerjaan</label>
+                                </td>
+                                <td style="width:5px;" >:</td>
+                                <td class="col-xs-4" >
+                                    <t t-esc="o.pekerjaan_id.name" />
+                                    <t t-if="not o.pekerjaan_id">
+                                        -
+                                    </t>
+                                </td>
+                                <td class="col-xs-1" >
+                                    <label>Material</label>    
+                                </td>
+                                <td style="width:5px;" >:</td>
+                                <td>
+                                    <t t-esc="o.product_id.name" />
+                                    <t t-if="not o.product_id">
+                                        -
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-xs-2" >
+                                    <label>Lokasi Galian</label>
+                                </td>
+                                <td style="width:5px;" >:</td>
+                                <td class="col-xs-4" >
+                                    <t t-esc="o.galian_id.name" />
+                                    <t t-if="not o.galian_id">
+                                        -
+                                    </t>
+                                </td>
+                                <td class="col-xs-1" >
+                                    <label>Kalkulasi</label>    
+                                </td>
+                                <td style="width:5px;" >:</td>
+                                <td>
+                                    <t t-esc="o.kalkulasi" />
+                                    <t t-if="not o.kalkulasi">
+                                        -
+                                    </t>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table> -->
+
+                    <div class="row" >
+                        <div class="col-xs-3" style="vertical-align:middle;" >
+                            <img  class="img img-responsive" src="/udhasman/static/description/logo.png"/>
+                        </div>
+                        <div class="col-xs-9" >
+                            <h3 style="font-weight:bold;margin-left:5px;" >JURNAL KAS</h3>
+
+                            <table class="table rpt-table-header table-condensed no-border" >
+                                <tbody>
+                                    <tr>
+                                        <td class="col-xs-2" >
+                                            <label>Periode</label>
+                                        </td>
+                                        <td style="width:5px;" >:</td>
+                                        <td class="col-xs-4" >
+                                            <span t-field="o.tanggal_awal" /> - <span t-field="o.tanggal_akhir" />
+                                        </td>
+                                        <td class="col-xs-2" >
+                                            
+                                        </td>
+                                        <td style="width:5px;" >:</td>
+                                        <td class="col-xs-4" >
+                                            
+                                        </td>
+                                    </tr>                               
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    
+                    <table class="table table-bordered table-condensed">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Tanggal</th>
+                                <th>Ref#</th>
+                                <th>Keterangan</th>
+                                <th>Debet</th>
+                                <th>Kredit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="row_idx" t-value="1" />
+                            <t t-foreach="o.data_kas.sorted(key=lambda b: (b.tanggal,b.name))" t-as="mat">  
+                                <tr>
+                                    <td class="text-center" >
+                                        <t t-esc="row_idx" />
+                                        <t t-set="row_idx" t-value="row_idx + 1" />
+                                    </td>
+                                    <td class="text-center" >
+                                        <span t-field="mat.tanggal" />
+                                    </td>
+                                    <td>
+                                        <span t-field="mat.name" />
+                                    </td>
+                                    <td>
+                                        <span t-field="mat.keterangan" />
+                                    </td>
+                                    <td class="text-right" >
+                                        <span t-field="mat.debet" />
+                                    </td>
+                                    <td class="text-right" >
+                                        <span t-field="mat.kredit" />
+                                    </td>                                    
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="4" >
+                                    <label>TOTAL</label>
+                                </td>
+                                <td class="text-right" colspan="2" >
+                                    <label t-field="o.total_saldo" />
+                                </td>
+                            </tr>
+                            <!-- <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <t t-if="not o.customer_id">
+                                    <td></td>
+                                </t>
+                                <t t-if="not o.pekerjaan_id">
+                                    <td></td>
+                                </t>
+                                <t t-if="not o.galian_id">
+                                    <td> </td>
+                                </t>
+                                <t t-if="not o.product_id">
+                                    <td></td>
+                                </t>
+                                <t t-if="not o.karyawan_id">
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </t>
+                                <t t-if="not o.kalkulasi">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </t>
+                                <t t-if="o.kalkulasi=='tonase'">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </t>
+                                <t t-if="o.kalkulasi=='kubikasi'">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </t>
+                                <t t-if="o.kalkulasi=='ritase'">
+                                    <td></td>
+                                </t>
+                                <td></td>
+                                <td class="text-right" >
+                                     <strong t-esc="'{0:,.2f}'.format(float(o.grand_total))" />
+                                </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </t>
+            </div>
+            <div class="footer">
+                <t t-foreach="docs" t-as="o">
+                    <div class="row">
+                        <div class="col-xs-12 pull-left">
+                            <small>
+                                <span>Page</span>
+                                <span class="page" />
+                                of
+                                <span class="topage" />
+
+                                <i>
+                                    Jurnal Kas <t t-esc="o.tanggal_awal" />-<t t-esc="o.tanggal_akhir" />
+                                </i>
+                            </small>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </template>
+
+
+	</data>
+</openerp>

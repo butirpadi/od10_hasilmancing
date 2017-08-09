@@ -1,0 +1,111 @@
+<openerp>
+	<data>
+
+		<!-- actions opening views on models -->	    
+	    <record model="ir.actions.act_window" id="hm_action_payroll_driver">
+	      <field name="name">Payroll Driver</field>
+	      <field name="res_model">hm_payroll_driver</field>
+	      <field name="view_mode">tree,form</field>
+	    </record>
+
+		<!-- List View -->
+		<record model="ir.ui.view" id="hm_payroll_driver_tree">
+	      <field name="name">hm_presensi.tree</field>
+	      <field name="model">hm_payroll_driver</field>
+	      <field name="arch" type="xml">
+	        <tree>
+	          <!--<field name="create_date"/>-->
+	          <field name="name"/>
+	          <field name="tanggal"/>
+	          <field name="karyawan_id"  />
+	          <field name="periode_awal"/>
+	          <field name="periode_akhir"/>
+	          <field name="nett"/>
+	        </tree>
+	      </field>
+	    </record>
+
+	    <record id="hm_payroll_driver_form" model="ir.ui.view">
+	      <field name="name">hm_payroll.driver.form</field>
+	      <field name="model">hm_payroll_driver</field>
+	      <field name="arch" type="xml">
+	        <form string="payroll form">
+	        	<header>
+	        		<!-- <button name="print_pay_slip_driver" type="object" string="Print Slip" class="oe_highlight oe_edit_only" /> -->
+	        		<button name="direct_print_slip_gaji" type="object" string="Print Slip Gaji" class="oe_edit_only" attrs="{'invisible': ['|',('name','==',''),('name','==','New')]}" />
+	        	</header>
+	          <sheet>
+	            <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+	            <group>
+	            	<group>
+	                	<field name="tanggal"  />
+	                	<field name="karyawan_id" string="Driver" options="{'no_create_edit': True, 'no_open': True}" domain="[('jabatan','=','DRV')]" />
+	            	</group>
+	            	<group>
+	                	<field name="periode_awal"  />
+	                	<field name="periode_akhir"  />
+	                	<field name="state" invisible="1" />
+	            	</group>
+	            </group>
+	             <div class="row" >
+                        <div class="col-xs-12 text-center" >
+	                		<button type="object" name="show_delivery_order" string="Submit" class="btn btn-primary oe_edit_only" />
+	                		<!-- <button name="%(pay_slip_report_template)d" string="Print" type="action" class="btn btn-default oe_edit_only" attrs="{'invisible': [('state','=','draft')]}" style="margin-left:5px;" /> -->
+                        </div>
+                  </div>
+	            <notebook>
+	            	<page string="Delivery Order">
+	            		<field name="material_rel_ids" string="Pengiriman" >
+		                	<tree create="false" edit="true" editable="bottom">
+			                	<field name="material_id" options='{"no_create_edit": 1, "no_open":1}' readonly="1" />
+			                	<field name="kalkulasi"  readonly="1" invisible="1" />
+			                	<field name="pekerjaan_id"  readonly="1" />
+			                	<field name="vol" readonly="1" />
+			                	<field name="netto"  readonly="1"/>
+			                	<field name="rit" readonly="1" />                		
+			                	<field name="harga" />                		
+			                	<field name="jumlah" readonly="1" />                		
+		                	</tree>
+		                </field>
+		                <group class="oe_subtotal_footer oe_right">
+                            <field name="total" style="width:100px;" />	
+		                	<field name="potongan_bahan"  />	            	
+		                	<field name="potongan_bon"  />	            	
+		                	<field name="sisa_bayaran_kemarin"  />
+		                	<field name="downpayment"   />	
+
+		                	<div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="nett" string="NETT" />
+                                </div>
+		                	<field name="nett" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/> 
+		                	<!-- <field name="nett"   /> -->
+                        </group>
+                        <field name="notes" class="oe_inline" />
+                        <div class="oe_clear"/>
+	            	</page>
+	            </notebook>
+	          </sheet>
+	        </form>
+	      </field>
+	    </record>
+
+	    <!-- Custom Form & Tree View -->
+        <record model="ir.actions.act_window.view" id="hm_action_payroll_driver_tree">
+	      <field name="view_mode">tree</field>
+	      <field name="view_id" ref="hm_payroll_driver_tree"/>
+	      <field name="act_window_id" ref="hm_action_payroll_driver"/>
+	    </record>
+
+	    <record model="ir.actions.act_window.view" id="hm_action_payroll_driver_form">
+	      <field name="view_mode">form</field>
+	      <field name="view_id" ref="hm_payroll_driver_form"/>
+	      <field name="act_window_id" ref="hm_action_payroll_driver"/>
+	    </record>
+
+	   
+	</data>
+</openerp>

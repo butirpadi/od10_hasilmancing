@@ -64,7 +64,7 @@
                 <form string="Sales Order" class="o_sale_order">
                 <header>
                     <!-- <button name="action_reset_order_line" string="Reset Material" type="object" class="btn-primary" attrs="{'invisible': [('order_line_len','&lt;',1)]}" /> -->
-                	<button name="action_validate_nota_timbang" string="Validate Nota Timbang" type="object" class="btn-primary oe_edit_only" attrs="{'invisible':['|',('state','in',['draft','cancel']),('status_nota_timbang','in',['draft','done'])]}" />
+                    <button name="action_validate_nota_timbang" string="Validate Nota Timbang" type="object" class="btn-primary oe_edit_only" attrs="{'invisible':['|',('state','in',['draft','cancel']),('status_nota_timbang','in',['draft','done'])]}" />
 
                     <!-- <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice."
                         type="action" class="btn-primary"
@@ -79,7 +79,6 @@
                     <button name="action_confirm" states="draft" string="Confirm Sale" class="o_sale_confirm oe_edit_only" type="object" />
                     <!-- <button name="print_quotation" string="Print" type="object" states="sent,sale"/> -->
                     <!-- <button name="action_quotation_send" string="Send by Email" type="object" states="sent,sale"/> -->
-
                     <button name="cetak_surat_jalan" string="Cetak Surat Jalan" type="object" class="oe_read_only" attrs="{'invisible': [('state', '=', 'draft')]}" />
                     <button name="cetak_invoice" string="Cetak Invoice" type="object" class="oe_read_only" attrs="{'invisible': [('invoice_status', '!=', 'invoiced')]}" />
 
@@ -88,8 +87,13 @@
                     <!-- <button name="action_done" type="object" string="Lock" states="sale"
                         help="If the sale is locked, you can not modify it anymore. However, you will still be able to invoice or deliver." attrs="{'invisible': [('invoice_status', '!=', 'invoiced')]}" /> -->
                     <button name="action_done" type="object" string="Lock" attrs="{'invisible': ['|', ('invoice_status', '!=', 'invoiced'),('state', '=', 'done')]}" confirm="Data tidak dapat dirubah setelah di Lock, anda akan melanjutkan proses ini?" />
+                    
+                    <!-- # Tombol Kbusus Administrator -->
+                    <button name="action_confirm_all" type="object" string="Confirm All" class="btn oe_edit_only" />
+                    <button name="action_cancel_all" type="object" string="Cancel All" class="btn oe_edit_only" />
 
-                    <field name="state" widget="statusbar" statusbar_visible="draft,sale"/>
+                    <!-- <field name="state" widget="statusbar" statusbar_visible="draft,sale" invisible="1" /> -->
+                    <field name="status_nota_timbang" widget="statusbar" statusbar_visible="draft,open,done"/>
                 </header>
                 <sheet>
                     <!-- <div class="oe_button_box" name="button_box">
@@ -316,7 +320,7 @@
                             </group>
                         </page>
                     </notebook>
-                    
+                    <field name="state" invisible="1" />
                 </sheet>
                 <!-- <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>

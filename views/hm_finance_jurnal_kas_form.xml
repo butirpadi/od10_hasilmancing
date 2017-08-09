@@ -1,0 +1,68 @@
+<openerp>
+  <data>
+
+    <record model="ir.actions.act_window" id="hm_action_finance_jurnal_kas_form_view">
+      <field name="name">Jurnal Kas 2</field>
+      <field name="res_model">hm_jurnal_kas</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="view_mode">form</field>
+      <field name="target">inline</field>
+    </record>
+
+     <record model="ir.ui.view" id="hm_finance_jurnal_kas_form" >
+        <field name="name">hm.finance.jurnal.kas.form</field>
+        <field name="model">hm_jurnal_kas</field>
+        <field name="arch" type="xml">
+            <form string="Finance Cash" class="o_sale_order" create="false" edit="false">
+              <header>
+                    <button name="action_submit" string="Print" type="object" class="btn-primary" /> 
+              </header>
+            <sheet>
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="tanggal_awal" />
+                    </group>
+                    <group>
+                        <field name="tanggal_akhir"/>
+                        <button class="btn btn-primary" type="object" name="action_submit" string="Submit" ></button>
+                    </group>
+                </group>
+                <notebook>
+                  <page string="Kas Line">
+                    <field name="data_kas" >
+                      <tree>
+                        <field name="name" />
+                        <field name="tanggal" />
+                        <field name="keterangan" />
+                        <field name="debet" sum="Total Pendapatan" />
+                        <field name="kredit" sum="Total Pengeluaran" />
+                      </tree>
+                    </field>
+                    <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                        <!-- <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/> -->
+                        <!-- <field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/> -->
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="total_saldo" />
+                        </div>
+                        <field name="total_saldo" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' />
+                    </group>
+                  </page>
+                </notebook>
+            </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record model="ir.actions.act_window.view" id="hm_action_finance_jurnal_kas_tree">
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="hm_finance_jurnal_kas_form"/>
+      <field name="act_window_id" ref="hm_action_finance_jurnal_kas_form_view"/>
+    </record>
+    
+  </data>
+</openerp>

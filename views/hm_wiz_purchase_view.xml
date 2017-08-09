@@ -37,11 +37,6 @@
 							</group>
 						</group>
 
-						<!-- <div class="row" >
-							<div class="col-xs-12 text-center" >
-								
-							</div>
-						</div> -->
 						<notebook >
 							<page string="Data Order">
 								<field name="order_ids" readonly="1" >

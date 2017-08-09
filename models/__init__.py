@@ -11,8 +11,8 @@ import hm_karyawan
 import hm_material
 import hm_res_partner
 import hm_pekerjaan
-# import hm_sale_order
-# import hm_sale_order_line
+# import hm_sale_order  ## Sudah Tidak Digunakan
+# import hm_sale_order_line ## Sudah tidak digunakan
 import hm_account_invoice
 import hm_account_invoice_line
 import hm_product
@@ -23,3 +23,11 @@ import hm_purchase_order
 import hm_wiz_purchase
 
 import hm_new_sale
+import hm_op_alat
+import hm_presensi
+import hm_presensi_karyawan_rel
+import hm_payroll_driver
+import hm_payroll_driver_material_rel
+import hm_finance_cash
+import hm_jurnal_kas
+import hm_wiz_jurnal
