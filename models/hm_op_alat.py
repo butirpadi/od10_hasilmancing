@@ -7,7 +7,7 @@ class hm_op_alat(models.Model):
 
 	name = fields.Char(string='Reference', required=True, copy=False, readonly=True, 
     					index=True, select=True, default='New')
-	tanggal = fields.Datetime('Tanggal', required=True)
+	tanggal = fields.Date('Tanggal', required=True)
 	alat_berat_id = fields.Many2one('hm_alat_berat',string="Alat Berat", required=True,)
 	lokasi_galian_id = fields.Many2one('hm_galian', string='Lokasi Galian' , required=True,)
 	pengawas_id = fields.Many2one('hm_karyawan', string="Pengawas", required=True)

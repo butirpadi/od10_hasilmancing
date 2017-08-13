@@ -68,6 +68,7 @@
         'views/hm_finance_jurnal_kas_views.xml',
         'views/hm_report_jurnal.xml',
         'views/hm_wiz_jurnal_view.xml',
+        'views/hm_wiz_report_operasional_alat.xml',
 
         'views/hm_ir_sequence_data.xml',
         'views/menu.xml',

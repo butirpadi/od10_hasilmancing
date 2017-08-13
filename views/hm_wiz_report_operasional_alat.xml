@@ -1,0 +1,73 @@
+<odoo>
+	<data>
+
+		<!-- Actin View -->
+		<act_window id="hm_wiz_operasional_alat_action"
+            name="Report Operasional Alat Berat"
+            src_model="hm_op_alat"
+            res_model="hm_wiz_report_alat"
+            view_mode="form"
+            target="inline"
+            key2="client_action_multi"
+            />
+
+        <!-- Form View -->
+        <record id="hm_wiz_operasional_alat_form" model="ir.ui.view">
+			<field name="name">Report Operasional Alat Berat</field>
+			<field name="model">hm_wiz_report_alat</field>
+			<field name="arch" type="xml">
+				<form>
+					<!-- <sheet> -->
+						<h1>Report Sale Order</h1>
+						<group>
+							<group>
+								<field name="tanggal_awal" required="1" options="{'no_create': true, 'no_edit': true, 'no_open': true}" />	
+							</group>
+							<group>
+								<field name="tanggal_akhir" required="1" options="{'no_create': true, 'no_edit': true, 'no_open': true}"/>	
+							</group>
+						</group>
+
+						<group>
+							<group>
+								<field name="alat_berat_id"  options="{'no_create': true, 'no_edit': true, 'no_open': true}" />	
+								<field name="state"  invisible="1"/>
+								
+							</group>
+							<group>
+								<field name="galian_id" options='{"no_create":True, "no_edit":True, "no_open":True}'  />	
+							</group>
+						</group>
+
+						<div class="row" >
+							<div class="col-xs-12 text-center" >
+								<button type="object" name="do_submit_report" string="Submit" class="btn btn-primary"  />
+								<!-- <button name="%(hm_sale_order_report)d" string="Print Report" type="action" class="btn" attrs="{'invisible': [('state','=','draft')]}" style="margin-left:5px;" /> -->
+								<!-- <button type="object" name="do_generate_report" string="Print Report" class="btn" icon="fa-print" attrs="{'invisible': [('state','=','draft')]}" style="margin-left:5px;" /> -->
+								
+							</div>
+						</div>
+
+						<!-- <notebook attrs="{'invisible':[('state','=','draft')]}"  > -->
+						<notebook >
+							<page string="Data Operasional Alat Berat">
+								<field name="op_alat_ids" readonly="1" >
+									<tree default_order="tanggal,name asc" >
+										<field name="name" string="Ref#"/>
+										<field name="tanggal" />
+										<field name="alat_berat_id" />
+										<field name="lokasi_galian_id" />
+										<field name="pengawas_id" />
+										<field name="operator_id" />
+										<field name="total_jam_kerja" />
+										<field name="solar" sum="Total Solar" />
+										<field name="oli" sum="Total Oli" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+				</form>
+			</field>
+			</record>
+	</data>
+</odoo>

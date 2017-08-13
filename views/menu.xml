@@ -42,6 +42,9 @@
             <menuitem name="Payroll" id="hm_menu_presensi_payroll" parent="hm_menu_root_operational" sequence="56" />
                 <menuitem name="Driver" id="hm_menu_presensi_payroll_driver" parent="hm_menu_presensi_payroll" action="hasilmancing.hm_action_payroll_driver" sequence="57"  />
                 <menuitem name="Staff" id="hm_menu_presensi_payroll_staff" parent="hm_menu_presensi_payroll" action="hasilmancing.hm_action_presensi" sequence="58"  />
+            <menuitem name="Reports" id="hm_menu_report_operational" parent="hm_menu_root_operational" sequence="59" />
+                <menuitem name="Operasional Alat Berat" id="hm_menu_report_alat_berat" parent="hm_menu_report_operational" action="hasilmancing.hm_wiz_operasional_alat_action" sequence="58"  />
+
 
         <menuitem name="Finance" id="hm_menu_root_finance" sequence="6" />
             <menuitem name="Finance" id="hm_menu_finance" parent="hm_menu_root_finance" sequence="61" />

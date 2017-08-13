@@ -32,4 +32,3 @@ class hm_account_invoice(models.Model):
 					so = so_line.order_id
 					print ('Set to Done SO') 
 					so.action_done()
-            

@@ -541,6 +541,18 @@
                             </tr>
                         </tbody>
                     </table>
+                    <table class="col-xs-12" >
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label>TOTAL</label>
+                                </td>
+                                <td>
+                                    <strong t-esc="'{0:,.2f}'.format(float(o.grand_total))" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </t>
             </div>
             <div class="footer">

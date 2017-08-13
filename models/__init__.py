@@ -31,3 +31,6 @@ import hm_payroll_driver_material_rel
 import hm_finance_cash
 import hm_jurnal_kas
 import hm_wiz_jurnal
+
+# import model operational
+import hm_wiz_report_alat
