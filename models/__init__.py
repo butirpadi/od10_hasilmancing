@@ -26,11 +26,18 @@ import hm_new_sale
 import hm_op_alat
 import hm_presensi
 import hm_presensi_karyawan_rel
+
+import hm_generate_pay_week
+import hm_pay_week
+
 import hm_payroll_driver
 import hm_payroll_driver_material_rel
 import hm_finance_cash
 import hm_jurnal_kas
 import hm_wiz_jurnal
+
+import hm_setting
+import hm_generate_pay_driver
 
 # import model operational
 import hm_wiz_report_alat

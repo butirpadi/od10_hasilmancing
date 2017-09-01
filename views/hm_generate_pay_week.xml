@@ -1,0 +1,10 @@
+<openerp>
+	<data>
+		<!-- actions opening views on models -->	    
+	    <record model="ir.actions.act_window" id="hm_action_pay_week_generate">
+	      <field name="name">Pay Week Master</field>
+	      <field name="res_model">hm_generate_pay_week</field>
+	      <field name="view_mode">tree,form</field>
+	    </record>
+	</data>
+</openerp>

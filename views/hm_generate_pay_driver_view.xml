@@ -1,0 +1,92 @@
+<openerp>
+	<data>
+
+		<!-- actions opening views on models -->	    
+	    <record model="ir.actions.act_window" id="hm_action_generate_pay_driver">
+	      <field name="name">Payroll Driver</field>
+	      <field name="res_model">hm_generate_pay_driver</field>
+	      <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <record model="ir.ui.view" id="hm_generate_pay_driver_tree">
+	      <field name="name">hm_presensi.tree</field>
+	      <field name="model">hm_generate_pay_driver</field>
+	      <field name="arch" type="xml">
+	        <tree>
+	          <field name="name"/>
+	          <field name="bulan"/>
+	          <field name="pay_week_id" string="Minggu ke"  />
+	        </tree>
+	      </field>
+	    </record>
+
+	    <record id="hm_generate_pay_driver_form" model="ir.ui.view">
+	      <field name="name">hm_generate_pay_driver_form</field>
+	      <field name="model">hm_generate_pay_driver</field>
+	      <field name="arch" type="xml">
+	        <form string="payroll form">
+	        	<!-- <header>
+	        		<button name="direct_print_slip_gaji" type="object" string="Print Slip Gaji" class="oe_edit_only" attrs="{'invisible': ['|',('name','==',''),('name','==','New')]}" />
+	        	</header> -->
+	          <sheet>
+	            <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+                <group>
+                	<group>
+	                	<field name="name" options='{"no_create":1, "no_edit":1, "no_open":1}'  />
+	                	<field name="bulan" options='{"no_create":1, "no_edit":1, "no_open":1}'  />                		
+                	</group>
+                	<group>
+                		<field name="pay_week_id" domain="[('generate_id','=',name),('bulan_int','=',bulan)]" options='{"no_create":1, "no_edit":1, "no_open":1}'  string="Minggu ke" /><field name="pay_day" string="Tanggal Gaji" class="oe_inline"  readonly="1"/>
+                		<label for="pay_day_start" string="Tanggal Pembayaran" />
+					    <div class="address_format">
+					         <field name="pay_day_start" colspan="1" nolabel="1" readonly="1"/> -  
+					         <field name="pay_day_end" colspan="1" nolabel="1" readonly="1"/>    
+					    </div>
+                	</group>
+                </group>
+	            <table class="o_group o_inner_group">
+	            	<tbody>
+	            		<tr>
+	            			<td colspan="1" class="o_td_label">
+	            				
+	            			</td>
+	            			<td colspan="1" style="width: 100%;">
+                				<button type="object" name="generate_gaji_driver" class="btn btn-primary oe_edit_only" string="Generate" />
+	            			</td>
+	            		</tr>
+	            	</tbody>
+	            </table>
+	            <notebook>
+	            	<page string="Data Gaji">
+	            		<field name="pay_driver_ids" >
+		                	<tree create="false" edit="true" >
+			                	<field name="karyawan_id" options='{"no_create": 1,"no_edit": 1, "no_open":1}' readonly="1" string="Driver" />
+			                	<field name="nett" options='{"no_create": 1,"no_edit": 1, "no_open":1}' readonly="1" string="Total" />
+		                	</tree>
+		                </field>
+	            	</page>
+	            </notebook>
+	          </sheet>
+	        </form>
+	      </field>
+	    </record>
+
+	    <!-- <record model="ir.actions.act_window.view" id="hm_action_generate_pay_driver_tree">
+	      <field name="view_mode">tree</field>
+	      <field name="view_id" ref="hm_generate_pay_driver_tree"/>
+	      <field name="act_window_id" ref="hm_action_generate_pay_driver"/>
+	    </record> -->
+
+	    <!-- <record model="ir.actions.act_window.view" id="hm_action_generate_pay_driver_form">
+	      <field name="view_mode">form</field>
+	      <field name="view_id" ref="hm_generate_pay_driver_form"/>
+	      <field name="act_window_id" ref="hm_action_generate_pay_driver"/>
+	    </record> -->
+		
+	   
+	</data>
+</openerp>

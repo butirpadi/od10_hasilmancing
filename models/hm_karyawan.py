@@ -1,4 +1,5 @@
 from odoo import api, models, fields 
+from pprint import pprint
 
 class hm_karyawan(models.Model):
 	_name = 'hm_karyawan'
@@ -37,14 +38,23 @@ class hm_karyawan(models.Model):
 		if jabatan:
 			prefix = ""
 			counter = 0
+			hm_set = self.env['hm_setting'].search([('id','=',1)])
 			if jabatan == 'STF':
-				prefix = self.env['hm_appconfig'].search([('name','=','staff_kode_prefix')])
-				counter = self.env['hm_appconfig'].search([('name','=','staff_kode_counter')])
+				# get previx & counter
+				# prefix = self.env['hm_appconfig'].search([('name','=','staff_kode_prefix')])
+				# counter = self.env['hm_appconfig'].search([('name','=','staff_kode_counter')])
+
+				prefix = hm_set.kode_staff_prefix
+				counter = hm_set.kode_staff_counter
 			elif jabatan == 'DRV':
-				prefix = self.env['hm_appconfig'].search([('name','=','driver_kode_prefix')])
-				counter = self.env['hm_appconfig'].search([('name','=','driver_kode_counter')])
+				# prefix = self.env['hm_appconfig'].search([('name','=','driver_kode_prefix')])
+				# counter = self.env['hm_appconfig'].search([('name','=','driver_kode_counter')])
+				prefix = hm_set.kode_driver_prefix
+				counter = hm_set.kode_driver_counter
+			# pprint(hm_set.kode_driver_prefix)
 			# Generate Kode
-			kode = prefix[0].value + counter[0].value            
+			# kode = prefix[0].value + counter[0].value            
+			kode = prefix + str(counter)            
 			# update kode
 			vals.update({'kode':kode})        
 		# insert new data
@@ -53,8 +63,11 @@ class hm_karyawan(models.Model):
 		print('Create new karyawan done')
 		# Update counter
 		if jabatan:
-			new_counter = int(counter[0].value)+1
-			counter.write({'value':new_counter})   
+			new_counter = counter+1
+			if jabatan == 'STF':
+				hm_set.write({'kode_staff_counter':new_counter})   
+			else:
+				hm_set.write({'kode_driver_counter':new_counter})   
 
 		return newrow
 

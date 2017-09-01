@@ -18,8 +18,9 @@
 	          <field name="name"/>
 	          <field name="tanggal"/>
 	          <field name="karyawan_id"  />
-	          <field name="periode_awal"/>
-	          <field name="periode_akhir"/>
+	          <!-- <field name="pay_week_id"  /> -->
+	          <!-- <field name="periode_awal"/> -->
+	          <!-- <field name="periode_akhir"/> -->
 	          <field name="nett"/>
 	        </tree>
 	      </field>
@@ -46,6 +47,9 @@
 	                	<field name="karyawan_id" string="Driver" options="{'no_create_edit': True, 'no_open': True}" domain="[('jabatan','=','DRV')]" />
 	            	</group>
 	            	<group>
+	                	<!-- <field name="tahun"  /> -->
+	                	<!-- <field name="bulan"  /> -->
+	                	<!-- <field name="pay_week_id" domain="[('generate_id','=',tahun),('bulan_int','=',bulan)]" options='{"no_create": 1, "no_edit":1 , "no_open":1}' /> -->
 	                	<field name="periode_awal"  />
 	                	<field name="periode_akhir"  />
 	                	<field name="state" invisible="1" />
@@ -53,7 +57,7 @@
 	            </group>
 	             <div class="row" >
                         <div class="col-xs-12 text-center" >
-	                		<button type="object" name="show_delivery_order" string="Submit" class="btn btn-primary oe_edit_only" />
+	                		<button type="object" name="show_delivery_order" string="Submit" class="btn btn-primary " />
 	                		<!-- <button name="%(pay_slip_report_template)d" string="Print" type="action" class="btn btn-default oe_edit_only" attrs="{'invisible': [('state','=','draft')]}" style="margin-left:5px;" /> -->
                         </div>
                   </div>

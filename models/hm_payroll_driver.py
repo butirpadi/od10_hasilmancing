@@ -10,7 +10,7 @@ class hm_payroll_driver(models.Model):
 	name = fields.Char(string='Reference', required=True, copy=False, readonly=True, 
     					index=True, select=True, default='New')
 	karyawan_id = fields.Many2one('hm_karyawan', required=True)
-	tanggal =fields.Date('Tanggal', required=True,)
+	tanggal =fields.Date('Tanggal', required=True,default=datetime.date.today())
 	periode_awal =fields.Date('Periode Awal', required=True,)
 	periode_akhir =fields.Date('Periode Akhir', required=True,)
 	#stock_picking_rel_ids = fields.One2many('hm_payroll_driver_stock_picking_rel','payroll_id','Delivery Order')
@@ -21,6 +21,23 @@ class hm_payroll_driver(models.Model):
 	downpayment = fields.Float('DP')
 	nett = fields.Float(compute='_compute_nett', string='Nett', store=True)
 	notes = fields.Text('Catatan')
+	# pay_week_id = fields.Many2one('hm_pay_week')
+	# bulan = fields.Selection([ 
+				# (0,'JANUARI'),
+				# (1, 'FEBRUARI'),
+				# (2, 'MARET'),
+				# (3, 'ARPIL'),
+				# (4, 'MEI'),
+				# (5, 'JUNI'),
+				# (6, 'JULI'),
+				# (7, 'AGUSTUS'),
+				# (8, 'SEPTEMBER'),
+				# (9, 'OKTOBER'),
+				# (10, 'NOVEMBER'),
+				# (11, 'DESEMBER'),
+				# ],required=True, default=1)
+	# tahun = fields.Many2one('hm_generate_pay_week', required=True)
+	generate_id = fields.Many2one('hm_generate_pay_driver', ondelete='cascade')
 
 	# revisi
 	material_rel_ids= fields.One2many('hm_payroll_driver_material_rel','payroll_id','Delivery Order')
@@ -34,6 +51,10 @@ class hm_payroll_driver(models.Model):
 	# get default catatan
 	def _get_default_catatan(self):
 		catatan = self.env['hm_appkonfig'].search([('name','=','catatan_pay_slip')])
+
+	# @api.onchange('tahun'):
+	# def tahun_bulan_change(self):
+	# 	print 'change tahun'
 
 	@api.depends('material_rel_ids')
 	def _compute_total(self):

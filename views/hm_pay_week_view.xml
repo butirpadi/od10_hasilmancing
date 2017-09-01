@@ -1,0 +1,56 @@
+<openerp>
+	<data>
+		<!-- List View -->
+		<record model="ir.ui.view" id="hm_alat_berat_list">
+	      <field name="name">hm_pay_week_list</field>
+	      <field name="model">hm_pay_week</field>
+	      <field name="arch" type="xml">
+	        <tree create="false" edit="false" delete="false" >
+	          <field name="minggu_ke_str" string="Minggu ke" />
+	          <field name="tanggal" string="Tanggal Gaji"/>
+	          <field name="awal"  string="Tanggal Awal"/>
+	          <field name="akhir" string="Tanggal Akhir"/>
+	          <field name="minggu_ke" invisible="1"/>
+	          <field name="bulan_int" string="BulanInt" invisible="1" />
+	          <field name="bulan_str" string="Bulan" />
+	          <field name="tahun" string="Tahun" />
+	        </tree>
+	      </field>
+	    </record>
+
+	    <record id="hm_alat_berat_form" model="ir.ui.view">
+	      <field name="name">hm_pay_week_form</field>
+	      <field name="model">hm_pay_week</field>
+	      <field name="priority">1</field>
+	      <field name="arch" type="xml">
+	        <form string="alat_berat form" create="false" edit="false" delete="false" >
+	          <sheet>
+	          	<div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+	            <group>
+	            	<group>
+	                	<field name="tahun"/>	            		
+	            	</group>
+	            	<group>
+	                	<field name="pay_day"/>	            		
+	            	</group>
+	            </group>
+	          </sheet>
+	        </form>
+	      </field>
+	    </record>
+	    
+
+	    <!-- actions opening views on models -->	    
+	    <record model="ir.actions.act_window" id="hm_action_pay_week">
+	      <field name="name">Pay Week</field>
+	      <field name="res_model">hm_pay_week</field>
+	      <field name="view_mode">tree,form</field>
+	      <field name="context">{'order_by':['bulan_int','minggu_ke'],'group_by':['tahun','bulan_str']}</field>
+	      <!-- <field name="context">{'order_by':'minggu_ke'}</field> -->
+	    </record>
+	</data>
+</openerp>

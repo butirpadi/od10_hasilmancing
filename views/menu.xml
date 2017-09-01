@@ -17,7 +17,10 @@
 			    <menuitem name="Supplier" id="hm_menu_supplier" parent="hm_menu_sub_root_master" action="hasilmancing.hm_action_supplier" sequence="13" />
 			    
 		    <menuitem name="System" id="hm_menu_sub_root_system" parent="hm_menu_root_master" sequence="14"/>
-			    <menuitem name="Setting" id="hm_menu_setting" parent="hm_menu_sub_root_system" action="hasilmancing.hm_action_appconfig" sequence="15" />
+			    <!-- <menuitem name="Setting" id="hm_menu_setting" parent="hm_menu_sub_root_system" action="hasilmancing.hm_action_appconfig" sequence="15" /> -->
+			    <menuitem name="Setting" id="hm_setting" parent="hm_menu_sub_root_system" action="hasilmancing.hm_setting_action" sequence="15" />
+			    <menuitem name="Pay Week Master" id="hm_menu_pay_week_master" parent="hm_menu_sub_root_system" action="hasilmancing.hm_action_pay_week_generate" sequence="16" />
+			    <menuitem name="Pay Week" id="hm_menu_pay_week" parent="hm_menu_sub_root_system" action="hasilmancing.hm_action_pay_week" sequence="17" />
 
 		<menuitem name="Purchase" id="hm_menu_root_purchase" sequence="3"/>
 		    <menuitem name="Purchase" id="hm_menu_sub_root_purchase" parent="hm_menu_root_purchase" sequence="31"/>
@@ -40,8 +43,9 @@
                 <menuitem name="Input Presensi" id="hm_menu_presensi_karyawan" parent="hm_menu_presensi" action="hasilmancing.hm_action_presensi" sequence="54" />
                 <menuitem name="Rekap Presensi" id="hm_menu_presensi_karyawan_rekap" parent="hm_menu_presensi" action="hasilmancing.hm_action_rekap_presensi" sequence="55" />
             <menuitem name="Payroll" id="hm_menu_presensi_payroll" parent="hm_menu_root_operational" sequence="56" />
-                <menuitem name="Driver" id="hm_menu_presensi_payroll_driver" parent="hm_menu_presensi_payroll" action="hasilmancing.hm_action_payroll_driver" sequence="57"  />
-                <menuitem name="Staff" id="hm_menu_presensi_payroll_staff" parent="hm_menu_presensi_payroll" action="hasilmancing.hm_action_presensi" sequence="58"  />
+                <menuitem name="Driver" id="hm_menu_generate_pay_driver" parent="hm_menu_presensi_payroll" action="hasilmancing.hm_action_generate_pay_driver" sequence="57"  />
+                <!-- <menuitem name="Driver" id="hm_menu_presensi_payroll_driver" parent="hm_menu_presensi_payroll" action="hasilmancing.hm_action_payroll_driver" sequence="57"  /> -->
+                <!-- <menuitem name="Staff" id="hm_menu_presensi_payroll_staff" parent="hm_menu_presensi_payroll" action="hasilmancing.hm_action_presensi" sequence="58"  /> -->
             <menuitem name="Reports" id="hm_menu_report_operational" parent="hm_menu_root_operational" sequence="59" />
                 <menuitem name="Operasional Alat Berat" id="hm_menu_report_alat_berat" parent="hm_menu_report_operational" action="hasilmancing.hm_wiz_operasional_alat_action" sequence="58"  />
 

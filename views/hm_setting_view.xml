@@ -1,0 +1,54 @@
+<openerp>
+	<data>
+		<record id="hm_setting_form" model="ir.ui.view">
+	      <field name="name">hm_setting_form</field>
+	      <field name="model">hm_setting</field>
+	      <field name="priority">1</field>
+	      <field name="arch" type="xml">
+	        <form string="setting form" create="false" delete="false" class="oe_form_configuration" >
+	        	<group>
+                    <label for="kode_driver_prefix" string="Prefix kode driver"/>
+                    <div>
+                        <field name="kode_driver_prefix" />
+                    </div>
+                </group>
+                <group>
+                    <label for="kode_driver_counter" string="Counter kode driver"/>
+                    <div>
+                		<field name="kode_driver_counter" /> 
+                    </div>
+                </group>
+                <group>
+                    <label for="kode_staff_prefix" string="Prefix kode staff"/>
+                    <div>
+						<field name="kode_staff_prefix" />
+                    </div>
+                </group>
+                <group>
+                    <label for="kode_staff_counter" string="Counter kode staff"/>
+                    <div>
+						<field name="kode_staff_counter" />
+                    </div>
+                </group>
+                <group>
+                    <label for="generate_pay_day_tahun" string="Generate Pay Week"/>
+                    <div>
+	            		<field name="generate_pay_day_tahun" class="oe_inline" style="margin-right:5px;" placeholder="Tahun" />  		
+	            		<field name="generate_pay_day_day" class="oe_inline" style="margin-right:5px;" placeholder="Hari Gaji" />  		
+						<button type="object" name="action_generate_pay_week" class="btn btn-primary oe_edit_only" string="Generate" />
+                    </div>
+                </group>
+	        </form>
+	      </field>
+	    </record>
+	    
+
+	    <!-- actions opening views on models -->	    
+	    <record model="ir.actions.act_window" id="hm_setting_action">
+	      <field name="name">Setting</field>
+	      <field name="res_model">hm_setting</field>
+	      <field name="view_mode">form</field>
+	      <field name="res_id">1</field>
+	    </record>
+	</data>
+</openerp>
