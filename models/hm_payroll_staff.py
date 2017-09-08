@@ -4,8 +4,8 @@ import timestring
 import pytz
 from pprint import pprint
 
-class hm_payroll_driver(models.Model):
-	_name = "hm_payroll_driver"
+class hm_payroll_staff(models.Model):
+	_name = "hm_payroll_staff"
 
 	name = fields.Char(string='Reference', required=True, copy=False, readonly=True, 
     					index=True, select=True, default='New')
@@ -13,35 +13,17 @@ class hm_payroll_driver(models.Model):
 	tanggal =fields.Date('Tanggal', required=True,default=datetime.date.today())
 	periode_awal =fields.Date('Periode Awal', required=True,)
 	periode_akhir =fields.Date('Periode Akhir', required=True,)
-	#stock_picking_rel_ids = fields.One2many('hm_payroll_driver_stock_picking_rel','payroll_id','Delivery Order')
+	#stock_picking_rel_ids = fields.One2many('hm_payroll_staff_stock_picking_rel','payroll_id','Delivery Order')
 	total = fields.Float(compute='_compute_total', string='Total', store=True)
-	potongan_bahan = fields.Float('Potongan Bahan')
 	potongan_bon = fields.Float('Potongan Bon')
 	sisa_bayaran_kemarin = fields.Float('Sisa Bayaran Kemarin')
 	downpayment = fields.Float('DP')
 	nett = fields.Float(compute='_compute_nett', string='Nett', store=True)
 	notes = fields.Text('Catatan')
 	is_generated = fields.Boolean('is generated', default=False )
-	# pay_week_id = fields.Many2one('hm_pay_week')
-	# bulan = fields.Selection([ 
-				# (0,'JANUARI'),
-				# (1, 'FEBRUARI'),
-				# (2, 'MARET'),
-				# (3, 'ARPIL'),
-				# (4, 'MEI'),
-				# (5, 'JUNI'),
-				# (6, 'JULI'),
-				# (7, 'AGUSTUS'),
-				# (8, 'SEPTEMBER'),
-				# (9, 'OKTOBER'),
-				# (10, 'NOVEMBER'),
-				# (11, 'DESEMBER'),
-				# ],required=True, default=1)
-	# tahun = fields.Many2one('hm_generate_pay_week', required=True)
-	generate_id = fields.Many2one('hm_generate_pay_driver', ondelete='cascade')
-
+	# generate_id = fields.Many2one('hm_generate_pay_staff', ondelete='cascade')
 	# revisi
-	material_rel_ids= fields.One2many('hm_payroll_driver_material_rel','payroll_id','Delivery Order')
+	# presensi_ids= fields.One2many('hm_presensi_karyawan_rel','payroll_id','Delivery Order')
 	# order_ids = fields.Many2many('sale.order', string="Sale Order")
 
 	state = fields.Selection([('draft', 'Draft'),('open', 'Open')], default='draft')  
@@ -57,18 +39,7 @@ class hm_payroll_driver(models.Model):
 	# def tahun_bulan_change(self):
 	# 	print 'change tahun'
 
-	@api.depends('material_rel_ids')
-	def _compute_total(self):
-		for pay in self:
-			total_jumlah = 0
-			for line in pay.material_rel_ids:
-				total_jumlah += line.jumlah
-
-			pay.update({
-	                'total': total_jumlah
-	            })
-
-	@api.depends('total','potongan_bahan','potongan_bon','sisa_bayaran_kemarin','downpayment')
+	@api.depends('total','potongan_bon','sisa_bayaran_kemarin','downpayment')
 	def _compute_nett(self):
 		for pay in self:
 			pay.update({
@@ -80,10 +51,10 @@ class hm_payroll_driver(models.Model):
 		if vals.get('name', ('New')) == ('New'):
 			vals['name'] = self.env['ir.sequence'].next_by_code('hm.payroll.seq') or ('New')
 	
-		result = super(hm_payroll_driver, self).create(vals)
+		result = super(hm_payroll_staff, self).create(vals)
 		return result
 
-	def show_delivery_order(self):
+	def show_presensi(self):
 		if not self.is_generated:
 			self.state = "open"
 			DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
@@ -170,13 +141,13 @@ class hm_payroll_driver(models.Model):
 	    # you didn't specify what you want to edit exactly
 	    rec_id = self
 	    # then if you have more than one form view then specify the form id
-	    form_id = self.env.ref('hasilmancing.hm_payroll_driver_form')
+	    form_id = self.env.ref('hasilmancing.hm_payroll_staff_form')
 
 	    # then open the form
 	    return {
 	            'type': 'ir.actions.act_window',
 	            'name': 'Payroll Driver',
-	            'res_model': 'hm_payroll_driver',
+	            'res_model': 'hm_payroll_staff',
 	            'res_id': rec_id.id,
 	            'view_type': 'form',
 	            'view_mode': 'form',

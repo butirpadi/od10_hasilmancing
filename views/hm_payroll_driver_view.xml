@@ -30,10 +30,10 @@
 	      <field name="name">hm_payroll.driver.form</field>
 	      <field name="model">hm_payroll_driver</field>
 	      <field name="arch" type="xml">
-	        <form string="payroll form">
+	        <form string="payroll form" create="false" delete="false">
 	        	<header>
-	        		<!-- <button name="print_pay_slip_driver" type="object" string="Print Slip" class="oe_highlight oe_edit_only" /> -->
 	        		<button name="direct_print_slip_gaji" type="object" string="Print Slip Gaji" class="oe_edit_only" attrs="{'invisible': ['|',('name','==',''),('name','==','New')]}" />
+	        		<button name="%(payroll_driver_report)d" string="Print PDF" type="action" class="btn" />
 	        	</header>
 	          <sheet>
 	            <div class="oe_title">
@@ -43,21 +43,22 @@
                 </div>
 	            <group>
 	            	<group>
-	                	<field name="tanggal"  />
-	                	<field name="karyawan_id" string="Driver" options="{'no_create_edit': True, 'no_open': True}" domain="[('jabatan','=','DRV')]" />
+	                	<field name="tanggal" readonly="1"  />
+	                	<field name="karyawan_id" string="Driver" options="{'no_create_edit': True, 'no_open': True}" domain="[('jabatan','=','DRV')]" readonly="1" />
 	            	</group>
 	            	<group>
 	                	<!-- <field name="tahun"  /> -->
 	                	<!-- <field name="bulan"  /> -->
 	                	<!-- <field name="pay_week_id" domain="[('generate_id','=',tahun),('bulan_int','=',bulan)]" options='{"no_create": 1, "no_edit":1 , "no_open":1}' /> -->
-	                	<field name="periode_awal"  />
-	                	<field name="periode_akhir"  />
+	                	<field name="periode_awal" readonly="1" class="oe_inline" string="Periode" />
+	                	<field name="periode_akhir"  readonly="1" string=" " />
 	                	<field name="state" invisible="1" />
+	                	<field name="is_generated" invisible="1" />
 	            	</group>
 	            </group>
 	             <div class="row" >
                         <div class="col-xs-12 text-center" >
-	                		<button type="object" name="show_delivery_order" string="Submit" class="btn btn-primary " />
+	                		<button type="object" name="show_delivery_order" string="Submit" class="btn btn-primary " attrs="{'invisible':[('is_generated','=',True)]}" />
 	                		<!-- <button name="%(pay_slip_report_template)d" string="Print" type="action" class="btn btn-default oe_edit_only" attrs="{'invisible': [('state','=','draft')]}" style="margin-left:5px;" /> -->
                         </div>
                   </div>
@@ -66,8 +67,8 @@
 	            		<field name="material_rel_ids" string="Pengiriman" >
 		                	<tree create="false" edit="true" editable="bottom">
 			                	<field name="material_id" options='{"no_create_edit": 1, "no_open":1}' readonly="1" />
-			                	<field name="kalkulasi"  readonly="1" invisible="1" />
 			                	<field name="pekerjaan_id"  readonly="1" />
+			                	<field name="kalkulasi"  readonly="1"  />
 			                	<field name="vol" readonly="1" />
 			                	<field name="netto"  readonly="1"/>
 			                	<field name="rit" readonly="1" />                		

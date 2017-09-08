@@ -11,22 +11,16 @@
              />
 
         <template id="pay_slip_report_template">
-            <div class="header">
+            <!-- <div class="header">
                 <div class="row" >
                     <div class="col-xs-4" > 
-                        <!-- <div class="row" >
-                            <div class="4" >
-                                <img style="width:25%" src="/hasilmancing/static/description/logo.png"/>
+                        <div class="row" >
+                            <div class="col-xs-4" >
+                                <img style="width:25%" src="/hasilmancing/static/description/logo_odoo_bg_putih.png" />
                             </div>
-                            <div class="7" >
-                                <ul class="list-unstyled">
-                                    <li><label>UD HASIL MANCING</label></li>
-                                    <li>Banyuwangi, Jawa Timur</li>
-                                    <li>(0234) 8876783</li>
-                                </ul>
+                            <div class="col-xs-7" >
                             </div>
-                        </div> -->
-                        <img  class="img img-responsive" src="/hasilmancing/static/description/logo.png"/>
+                        </div>
                     </div>
                     <div class="col-xs-8 text-right" >
                         <h3>SLIP GAJI</h3>
@@ -118,7 +112,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="6" class="text-right" style="background-color:#EFEFF8"  >
+                                        <td colspan="6" class="text-right" style=""  >
                                             <label>TOTAL</label>
                                         </td>
                                         <td class="text-right">
@@ -126,7 +120,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="6" class="text-right" style="background-color:#EFEFF8"  >
+                                        <td colspan="6" class="text-right" style=""  >
                                             <label>Potongan Bahan</label>
                                         </td>
                                         <td class="text-right">
@@ -134,7 +128,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="6" class="text-right" style="background-color:#EFEFF8"  >
+                                        <td colspan="6" class="text-right" style=""  >
                                             <label>Potongan Bon</label>
                                         </td>
                                         <td class="text-right">
@@ -142,7 +136,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="6" class="text-right" style="background-color:#EFEFF8"  >
+                                        <td colspan="6" class="text-right" style=""  >
                                             <label>Sisa Bayaran Kemarin</label>
                                         </td>
                                         <td class="text-right">
@@ -150,7 +144,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="6" class="text-right" style="background-color:#EFEFF8"  >
+                                        <td colspan="6" class="text-right" style=""  >
                                             <label>DP</label>
                                         </td>
                                         <td class="text-right">
@@ -158,7 +152,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="6" class="text-right" style="background-color:#EFEFF8"  >
+                                        <td colspan="6" class="text-right" style=""  >
                                             <label>NETT</label>
                                         </td>
                                         <td class="text-right">
@@ -187,6 +181,148 @@
                                 </tbody>
                             </table>
                         </div>
+
+                    </div>
+                </t>                    
+            </div> -->
+
+            <div class="page" style="font-family:Roman;" >
+                <t t-foreach="docs" t-as="o">
+                    <div class="row">
+                        <div class="col-xs-3" >
+                            <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png" style="height:40px;" />
+                        </div>
+                        <!-- <div class="col-xs-6 text-center" >
+                            <img style="height:60px;" class="text-center" t-att-src="'/report/barcode/Code128/%s' % 'o.name'"/><br/>
+                            <small style="font-size:10px;" class="text-center" ><i t-esc="o.name" /></small>
+                        </div> -->
+                        <div class="col-xs-9 text-right" >
+                            <h4 style="margin-top:0;margin-bottom:0;" ><strong>SLIP GAJI</strong></h4>
+                            <i><t t-esc="o.name" /></i>
+                        </div>
+                        <div class="col-xs-12" >
+                            <hr style="border-top: 1px solid #8c8b8b;" />
+                        </div>
+                        <div class="col-xs-6 text-left" >
+                            <p style="margin-bottom:0;"><b>Tanggal: </b><span t-field="o.tanggal" t-options ='{"format": "dd/MM/yyyy"}'></span></p>
+
+                            <p style="margin-bottom:0;"><b>Periode: </b><span t-field="o.periode_awal" t-options ='{"format": "dd/MM/yyyy"}'></span> - <span t-field="o.periode_akhir" t-options ='{"format": "dd/MM/yyyy"}'></span></p>
+                        </div>
+                        <div class="col-xs-6 text-right" >
+                            <p style="margin-bottom:0;" ><strong>Driver: </strong><t t-esc="o.karyawan_id.name" /></p>
+                            <p><strong>Armada: </strong><span t-field="o.karyawan_id.armada_id.name" /></p>
+                            <!-- Barcode -->
+                        </div>
+                        <div class="clearfix" style="margin-bottom:25px;"></div>
+
+                        <div class="col-xs-12" >
+                            <table class="table table-condensed" >
+                                <thead>
+                                    <tr>
+                                        <th class="" >Material</th>
+                                        <th class="" >Tujuan</th>
+                                        <th class="text-right" >Vol</th>
+                                        <th class="text-right" >Nett</th>
+                                        <th class="text-right" >Rit</th>
+                                        <th class="text-right" >Harga</th>
+                                        <th class="text-right" >Jumlah</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.material_rel_ids" t-as="mat">
+                                        <tr>
+                                            <td>
+                                                <span t-field="mat.material_id" />
+                                            </td>
+                                            <td>
+                                                <span t-field="mat.pekerjaan_id" />
+                                            </td>
+                                            <td class="text-right" >
+                                                <span t-esc="'%.2f'%(mat.vol)" />
+                                            </td>
+                                            <td class="text-right" >
+                                                <span t-esc="'%.2f'%(mat.netto)" />
+                                            </td>
+                                            <td class="text-right" >
+                                                <span t-esc="'%.2f'%(mat.rit)" />
+                                            </td>
+                                            <td class="text-right" >
+                                                <span t-esc="'{0:,.2f}'.format(mat.harga)" />
+                                            </td>
+                                            <td class="text-right" >
+                                                <span t-esc="'{0:,.2f}'.format(mat.jumlah)" />
+                                            </td>
+                                        </tr>
+                                    </t>                                      
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-xs-6 pull-right" >
+                            <table class="table table-condensed" >
+                                <tbody>
+                                    <tr class="border-black" >
+                                        <td  class="text-right" style=""  >
+                                            <label>TOTAL</label>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{0:,.2f}'.format(o.total)" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td  class="text-right" style=""  >
+                                            <label>Potongan Bahan</label>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{0:,.2f}'.format(o.potongan_bahan)" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td  class="text-right" style=""  >
+                                            <label>Potongan Bon</label>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{0:,.2f}'.format(o.potongan_bon)" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td  class="text-right" style=""  >
+                                            <label>Sisa Bayaran Kemarin</label>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{0:,.2f}'.format(o.sisa_bayaran_kemarin)" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td  class="text-right" style=""  >
+                                            <label>DP</label>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{0:,.2f}'.format(o.downpayment)" />
+                                        </td>
+                                    </tr>
+                                    <tr class="border-black" >
+                                        <td  class="text-right" style=""  >
+                                            <label>NETT</label>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{0:,.2f}'.format(o.nett)" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="clearfix" style="margin-bottom:25px;"></div>
+                        <div class="col-xs-10" >
+                            
+                        </div>
+                        <div class="col-xs-2 text-center" >
+                            <label>Admin</label>
+                            <div class="clearfix" style="margin-bottom:50px;"></div>
+                            <t t-esc="user.name" />
+                        </div>
+                        <div class="col-xs-12" style="margin-top:25px;border-bottom:dashed thin black;"></div>
 
                     </div>
                 </t>                    

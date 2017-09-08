@@ -44,7 +44,7 @@
 	            <notebook>
                   <page string="Data Presensi">
                     <field name="karyawan_rel_ids" context="{'default_presensi_id':id}" >
-                    	<tree create="false" edit="true" editable="bottom" >
+                    	<tree create="false" edit="true" editable="bottom" delete="false" >
                     		<field name="karyawan_id" options='{"no_create": 1, "no_create_edit": 1, "no_open":1}' readonly="1" />
                     		<field name="pagi" />
                     		<field name="siang" />

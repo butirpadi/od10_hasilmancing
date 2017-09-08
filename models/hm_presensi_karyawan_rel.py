@@ -9,3 +9,4 @@ class hm_presensi_karyawan(models.Model):
 	pagi = fields.Boolean('Pagi')
 	siang = fields.Boolean('Siang')
 	tanggal = fields.Date(related="presensi_id.tanggal",string="Tanggal")
+	tanggal_org = fields.Date('Tanggal Org')

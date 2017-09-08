@@ -38,6 +38,12 @@
 						<button type="object" name="action_generate_pay_week" class="btn btn-primary oe_edit_only" string="Generate" />
                     </div>
                 </group>
+                <group>
+                    <label for="catatan_slip_gaji" string="Catatan slip gaji"/>
+                    <div>
+                        <field name="catatan_slip_gaji" />
+                    </div>
+                </group>
 	        </form>
 	      </field>
 	    </record>

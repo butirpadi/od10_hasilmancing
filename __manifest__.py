@@ -7,11 +7,11 @@
 
     'description': """
         Aplikasi UD Hasil Mancing
-        Pembelian
-        Penjualan
-        Pengiriman
-        Keuangan
-        Kepegawaian
+        <br/>Pembelian
+        <br/>Penjualan
+        <br/>Pengiriman
+        <br/>Keuangan
+        <br/>Kepegawaian
     """,
 
     'author': "butirpadi",
@@ -30,6 +30,7 @@
     'data': [
         # 'security/ir.model.access.csv',
         # 'views/hm_data_demo.xml',
+        'views/hm_resource.xml',
         'views/hm_data_system_parameter.xml',
         'views/hm_data_provinsi_kabupaten_kecamatan.xml',
         'views/hm_appconfig_data.xml',
@@ -75,9 +76,14 @@
         'views/hm_generate_pay_week.xml',
         'views/hm_generate_pay_driver_view.xml',
         
+        'views/hm_generate_pay_driver_view.xml',
+        
         'views/hm_ir_sequence_data.xml',
         'views/menu.xml',
         # 'views/templates.xml',
+    ],
+    'css': [
+        'static/source/css/form_sheet.css'
     ],
     # only loaded in demonstration mode
     'demo': [

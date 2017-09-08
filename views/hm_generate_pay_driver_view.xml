@@ -6,6 +6,7 @@
 	      <field name="name">Payroll Driver</field>
 	      <field name="res_model">hm_generate_pay_driver</field>
 	      <field name="view_mode">tree,form</field>
+	      <field name="context">{'group_by':['name','bulan']}</field>
 	    </record>
 
 	    <record model="ir.ui.view" id="hm_generate_pay_driver_tree">
@@ -16,6 +17,7 @@
 	          <field name="name"/>
 	          <field name="bulan"/>
 	          <field name="pay_week_id" string="Minggu ke"  />
+	          <field name="pay_day" string="Tanggal"  />
 	        </tree>
 	      </field>
 	    </record>
@@ -40,32 +42,32 @@
 	                	<field name="bulan" options='{"no_create":1, "no_edit":1, "no_open":1}'  />                		
                 	</group>
                 	<group>
-                		<field name="pay_week_id" domain="[('generate_id','=',name),('bulan_int','=',bulan)]" options='{"no_create":1, "no_edit":1, "no_open":1}'  string="Minggu ke" /><field name="pay_day" string="Tanggal Gaji" class="oe_inline"  readonly="1"/>
-                		<label for="pay_day_start" string="Tanggal Pembayaran" />
+                		<field name="pay_week_id" domain="[('generate_id','=',name),('bulan_int','=',bulan-1)]" options='{"no_create":1, "no_edit":1, "no_open":1}'  string="Minggu ke" />
+                		<field name="pay_day_temp" string="Tanggal Gaji" class="oe_inline"  readonly="1"/>
+                		<label for="pay_day_start_temp" string="Periode" />
 					    <div class="address_format">
-					         <field name="pay_day_start" colspan="1" nolabel="1" readonly="1"/> -  
-					         <field name="pay_day_end" colspan="1" nolabel="1" readonly="1"/>    
+					         <field name="pay_day_start_temp" colspan="1" nolabel="1" readonly="1"/> -  
+					         <field name="pay_day_end_temp" colspan="1" nolabel="1" readonly="1"/>    
 					    </div>
+					    <field name="pay_day" invisible="1" />
+					    <field name="pay_day_start" invisible="1" />
+					    <field name="pay_day_end" invisible="1" />
+					    <field name="is_generate" invisible="1" />
                 	</group>
                 </group>
-	            <table class="o_group o_inner_group">
-	            	<tbody>
-	            		<tr>
-	            			<td colspan="1" class="o_td_label">
-	            				
-	            			</td>
-	            			<td colspan="1" style="width: 100%;">
-                				<button type="object" name="generate_gaji_driver" class="btn btn-primary oe_edit_only" string="Generate" />
-	            			</td>
-	            		</tr>
-	            	</tbody>
-	            </table>
+	            <div class="text-center" >
+	            	<button type="object" name="generate_gaji_driver" class="btn btn-primary oe_edit_only" string="Submit" attrs="{'invisible':[('is_generate','=',True)]}" />
+	            </div>
 	            <notebook>
 	            	<page string="Data Gaji">
 	            		<field name="pay_driver_ids" >
-		                	<tree create="false" edit="true" >
-			                	<field name="karyawan_id" options='{"no_create": 1,"no_edit": 1, "no_open":1}' readonly="1" string="Driver" />
-			                	<field name="nett" options='{"no_create": 1,"no_edit": 1, "no_open":1}' readonly="1" string="Total" />
+		                	<tree create="false" edit="false" delete="false" editable="top">
+			                	<field name="name"  string="Reference" readonly="1" />
+			                	<field name="tanggal"  string="Tanggal" readonly="1" />
+			                	<field name="karyawan_id"  string="Driver" readonly="1" />
+			                	<field name="nett" string="Total" readonly="1" />
+			                	<field name="material_rel_ids" string="Delivery" readonly="1" />
+								<button name="open_record" type="object" string="Edit" class="oe_highlight" />
 		                	</tree>
 		                </field>
 	            	</page>

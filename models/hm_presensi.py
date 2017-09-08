@@ -14,6 +14,10 @@ class hm_presensi(models.Model):
 	karyawan_rel_ids = fields.One2many('hm_presensi_karyawan_rel', 'presensi_id', 
 										string="Presensi Karyawan")
 
+	_sql_constraints = [
+        ('tanggal_constraint', 'unique(tanggal)', 'Data telah tersedia sebelumnya.'),
+    ]
+
 	# def _compute_get_karyawan(self):
 	# 	for prs in self:
 	# 		kary = self.env['hm_karyawan'].search([('jabatan','=','STF')])
@@ -31,7 +35,8 @@ class hm_presensi(models.Model):
 			dt_kary.append({
 					'karyawan_id' : dt.id,
 					'pagi' : False,
-					'siang' : False
+					'siang' : False,
+					'tanggal_org' : self.tanggal
 				})
 		self.karyawan_rel_ids = dt_kary
 
