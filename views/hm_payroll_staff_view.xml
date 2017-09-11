@@ -1,0 +1,106 @@
+<openerp>
+	<data>
+
+		<!-- actions opening views on models -->	    
+	    <record model="ir.actions.act_window" id="hm_action_pay_staff">
+	      <field name="name">Gaji Staff</field>
+	      <field name="res_model">hm_payroll_staff</field>
+	      <field name="view_mode">tree,form</field>
+	    </record>
+
+		<!-- List View -->
+		<record model="ir.ui.view" id="hm_payroll_staff_tree">
+	      <field name="name">hm_presensi_tree</field>
+	      <field name="model">hm_payroll_staff</field>
+	      <field name="arch" type="xml">
+	        <tree>
+	          <field name="name"/>
+	          <field name="tanggal"/>
+	          <field name="karyawan_id"  />
+	          <field name="nett"/>
+	        </tree>
+	      </field>
+	    </record>
+
+	    <record id="hm_payroll_staff_form" model="ir.ui.view">
+	      <field name="name">hm_payroll.staff.form</field>
+	      <field name="model">hm_payroll_staff</field>
+	      <field name="arch" type="xml">
+	        <form string="payroll form" create="false" delete="false">
+	        	<header>
+	        		<button name="direct_print_slip_gaji" type="object" string="Print Slip Gaji" attrs="{'invisible': [('is_generated','=',False)]}" />
+	        		<button name="direct_print_slip_gaji" type="object" string="Print PDF" attrs="{'invisible': [('is_generated','=',False)]}" />
+	        		<button name="set_as_paid" type="object" string="Set as Paid" attrs="{'invisible': [('state','=','draft')]}" />
+        			<field name="state" widget="statusbar" statusbar_visible="draft,open,done" />
+	        	</header>
+	          <sheet>
+	            <div class="oe_title">
+                    <h1>
+                        <field name="name" />
+                    </h1>
+                </div>
+	            <group>
+	            	<group>
+	                	<field name="tanggal" attrs="{'readonly': [('is_generated', '=', True)]}"  />
+	                	<field name="karyawan_id" string="Staff" options="{'no_create_edit': True, 'no_open': True}" domain="[('jabatan','=','STF')]" attrs="{'readonly': [('is_generated', '=', True)]}" />
+	                	<field name="total_kehadiran" string="Total kehadiran (shift)"  attrs="{'invisible': [('is_generated', '=', False)]}" />
+	            	</group>
+	            	<group>
+	                	<field name="periode_awal" attrs="{'readonly': [('is_generated', '=', True)]}" string="Periode"  placeholder="Awal"/>
+	                	<field name="periode_akhir"  attrs="{'readonly': [('is_generated', '=', True)]}" string=" " placeholder="Akhir" />
+	                	<!-- <field name="state" invisible="1" /> -->
+	                	<field name="is_generated" invisible="1" />
+	                	<field name="gaji_per_shift" attrs="{'invisible': [('is_generated', '=', False)]}" />
+	            	</group>
+	            </group>
+	             <div class="row" >
+                        <div class="col-xs-12 text-center" >
+	                		<button type="object" name="show_presensi" string="Submit" class="btn btn-primary " attrs="{'invisible':[('is_generated','=',True)]}" />
+                        </div>
+                  </div>
+	            <notebook>
+	            	<page string="Presensi">
+	            		<field name="payroll_presensi_rel_ids" readonly="1" >
+	            			<tree edit="false" create="false" delte="false" >
+	            				<field name="tanggal" />
+	            				<field name="pagi" />
+	            				<field name="siang" />
+	            			</tree>
+	            		</field>
+	            		 <group class="oe_subtotal_footer oe_right">
+                            <field name="total" style="width:100px;" />		            	
+		                	<field name="potongan_bon"  />	            	
+		                	<field name="sisa_bayaran_kemarin"  />
+		                	<field name="downpayment"   />	
+
+		                	<div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="nett" string="NETT" />
+                                </div>
+		                	<field name="nett" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/> 
+		                	<!-- <field name="nett"   /> -->
+                        </group>
+                        <field name="notes" class="oe_inline" />
+                        <div class="oe_clear"/>
+	            	</page>
+	            </notebook>
+	          </sheet>
+	        </form>
+	      </field>
+	    </record>
+
+	    <!-- Custom Form & Tree View -->
+        <record model="ir.actions.act_window.view" id="hm_action_payroll_staff_tree">
+	      <field name="view_mode">tree</field>
+	      <field name="view_id" ref="hm_payroll_staff_tree"/>
+	      <field name="act_window_id" ref="hm_action_pay_staff"/>
+	    </record>
+
+	    <record model="ir.actions.act_window.view" id="hm_action_payroll_staff_form">
+	      <field name="view_mode">form</field>
+	      <field name="view_id" ref="hm_payroll_staff_form"/>
+	      <field name="act_window_id" ref="hm_action_pay_staff"/>
+	    </record>
+
+	   
+	</data>
+</openerp>

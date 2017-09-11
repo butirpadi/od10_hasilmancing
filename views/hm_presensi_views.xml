@@ -6,7 +6,6 @@
 	      <field name="name">Presensi</field>
 	      <field name="res_model">hm_presensi</field>
 	      <field name="view_mode">tree,form</field>
-	      <!-- <field name="domain">[('partner_id.customer','=',1)]</field> -->
 	    </record>
 
 		<!-- List View -->
@@ -36,9 +35,10 @@
 	            <group>
 	            	<group>
 	                	<field name="tanggal" attrs="{'readonly': [('name','!=','New')]}" />
+	                	<field name="is_generated" invisible="1" />
 	            	</group>
 	            	<group>
-						<button type="object" name="generate_data_karyawan" string="Submit" class="btn btn-primary" attrs="{'invisible': [('name','!=','New')]}"/>
+						<button type="object" name="generate_data_karyawan" string="Submit" class="btn btn-primary oe_edit_only" attrs="{'invisible': [('is_generated', '=', True)]}"/>
 	            	</group>
 	            </group>
 	            <notebook>

@@ -2,16 +2,16 @@
 	<data>
 
 		<!-- actions opening views on models -->	    
-	    <record model="ir.actions.act_window" id="hm_action_generate_pay_driver">
-	      <field name="name">Gaji Driver</field>
-	      <field name="res_model">hm_generate_pay_driver</field>
+	    <record model="ir.actions.act_window" id="hm_action_generate_pay_staff">
+	      <field name="name">Gaji Staff</field>
+	      <field name="res_model">hm_generate_payroll_staff</field>
 	      <field name="view_mode">tree,form</field>
 	      <field name="context">{'group_by':['name','bulan']}</field>
 	    </record>
 
-	    <record model="ir.ui.view" id="hm_generate_pay_driver_tree">
+	    <record model="ir.ui.view" id="hm_generate_payroll_staff_tree">
 	      <field name="name">hm_presensi.tree</field>
-	      <field name="model">hm_generate_pay_driver</field>
+	      <field name="model">hm_generate_payroll_staff</field>
 	      <field name="arch" type="xml">
 	        <tree>
 	          <field name="name"/>
@@ -22,14 +22,11 @@
 	      </field>
 	    </record>
 
-	    <record id="hm_generate_pay_driver_form" model="ir.ui.view">
-	      <field name="name">hm_generate_pay_driver_form</field>
-	      <field name="model">hm_generate_pay_driver</field>
+	    <record id="hm_generate_payroll_staff_form" model="ir.ui.view">
+	      <field name="name">hm_generate_payroll_staff_form</field>
+	      <field name="model">hm_generate_payroll_staff</field>
 	      <field name="arch" type="xml">
 	        <form string="payroll form">
-	        	<!-- <header>
-	        		<button name="direct_print_slip_gaji" type="object" string="Print Slip Gaji" class="oe_edit_only" attrs="{'invisible': ['|',('name','==',''),('name','==','New')]}" />
-	        	</header> -->
 	          <sheet>
 	            <div class="oe_title">
                     <h1>
@@ -56,17 +53,18 @@
                 	</group>
                 </group>
 	            <div class="text-center" >
-	            	<button type="object" name="generate_gaji_driver" class="btn btn-primary oe_edit_only" string="Submit" attrs="{'invisible':[('is_generate','=',True)]}" />
+	            	<button type="object" name="generate_gaji_staff" class="btn btn-primary oe_edit_only" string="Submit" attrs="{'invisible':[('is_generate','=',True)]}" />
 	            </div>
 	            <notebook>
 	            	<page string="Data Gaji">
-	            		<field name="pay_driver_ids" >
+	            		<field name="pay_staff_ids" >
 		                	<tree create="false" edit="false" delete="false" editable="top">
 			                	<field name="name"  string="Reference" readonly="1" />
 			                	<field name="tanggal"  string="Tanggal" readonly="1" />
-			                	<field name="karyawan_id"  string="Driver" readonly="1" />
+			                	<field name="karyawan_id"  string="Staff" readonly="1" />
+			                	<field name="state"  string="Status" readonly="1" />
 			                	<field name="nett" string="Total" readonly="1" />
-			                	<field name="material_rel_ids" string="Delivery" readonly="1" />
+			                	<!-- <field name="material_rel_ids" string="Delivery" readonly="1" /> -->
 								<button name="open_record" type="object" string="Edit" class="oe_highlight" />
 		                	</tree>
 		                </field>
@@ -77,17 +75,17 @@
 	      </field>
 	    </record>
 
-	    <!-- <record model="ir.actions.act_window.view" id="hm_action_generate_pay_driver_tree">
+	    <record model="ir.actions.act_window.view" id="hm_action_generate_pay_staff_tree">
 	      <field name="view_mode">tree</field>
-	      <field name="view_id" ref="hm_generate_pay_driver_tree"/>
-	      <field name="act_window_id" ref="hm_action_generate_pay_driver"/>
-	    </record> -->
+	      <field name="view_id" ref="hm_generate_payroll_staff_tree"/>
+	      <field name="act_window_id" ref="hm_action_generate_pay_staff"/>
+	    </record>
 
-	    <!-- <record model="ir.actions.act_window.view" id="hm_action_generate_pay_driver_form">
+	    <record model="ir.actions.act_window.view" id="hm_action_generate_pay_staff_form">
 	      <field name="view_mode">form</field>
-	      <field name="view_id" ref="hm_generate_pay_driver_form"/>
-	      <field name="act_window_id" ref="hm_action_generate_pay_driver"/>
-	    </record> -->
+	      <field name="view_id" ref="hm_generate_payroll_staff_form"/>
+	      <field name="act_window_id" ref="hm_action_generate_pay_staff"/>
+	    </record>
 		
 	   
 	</data>

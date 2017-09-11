@@ -10,7 +10,7 @@
 
 		<!-- List View -->
 		<record model="ir.ui.view" id="hm_payroll_driver_tree">
-	      <field name="name">hm_presensi.tree</field>
+	      <field name="name">hm_payroll_driver_tree</field>
 	      <field name="model">hm_payroll_driver</field>
 	      <field name="arch" type="xml">
 	        <tree>

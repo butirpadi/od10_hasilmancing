@@ -1,6 +1,6 @@
 from odoo import api, models, fields
 
-class hm_presensi_karyawan(models.Model):
+class hm_presensi_karyawan_rel(models.Model):
 	_name = "hm_presensi_karyawan_rel"
 
 	name = fields.Char('Reference')

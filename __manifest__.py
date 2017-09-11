@@ -76,7 +76,9 @@
         'views/hm_generate_pay_week.xml',
         'views/hm_generate_pay_driver_view.xml',
         
-        'views/hm_generate_pay_driver_view.xml',
+        'views/hm_payroll_staff_view.xml',
+        
+        'views/hm_generate_payroll_staff_view.xml',
         
         'views/hm_ir_sequence_data.xml',
         'views/menu.xml',

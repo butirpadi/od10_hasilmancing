@@ -18,27 +18,25 @@ class hm_presensi(models.Model):
         ('tanggal_constraint', 'unique(tanggal)', 'Data telah tersedia sebelumnya.'),
     ]
 
-	# def _compute_get_karyawan(self):
-	# 	for prs in self:
-	# 		kary = self.env['hm_karyawan'].search([('jabatan','=','STF')])
-	# 		for dt in kary:
-	# 			dt_kary['karyawan_id'] = dt.id 
-	# 			dt_kary['pagi'] = False
-	# 			dt_kary['siang'] = False
-	# 		prs.karyawan_rel_ids = dt_kary
+	is_generated = fields.Boolean('Is Generated', default=False)
 
 	def generate_data_karyawan(self):
-		print 'fill karyawan'
-		kary = self.env['hm_karyawan'].search([('jabatan','=','STF')])
-		dt_kary = []
-		for dt in kary:
-			dt_kary.append({
+		if not self.is_generated:
+			print 'fill karyawan'
+			kary = self.env['hm_karyawan'].search([('jabatan','=','STF')])
+			dt_kary = []
+			for dt in kary:
+				dt_kary.append({
 					'karyawan_id' : dt.id,
 					'pagi' : False,
 					'siang' : False,
 					'tanggal_org' : self.tanggal
 				})
-		self.karyawan_rel_ids = dt_kary
+				
+			self.karyawan_rel_ids = dt_kary
+			self.is_generated = True
+		else:
+			print 'Data has been generated'
 
 	@api.model
 	def create(self, vals):

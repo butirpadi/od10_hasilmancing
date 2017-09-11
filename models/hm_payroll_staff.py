@@ -13,7 +13,6 @@ class hm_payroll_staff(models.Model):
 	tanggal =fields.Date('Tanggal', required=True,default=datetime.date.today())
 	periode_awal =fields.Date('Periode Awal', required=True,)
 	periode_akhir =fields.Date('Periode Akhir', required=True,)
-	#stock_picking_rel_ids = fields.One2many('hm_payroll_staff_stock_picking_rel','payroll_id','Delivery Order')
 	total = fields.Float(compute='_compute_total', string='Total', store=True)
 	potongan_bon = fields.Float('Potongan Bon')
 	sisa_bayaran_kemarin = fields.Float('Sisa Bayaran Kemarin')
@@ -21,29 +20,27 @@ class hm_payroll_staff(models.Model):
 	nett = fields.Float(compute='_compute_nett', string='Nett', store=True)
 	notes = fields.Text('Catatan')
 	is_generated = fields.Boolean('is generated', default=False )
-	# generate_id = fields.Many2one('hm_generate_pay_staff', ondelete='cascade')
-	# revisi
-	# presensi_ids= fields.One2many('hm_presensi_karyawan_rel','payroll_id','Delivery Order')
-	# order_ids = fields.Many2many('sale.order', string="Sale Order")
-
-	state = fields.Selection([('draft', 'Draft'),('open', 'Open')], default='draft')  
-
-	def direct_print_slip_gaji(self):
-		print 'direct print slip gaji'
+	payroll_presensi_rel_ids = fields.One2many('hm_payroll_presensi_rel', 'hm_payroll_staff_id', string='Payroll Presensi Rel')
+	state = fields.Selection([('draft', 'Draft'),('open', 'Open'),('done','Paid')], default='draft') 
+	total_hadir_pagi = fields.Integer('Total kehadiran pagi') 
+	total_hadir_siang = fields.Integer('Total kehadiran siang')  
+	total_kehadiran = fields.Integer('Total kehadiran')
+	gaji_per_shift = fields.Float('Gaji per shift')
+	generate_id = fields.Many2one('hm_generate_payroll_staff', string="Generate Id", ondelete='cascade')
 
 	# get default catatan
 	def _get_default_catatan(self):
 		catatan = self.env['hm_appkonfig'].search([('name','=','catatan_pay_slip')])
 
-	# @api.onchange('tahun'):
-	# def tahun_bulan_change(self):
-	# 	print 'change tahun'
+	@api.depends('gaji_per_shift', 'total_kehadiran')
+	def depends_gaji_dan_kehadiran(self):
+		self.total = self.total_kehadiran * self.gaji_per_shift
 
-	@api.depends('total','potongan_bon','sisa_bayaran_kemarin','downpayment')
+	@api.depends('total','potongan_bon','sisa_bayaran_kemarin','downpayment', 'gaji_per_shift', 'total_kehadiran')
 	def _compute_nett(self):
 		for pay in self:
 			pay.update({
-	                'nett': pay.total - pay.potongan_bahan - pay.potongan_bon + pay.sisa_bayaran_kemarin + pay.downpayment
+	                'nett': pay.total - pay.potongan_bon + pay.sisa_bayaran_kemarin + pay.downpayment
 	            })
 
 	@api.model
@@ -64,8 +61,6 @@ class hm_payroll_staff(models.Model):
 			akhir_utc_str = ""
 
 			localtz = pytz.timezone('Asia/Jakarta')	
-			# print 'Periode Awal ' + self.periode_awal
-			# print 'Periode Akhir ' + self.periode_akhir
 			periode_awal_date = timestring.Date(self.periode_awal)
 			periode_akhir_date = timestring.Date(self.periode_akhir)
 
@@ -75,61 +70,48 @@ class hm_payroll_staff(models.Model):
 			periode_akhir_local_str = localtz.localize(datetime.datetime.strptime(str(periode_akhir_date), DATETIME_FORMAT))
 			periode_akhir_utc_str = periode_akhir_local_str.astimezone(pytz.utc).strftime(DATETIME_FORMAT)
 
+			# gete data presensi
+			presensi = self.env['hm_presensi_karyawan_rel'].search([
+														('karyawan_id','=',self.karyawan_id.id),
+														('tanggal_org','>=',periode_awal_utc_str),
+														('tanggal_org','<=',periode_akhir_utc_str)
+													])
+			data_presensi_rel = []
+			for prs in presensi:
+				dt_pres = {
+					'name' : prs.name,
+					'karyawan_id' : prs.karyawan_id.id,
+					'hm_presensi_karyawan_rel_id' : prs.id,
+					'tanggal' : prs.tanggal_org,
+					'pagi' : prs.pagi,
+					'siang' : prs.siang,
+				}
+				data_presensi_rel.append(dt_pres)
+				# hitung total kehadiran
+				if prs.pagi :
+					self.total_kehadiran +=1
+					self.total_hadir_pagi +=1
 
-			# get data sale orders
-			orders = self.env['sale.order'].search([
-															('karyawan_id','=',self.karyawan_id.id),
-															('tanggal','>=',periode_awal_utc_str),
-															('tanggal','<=',periode_akhir_utc_str)
-														])
-			data_materials = []
-			data_materials_opt = []
-			for sale_order in orders:
-				rit = 1 if sale_order.kalkulasi == 'ritase' else 0
-				vol = sale_order.volume if sale_order.kalkulasi == 'kubikasi' else 0
-				net = sale_order.netto if sale_order.kalkulasi == 'tonase' else 0
+				if prs.siang : 
+					self.total_kehadiran +=1
+					self.total_hadir_siang +=1
 
-
-				
-				for sale_order_line in sale_order:
-					mat = {
-							'material_id' : sale_order_line.product_id.id,
-							'kalkulasi' : sale_order.kalkulasi,
-							'pekerjaan_id' : sale_order.pekerjaan_id.id,
-							'rit' :  rit,
-							'vol' : vol,
-							'netto' : net
-						}
-
-					if len(data_materials) == 0:
-						data_materials.append(mat)
-					else:
-						ketemu = False
-						for dtm in data_materials:
-							if dtm['material_id'] == sale_order_line.product_id.id and dtm['kalkulasi'] == sale_order.kalkulasi and dtm['pekerjaan_id'] == sale_order.pekerjaan_id.id:
-								# # update data sekarang
-								rit = dtm['rit'] + 1 if sale_order.kalkulasi == 'ritase' else 0
-								vol = dtm['vol'] + sale_order.volume if sale_order.kalkulasi == 'kubikasi' else 0
-								net = dtm['netto'] + sale_order.netto if sale_order.kalkulasi == 'tonase' else 0
-
-								dtm['rit'] = rit
-								dtm['vol'] = vol
-								dtm['netto'] = net
-								
-								ketemu = True
-								break
-
-						if not ketemu:
-							data_materials.append(mat)
-
-			# delete data sebelumnya
-			self.material_rel_ids.unlink()
-			# add the new data
-			self.material_rel_ids = data_materials
+			self.payroll_presensi_rel_ids.unlink()
+			self.payroll_presensi_rel_ids = data_presensi_rel
 			# set gegneraete
 			self.is_generated = True
+
+			# hitung total
+			self.total = self.total_kehadiran * self.gaji_per_shift
+
+			print 'generated hm_peresensi_karyawan_rel'
 		else:
 			print 'Data has been generated'
+
+	# onchange karyawan_id get data gaji per shift
+	@api.onchange('karyawan_id')
+	def onchange_karyawan_id(self):
+		self.gaji_per_shift = self.karyawan_id.gaji_per_shift
 		
 
 	def print_pay_slip_driver(self):
@@ -157,6 +139,14 @@ class hm_payroll_staff(models.Model):
 	            'flags': {'initial_mode': 'edit'},
 	            'target': 'current',
 	        }
+
+	# set as paid / Done
+	def set_as_paid(self):
+		print 'set as paid'
+		self.state = 'done'
+		self.write({
+				'state' : 'done'
+			})
 
 
 		
