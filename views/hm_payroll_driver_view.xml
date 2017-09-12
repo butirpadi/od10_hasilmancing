@@ -32,8 +32,11 @@
 	      <field name="arch" type="xml">
 	        <form string="payroll form" create="false" delete="false">
 	        	<header>
-	        		<button name="direct_print_slip_gaji" type="object" string="Print Slip Gaji" class="oe_edit_only" attrs="{'invisible': ['|',('name','==',''),('name','==','New')]}" />
+	        		<button name="direct_print_slip_gaji" type="object" string="Print Slip Gaji" attrs="{'invisible': ['|',('name','==',''),('name','==','New')]}" />
 	        		<button name="%(payroll_driver_report)d" string="Print PDF" type="action" class="btn" />
+					<button name="set_as_paid" type="object" string="Set as Paid" attrs="{'invisible': [('state','!=','open')]}" />
+					<button name="cancel_paid" type="object" string="Cancel Paid" class="btn btn-danger" attrs="{'invisible': [('state','!=','done')]}" />
+        			<field name="state" widget="statusbar" statusbar_visible="draft,open,done" />
 	        	</header>
 	          <sheet>
 	            <div class="oe_title">
@@ -52,7 +55,7 @@
 	                	<!-- <field name="pay_week_id" domain="[('generate_id','=',tahun),('bulan_int','=',bulan)]" options='{"no_create": 1, "no_edit":1 , "no_open":1}' /> -->
 	                	<field name="periode_awal" readonly="1" class="oe_inline" string="Periode" />
 	                	<field name="periode_akhir"  readonly="1" string=" " />
-	                	<field name="state" invisible="1" />
+	                	<!-- <field name="state" invisible="1" /> -->
 	                	<field name="is_generated" invisible="1" />
 	            	</group>
 	            </group>

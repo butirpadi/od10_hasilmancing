@@ -11,191 +11,17 @@
              />
 
         <template id="pay_slip_report_template">
-            <!-- <div class="header">
-                <div class="row" >
-                    <div class="col-xs-4" > 
-                        <div class="row" >
-                            <div class="col-xs-4" >
-                                <img style="width:25%" src="/hasilmancing/static/description/logo_odoo_bg_putih.png" />
-                            </div>
-                            <div class="col-xs-7" >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-8 text-right" >
-                        <h3>SLIP GAJI</h3>
-                        <t t-foreach="docs" t-as="o">
-                            <label><p t-field="o.name" /></label>
-                        </t>
-                    </div>
-                </div>
-            </div>
-            <div class="page">
-                <t t-foreach="docs" t-as="o">
-                    <div class="row">
-                        <div class="col-xs-12" >
-                            <table class="table table-bordered table-condensed" >
-                                <tbody>
-                                    <tr>
-                                        <td class="col-xs-2">
-                                            <label>Tanggal</label>
-                                        </td>
-                                        <td class="col-xs-4" >
-                                            <span t-field="o.tanggal" />
-                                        </td>
-                                        <td class="col-xs-2" >
-                                            <label>Driver</label>
-                                        </td>
-                                        <td class="col-xs-4" >
-                                            <span t-field="o.karyawan_id.name" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-xs-2" >
-                                            <label>Periode</label>
-                                        </td>
-                                        <td class="col-xs-4" >
-                                            <span t-field="o.periode_awal" /> - <span t-field="o.periode_akhir" /> 
-                                        </td>
-                                        <td class="col-xs-2" >
-                                            <label>Armada</label>
-                                        </td>
-                                        <td class="col-xs-4" >
-                                            <span t-field="o.karyawan_id.armada_id.name" />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-xs-12">
-                            <table class="table table-bordered table-condensed" >
-                                <thead>
-                                    <tr>
-                                        <th>MATERIAL</th>
-                                        <th>TUJUAN</th>
-                                        <th>VOL</th>
-                                        <th>NETT</th>
-                                        <th>RIT</th>
-                                        <th>HARGA</th>
-                                        <th>JUMLAH</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <t t-foreach="o.material_rel_ids" t-as="mat">
-                                        <tr>
-                                            <td>
-                                                <span t-field="mat.material_id" />
-                                            </td>
-                                            <td>
-                                                <span t-field="mat.pekerjaan_id" />
-                                            </td>
-                                            <td class="text-right" >
-                                                <span t-field="mat.vol" />
-                                            </td>
-                                            <td class="text-right" >
-                                                <span t-field="mat.netto" />
-                                            </td>
-                                            <td class="text-right" >
-                                                <span t-field="mat.rit" />
-                                            </td>
-                                            <td class="text-right" >
-                                                <span t-field="mat.harga" />
-                                            </td>
-                                            <td class="text-right" >
-                                                <span t-field="mat.jumlah" />
-                                            </td>
-                                        </tr>
-                                    </t>    
-                                    <tr>
-                                        <td colspan="7" ></td>
-                                    </tr>                                       
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="6" class="text-right" style=""  >
-                                            <label>TOTAL</label>
-                                        </td>
-                                        <td class="text-right">
-                                            <label t-field="o.total" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="6" class="text-right" style=""  >
-                                            <label>Potongan Bahan</label>
-                                        </td>
-                                        <td class="text-right">
-                                            <span t-field="o.potongan_bahan" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="6" class="text-right" style=""  >
-                                            <label>Potongan Bon</label>
-                                        </td>
-                                        <td class="text-right">
-                                            <span t-field="o.potongan_bon" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="6" class="text-right" style=""  >
-                                            <label>Sisa Bayaran Kemarin</label>
-                                        </td>
-                                        <td class="text-right">
-                                            <span t-field="o.sisa_bayaran_kemarin" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="6" class="text-right" style=""  >
-                                            <label>DP</label>
-                                        </td>
-                                        <td class="text-right">
-                                            <span t-field="o.downpayment" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="6" class="text-right" style=""  >
-                                            <label>NETT</label>
-                                        </td>
-                                        <td class="text-right">
-                                            <label t-field="o.nett" />
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-
-                            <table class="table table-bordered" >
-                                <tbody>
-                                    <tr>
-                                        <td class="col-xs-8" >
-                                            <label>Catatan :</label>
-                                            <p t-field="o.notes" />
-                                        </td>
-                                        <td class="text-center col-xs-4" >
-                                            Hormat Kami,
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <label t-field="o.env.user.name" ></label>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                </t>                    
-            </div> -->
-
             <div class="page" style="font-family:Roman;" >
+                <style>
+                    table.no-border tr, table.no-border tr td{
+                        border : none;
+                    }
+                </style>
                 <t t-foreach="docs" t-as="o">
                     <div class="row">
                         <div class="col-xs-3" >
                             <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png" style="height:40px;" />
                         </div>
-                        <!-- <div class="col-xs-6 text-center" >
-                            <img style="height:60px;" class="text-center" t-att-src="'/report/barcode/Code128/%s' % 'o.name'"/><br/>
-                            <small style="font-size:10px;" class="text-center" ><i t-esc="o.name" /></small>
-                        </div> -->
                         <div class="col-xs-9 text-right" >
                             <h4 style="margin-top:0;margin-bottom:0;" ><strong>SLIP GAJI</strong></h4>
                             <i><t t-esc="o.name" /></i>
@@ -215,7 +41,7 @@
                         </div>
                         <div class="clearfix" style="margin-bottom:25px;"></div>
 
-                        <div class="col-xs-12" >
+                        <div class="col-xs-8" >
                             <table class="table table-condensed" >
                                 <thead>
                                     <tr>
@@ -253,12 +79,110 @@
                                                 <span t-esc="'{0:,.2f}'.format(mat.jumlah)" />
                                             </td>
                                         </tr>
-                                    </t>                                      
+                                    </t>     
+                                    <tr class="border-black" >
+                                        <td colspan="6">
+                                            Sisa Bayaran Kemarin
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{0:,.2f}'.format(o.sisa_bayaran_kemarin)" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6">
+                                            DP
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{0:,.2f}'.format(o.downpayment)" />
+                                        </td>
+                                    </tr>                             
                                 </tbody>
                             </table>
                         </div>
 
+                        <div class="col-xs-4" >
+                            <table class="table table-condensed" >
+                                <thead>
+                                    <tr>
+                                        <th>Potongan</th>
+                                        <th class="text-right">Jumlah</th>
+                                    </tr>
+                                </thead>
+                                <tbody>                                    
+                                    <tr>
+                                        <td  class="" style=""  >
+                                            Potongan Bahan
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{0:,.2f}'.format(o.potongan_bahan)" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td  class="" style=""  >
+                                            Potongan Bon
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'{0:,.2f}'.format(o.potongan_bon)" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div  class="col-xs-12" >
+                            <hr style="border-top: 1px solid black;margin-bottom:0;" />
+                        </div>
+
+                        <div class="col-xs-8"  >
+                            <table class="table table-condensed no-border" style="margin-bottom:0;" >
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <label>Total Pendapatan</label>
+                                        </td>
+                                        <td class="text-right" >
+                                             <span t-esc="'{0:,.2f}'.format(o.total + o.sisa_bayaran_kemarin + o.downpayment)" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-xs-4 " >
+                            <table class="table table-condensed no-border" style="margin-bottom:0;">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <label>Total Potongan</label>
+                                        </td>
+                                        <td class="text-right" >
+                                            <span t-esc="'{0:,.2f}'.format(o.potongan_bahan + o.potongan_bon )" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                       <!--  <div  class="col-xs-12" >
+                            <hr style="border-top: 1px solid black;margin-bottom:0;margin-top:0;" />
+                        </div> -->
+
                         <div class="col-xs-6 pull-right" >
+                            <table class="table table-condensed no-border">
+                                <tbody>
+                                    <tr class="border-black" >
+                                        <td class="text-right" >
+                                            <label>NETT</label>
+                                        </td>
+                                        <td class="text-right" >
+                                            <span t-esc="'{0:,.2f}'.format(o.nett)" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- <div class="col-xs-6" >
                             <table class="table table-condensed" >
                                 <tbody>
                                     <tr class="border-black" >
@@ -311,7 +235,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div> -->
 
                         <div class="clearfix" style="margin-bottom:25px;"></div>
                         <div class="col-xs-10" >

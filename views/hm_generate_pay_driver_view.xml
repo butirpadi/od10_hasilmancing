@@ -27,9 +27,6 @@
 	      <field name="model">hm_generate_pay_driver</field>
 	      <field name="arch" type="xml">
 	        <form string="payroll form">
-	        	<!-- <header>
-	        		<button name="direct_print_slip_gaji" type="object" string="Print Slip Gaji" class="oe_edit_only" attrs="{'invisible': ['|',('name','==',''),('name','==','New')]}" />
-	        	</header> -->
 	          <sheet>
 	            <div class="oe_title">
                     <h1>
@@ -67,6 +64,7 @@
 			                	<field name="karyawan_id"  string="Driver" readonly="1" />
 			                	<field name="nett" string="Total" readonly="1" />
 			                	<field name="material_rel_ids" string="Delivery" readonly="1" />
+			                	<field name="state" string="Status" readonly="1" />
 								<button name="open_record" type="object" string="Edit" class="oe_highlight" />
 		                	</tree>
 		                </field>

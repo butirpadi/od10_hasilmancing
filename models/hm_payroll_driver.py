@@ -44,7 +44,7 @@ class hm_payroll_driver(models.Model):
 	material_rel_ids= fields.One2many('hm_payroll_driver_material_rel','payroll_id','Delivery Order')
 	# order_ids = fields.Many2many('sale.order', string="Sale Order")
 
-	state = fields.Selection([('draft', 'Draft'),('open', 'Open')], default='draft')  
+	state = fields.Selection([('draft', 'Draft'),('open', 'Open'),('done', 'Paid')], default='draft')  
 
 	def direct_print_slip_gaji(self):
 		print 'direct print slip gaji'
@@ -186,8 +186,19 @@ class hm_payroll_driver(models.Model):
 	            'flags': {'initial_mode': 'edit'},
 	            'target': 'current',
 	        }
-
-
-		
-
 	
+	# set as paid / Done
+	def set_as_paid(self):
+		print 'set as paid'
+		self.state = 'done'
+		self.write({
+				'state' : 'done'
+			})
+
+	# set as paid / Done
+	def cancel_paid(self):
+		print 'Cancel paid'
+		self.state = 'open'
+		self.write({
+				'state' : 'open'
+			})
