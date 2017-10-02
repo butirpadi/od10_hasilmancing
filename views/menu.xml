@@ -39,18 +39,20 @@
 		<menuitem name="Operational" id="hm_menu_root_operational" sequence="5" />
             <menuitem name="Operational" id="hm_menu_operational" parent="hm_menu_root_operational" sequence="51" />
                 <menuitem name="Alat Berat" id="hm_menu_operational_alat_berat" parent="hm_menu_operational" action="hasilmancing.hm_action_op_alat" sequence="52" />
-            <menuitem name="Presensi" id="hm_menu_presensi" parent="hm_menu_root_operational" sequence="53" />
-                <menuitem name="Input Presensi" id="hm_menu_presensi_karyawan" parent="hm_menu_presensi" action="hasilmancing.hm_action_presensi" sequence="54" />
-                <menuitem name="Rekap Presensi" id="hm_menu_presensi_karyawan_rekap" parent="hm_menu_presensi" action="hasilmancing.hm_action_rekap_presensi" sequence="55" />
-            <menuitem name="Payroll" id="hm_menu_presensi_payroll" parent="hm_menu_root_operational" sequence="56" />
-                <menuitem name="Gaji Driver" id="hm_menu_generate_pay_driver" parent="hm_menu_presensi_payroll" action="hasilmancing.hm_action_generate_pay_driver" sequence="57"  />
-                <menuitem name="Gaji Staff" id="hm_menu_generate_pay_staff" parent="hm_menu_presensi_payroll" action="hasilmancing.hm_action_generate_pay_staff" sequence="58"  />
-                <menuitem name="Gaji Staff Detail" id="hm_menu_pay_staff" parent="hm_menu_presensi_payroll" action="hasilmancing.hm_action_pay_staff" sequence="59"  />
+            <!-- <menuitem name="Presensi" id="hm_menu_presensi" parent="hm_menu_root_operational" sequence="53" /> -->
+                <menuitem name="Presensi" id="hm_menu_presensi_karyawan" parent="hm_menu_operational" action="hasilmancing.hm_action_presensi" sequence="54" />
+                <!-- <menuitem name="Rekap Presensi" id="hm_menu_presensi_karyawan_rekap" parent="hm_menu_presensi" action="hasilmancing.hm_action_rekap_presensi" sequence="55" /> -->
+            <!-- <menuitem name="Payroll" id="hm_menu_presensi_payroll" parent="hm_menu_root_operational" sequence="56" /> -->
+                <menuitem name="Gaji Driver" id="hm_menu_generate_pay_driver" parent="hm_menu_operational" action="hasilmancing.hm_action_generate_pay_driver" sequence="57"  />
+                <menuitem name="Gaji Staff" id="hm_menu_generate_pay_staff" parent="hm_menu_operational" action="hasilmancing.hm_action_generate_pay_staff" sequence="58"  />
                 <!-- <menuitem name="Driver" id="hm_menu_presensi_payroll_driver" parent="hm_menu_presensi_payroll" action="hasilmancing.hm_action_payroll_driver" sequence="57"  /> -->
                 <!-- <menuitem name="Staff" id="hm_menu_presensi_payroll_staff" parent="hm_menu_presensi_payroll" action="hasilmancing.hm_action_presensi" sequence="58"  /> -->
             <menuitem name="Reports" id="hm_menu_report_operational" parent="hm_menu_root_operational" sequence="59" />
                 <menuitem name="Operasional Alat Berat" id="hm_menu_report_alat_berat" parent="hm_menu_report_operational" action="hasilmancing.hm_wiz_operasional_alat_action" sequence="58"  />
 
+
+            <menuitem name="Admin" id="hm_menu_operational_admin" parent="hm_menu_root_operational" sequence="80" />
+                <menuitem name="Gaji Staff Detail" id="hm_menu_pay_staff" parent="hm_menu_operational_admin" action="hasilmancing.hm_action_pay_staff" sequence="81"  />
 
         <menuitem name="Finance" id="hm_menu_root_finance" sequence="6" />
             <menuitem name="Finance" id="hm_menu_finance" parent="hm_menu_root_finance" sequence="61" />

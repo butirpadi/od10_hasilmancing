@@ -44,7 +44,9 @@
 	                	<field name="lokasi_galian_id" options='{"no_create": 1, "no_create_edit": 1, "no_open":1}'/>
 	                	<field name="pengawas_id" options='{"no_create": 1, "no_create_edit": 1, "no_open":1}' domain="[('jabatan', '=', 'STF')]" />
 	                	<field name="operator_id" options='{"no_create": 1, "no_create_edit": 1, "no_open":1}' domain="[('jabatan', '=', 'STF')]" />
-	                	<label for="jam_kerja_start" string="Jam Kerja"/>
+	            	</group>
+	            	<group>
+	            		<label for="jam_kerja_start" string="Jam Kerja"/>
                         <div class="o_address_format">
                         	<div class="row" >
 	                        	<div class="col-sm-4" >
@@ -55,9 +57,6 @@
 	                        	</div>
 	                        </div>
                         </div>
-                        
-	            	</group>
-	            	<group>
 	            		<label for="istirahat_start" string="Jam Istirahat"/>
                         <div class="o_address_format">
                         	<div class="row" >
@@ -67,14 +66,18 @@
 	                        	<div class="col-sm-4" >
 	                            	<field widget="mask" class="o_address_street" data-inputmask="'mask': '99:99'" name="istirahat_end" placeholder="Akhir" />	
 	                        	</div>
+	                        	<div class="col-xs-12" >
+	                        		<button class="btn btn-primary oe_edit_only" name="calculate_jam_kerja" type="object" string="Kalkulasi Jam Kerja" />
+	                        	</div>
 	                        </div>
                         </div>
-	                	<field name="total_jam_kerja" readonly="1" />						
+	                	<field name="total_jam_kerja" readonly="1" />
+	                	<field name="total_jam_kerja_in_num" invisible="1"  />
 	                	<field name="solar" />						
 	                	<field name="oli" />	
-	                	<field name="keterangan" /> 					
 	                			
 	            	</group>
+	                <field name="keterangan" /> 					
 	            </group>
 				
 	          </sheet>

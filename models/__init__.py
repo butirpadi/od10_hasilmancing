@@ -44,5 +44,7 @@ import hm_payroll_presensi_rel
 
 import hm_generate_payroll_staff
 
-# import model operational
 import hm_wiz_report_alat
+import hm_report_payroll_driver_parser
+
+import hm_wiz_presensi

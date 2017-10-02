@@ -6,6 +6,7 @@
 	      <field name="name">Presensi</field>
 	      <field name="res_model">hm_presensi</field>
 	      <field name="view_mode">tree,form</field>
+	      <field name="context">{'group_by':['tanggal','tanggal:day']}</field>
 	    </record>
 
 		<!-- List View -->

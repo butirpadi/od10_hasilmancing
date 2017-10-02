@@ -17,6 +17,7 @@ class hm_op_alat(models.Model):
 	istirahat_start = fields.Char(required=True,)
 	istirahat_end = fields.Char(required=True,)
 	total_jam_kerja = fields.Char('Total Jam Kerja')
+	total_jam_kerja_in_num = fields.Float('Total jam kerja')
 	solar = fields.Float('Solar', required=True,)
 	oli = fields.Float('Oli', required=True,)
 	keterangan = fields.Text('Keterangan')
@@ -61,7 +62,7 @@ class hm_op_alat(models.Model):
 	def calculate_jam_kerja(self):
 		total_jam_kerja = 0
 		if self.tanggal and self.jam_kerja_start and self.jam_kerja_end and self.istirahat_start and self.istirahat_end:
-			tgl = datetime.strptime(self.tanggal, DEFAULT_SERVER_DATETIME_FORMAT)
+			tgl = datetime.strptime(self.tanggal + " 00:00:00", DEFAULT_SERVER_DATETIME_FORMAT)
 			
 			jam_awal_str = self.jam_kerja_start
 			jam_awal_str = jam_awal_str.split(':')
@@ -86,24 +87,26 @@ class hm_op_alat(models.Model):
 			# print jam_kerja_siang
 			total_jam_kerja = jam_kerja_pagi + jam_kerja_siang
 			# print total_jam_kerja
-			print('totalnya dalam : ' + str(total_jam_kerja))	
+			# print('totalnya dalam : ' + str(total_jam_kerja))	
 			self.total_jam_kerja = total_jam_kerja
-		print('totalnya luar : ' + str(total_jam_kerja))	
+			self.total_jam_kerja_in_num = total_jam_kerja.total_seconds()/3600
+			# print 'total minutes : ' + str(total_jam_kerja.total_seconds()/3600)
+		# print('totalnya luar : ' + str(total_jam_kerja))	
 		return total_jam_kerja
 
 
-	@api.onchange('jam_kerja_start')
-	def jam_kerja_start_change(self):
-		self.calculate_jam_kerja()
+	# @api.onchange('jam_kerja_start')
+	# def jam_kerja_start_change(self):
+	# 	self.calculate_jam_kerja()
 
-	@api.onchange('jam_kerja_end')
-	def jam_kerja_end_change(self):
-		self.calculate_jam_kerja()
+	# @api.onchange('jam_kerja_end')
+	# def jam_kerja_end_change(self):
+	# 	self.calculate_jam_kerja()
 
-	@api.onchange('istirahat_start')
-	def istirahat_start_change(self):
-		self.calculate_jam_kerja()
+	# @api.onchange('istirahat_start')
+	# def istirahat_start_change(self):
+	# 	self.calculate_jam_kerja()
 
-	@api.onchange('istirahat_end')
-	def istirahat_end_change(self):
-		self.calculate_jam_kerja()
+	# @api.onchange('istirahat_end')
+	# def istirahat_end_change(self):
+	# 	self.calculate_jam_kerja()

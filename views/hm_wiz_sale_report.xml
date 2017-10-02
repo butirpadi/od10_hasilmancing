@@ -13,6 +13,9 @@
         <template id="hm_sale_order_report_template">
             <div class="header" >
                 <style>
+                    table.no-border tr, table.no-border tr td{
+                        border : none;
+                    }
                     table.table.rpt-table-header, table.table.rpt-table-header tr, table.table.rpt-table-header tr td {
                         border: none;
                     }
@@ -20,11 +23,15 @@
                         padding-top:0;
                         padding-bottom:0;
                     }
+                    table.slim tr, table.slim tr td{
+                        padding:0;
+                        margin:0;
+                    }
                 </style>
                 <t t-foreach="docs" t-as="o">
                     <!-- <div class="row" >
                         <div class="col-xs-2 rpt_header text-center" >
-                            <img  class="img img-responsive" src="/udhasman/static/description/logo.png"/>
+                            <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png"/>
                         </div>
                         <div class="col-xs-10 rpt_header" > 
                             <h4>REKAPITULASI DATA PENGIRIMAN MATERIAL</h4>
@@ -35,7 +42,7 @@
 
                     <!-- <div class="row" >
                         <div class="col-xs-3" style="vertical-align:middle;" >
-                            <img  class="img img-responsive" src="/udhasman/static/description/logo.png"/>
+                            <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png"/>
                         </div>
                         <div class="col-xs-9" >
                             <h4 style="font-weight:bold;margin-left:5px;" >REKAPITULASI DATA PENGIRIMAN MATERIAL</h4>
@@ -244,12 +251,12 @@
 
                     <div class="row" >
                         <div class="col-xs-3" style="vertical-align:middle;" >
-                            <img  class="img img-responsive" src="/udhasman/static/description/logo.png"/>
+                            <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png"/>
                         </div>
                         <div class="col-xs-9" >
                             <h4 style="font-weight:bold;margin-left:5px;" >REKAPITULASI DATA PENGIRIMAN MATERIAL</h4>
 
-                            <table class="table rpt-table-header table-condensed no-border" >
+                            <table class="table rpt-table-header table-condensed no-border slim" >
                                 <tbody>
                                     <tr>
                                         <td class="col-xs-2" >
@@ -321,7 +328,7 @@
                                             <label>Kalkulasi</label>    
                                         </td>
                                         <td style="width:5px;" >:</td>
-                                        <td>
+                                        <td style="text-transform: capitalize;" >
                                             <t t-esc="o.kalkulasi" />
                                             <t t-if="not o.kalkulasi">
                                                 -
@@ -353,34 +360,33 @@
                                     <th>Lokasi Galian</th>
                                 </t>
                                 <t t-if="not o.product_id">
-                                    <th>Materials</th>
+                                    <th>Material</th>
                                 </t>
                                 <t t-if="not o.karyawan_id">
-                                    <th>Driver</th>
-                                    <th>Nopol</th>
+                                    <th>Driver/Nopol</th>
                                 </t>
                                 <t t-if="not o.kalkulasi">
                                     <th>Kalkulasi</th>
-                                    <th>Qty</th>
-                                    <th>Vol</th>
-                                    <th>Net</th>
+                                    <th class="text-right">Qty</th>
+                                    <th class="text-right">Vol</th>
+                                    <th class="text-right">Net</th>
                                 </t>
                                 <t t-if="o.kalkulasi=='tonase'">
-                                    <th>Gross</th>
-                                    <th>Tare</th>
-                                    <th>Netto</th>
+                                    <th class="text-right">Gross</th>
+                                    <th class="text-right">Tare</th>
+                                    <th class="text-right">Netto</th>
                                 </t>
                                 <t t-if="o.kalkulasi=='kubikasi'">
-                                    <th>P</th>
-                                    <th>L</th>
-                                    <th>T</th>
-                                    <th>Vol</th>
+                                    <th class="text-right" >P</th>
+                                    <th class="text-right">L</th>
+                                    <th class="text-right">T</th>
+                                    <th class="text-right" >Vol</th>
                                 </t>
                                 <t t-if="o.kalkulasi=='ritase'">
-                                    <th>Qty</th>
+                                    <th class="text-right" >Qty</th>
                                 </t>
-                                <th>Harga</th>
-                                <th>Total</th>
+                                <th class="text-right" >Harga</th>
+                                <th class="text-right" >Jumlah</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -420,8 +426,7 @@
                                     <t t-if="not o.karyawan_id">
                                         <td>
                                             <span t-field="mat.karyawan_id" />
-                                        </td>
-                                        <td>
+                                            /
                                             <span t-field="mat.armada_id" />
                                         </td>
                                     </t>
@@ -492,7 +497,7 @@
                                     </td>
                                 </tr>
                             </t>
-                            <tr>
+                            <!-- <tr>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -509,10 +514,7 @@
                                     <td></td>
                                 </t>
                                 <t t-if="not o.karyawan_id">
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
+                                    <td></td>
                                 </t>
                                 <t t-if="not o.kalkulasi">
                                     <td></td>
@@ -538,21 +540,28 @@
                                 <td class="text-right" >
                                      <strong t-esc="'{0:,.2f}'.format(float(o.grand_total))" />
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
-                    <table class="col-xs-12" >
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <label>TOTAL</label>
-                                </td>
-                                <td>
-                                    <strong t-esc="'{0:,.2f}'.format(float(o.grand_total))" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    
+                    <div class="col-xs-4 pull-right" >
+                        <table class="table" style="font-size:1.5em;" >
+                            <tbody>
+                                <tr class="border-black" >
+                                    <td>
+                                        <label>TOTAL</label>
+                                    </td>
+                                    <td class="text-right" >
+                                        <strong t-esc="'{0:,.2f}'.format(float(o.grand_total))" />
+                                    </td>
+                                </tr>
+                                <tr class="border-black" >
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </t>
             </div>
             <div class="footer">

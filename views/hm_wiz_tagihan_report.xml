@@ -24,7 +24,7 @@
                 <t t-foreach="docs" t-as="o">
                     <!-- <div class="row" >
                         <div class="col-xs-2 rpt_header text-center" >
-                            <img  class="img img-responsive" src="/udhasman/static/description/logo.png"/>
+                            <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png"/>
                         </div>
                         <div class="col-xs-10 rpt_header" > 
                             <h4>RINCIAN TAGIHAN MATERIAL</h4>
@@ -87,7 +87,7 @@
                 <t t-foreach="docs" t-as="o">
                     <div class="row" >
                         <div class="col-xs-3" style="vertical-align:middle;" >
-                            <img  class="img img-responsive" src="/udhasman/static/description/logo.png"/>
+                            <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png"/>
                         </div>
                         <div class="col-xs-9" >
                             <h4 style="font-weight:bold;margin-left:5px;" >RINCIAN TAGIHAN MATERIAL</h4>
@@ -228,6 +228,7 @@
                             </thead>
                             <tbody>
                                 <t t-set="row_idx" t-value="1" />
+                                <t t-set="tot_vol" t-value="0" />
                                 <t t-foreach="o.order_ids.sorted(key=lambda b: (b.tanggal,b.name))" t-as="so">  
                                     <t t-if="so.kalkulasi=='kubikasi'">
                                         <tr>
@@ -258,6 +259,7 @@
                                                 </td>
                                                 <td class="text-right" >
                                                     <t t-esc="'{0:.2f}'.format(float(so.volume))" />
+                                                    <t t-set="tot_vol" t-value="tot_vol + so.volume" />
                                                 </td>
                                             <td class="text-right" >
                                                  <t t-esc="'{0:,.2f}'.format(float(so.harga_satuan))" />
@@ -270,8 +272,13 @@
                                 </t>
                                 <!-- FOOTER TABLE -->
                                 <tr>
-                                    <td colspan="8" ></td>
+                                    <td colspan="6" >
+                                        <label>TOTAL</label>
+                                    </td>
                                     <td class="text-right" >
+                                        <strong t-esc="'{0:,.2f}'.format(float(tot_vol))" />
+                                    </td>
+                                    <td class="text-right" colspan="2" >
                                         <strong t-esc="'{0:,.2f}'.format(float(o.grand_total))" />
                                     </td>
                                 </tr>
@@ -341,7 +348,9 @@
                                 </t>
                                 <!-- FOOTER TABLE -->
                                 <tr>
-                                    <td colspan="7" ></td>
+                                    <td colspan="7" >
+                                        <label>TOTAL</label>
+                                    </td>
                                     <td class="text-right" >
                                         <strong t-esc="'{0:,.2f}'.format(float(o.grand_total))" />
                                     </td>
@@ -401,7 +410,9 @@
                                 </t>
                                 <!-- FOOTER TABLE -->
                                 <tr>
-                                    <td colspan="5" ></td>
+                                    <td colspan="5" >
+                                        <label>TOTAL</label>
+                                    </td>
                                     <td class="text-right" >
                                         <strong t-esc="'{0:,.2f}'.format(float(o.grand_total))" />
                                     </td>

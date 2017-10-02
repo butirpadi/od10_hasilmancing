@@ -32,9 +32,10 @@ class hm_payroll_staff(models.Model):
 	def _get_default_catatan(self):
 		catatan = self.env['hm_appkonfig'].search([('name','=','catatan_pay_slip')])
 
-	@api.depends('gaji_per_shift', 'total_kehadiran')
-	def depends_gaji_dan_kehadiran(self):
+	@api.onchange('gaji_per_shift', 'total_kehadiran')
+	def onchange_gaji_dan_kehadiran(self):
 		self.total = self.total_kehadiran * self.gaji_per_shift
+		self._compute_nett()
 
 	@api.depends('total','potongan_bon','sisa_bayaran_kemarin','downpayment', 'gaji_per_shift', 'total_kehadiran')
 	def _compute_nett(self):
@@ -50,6 +51,26 @@ class hm_payroll_staff(models.Model):
 	
 		result = super(hm_payroll_staff, self).create(vals)
 		return result
+
+	@api.multi
+	def write(self,vals):
+		if vals.has_key('total_kehadiran'): 
+			total_kehadiran = vals['total_kehadiran']
+		else:
+			total_kehadiran = self.total_kehadiran
+
+		if vals.has_key('gaji_per_shift'): 
+			gaji_per_shift = vals['gaji_per_shift']
+		else:
+			gaji_per_shift = self.gaji_per_shift
+
+		total = gaji_per_shift * total_kehadiran
+
+		vals.update({
+			'total' : total,
+			'nett' :  total - self.potongan_bon + self.sisa_bayaran_kemarin + self.downpayment,
+		})
+		return super(hm_payroll_staff,self).write(vals)
 
 	def show_presensi(self):
 		if not self.is_generated:

@@ -6,7 +6,7 @@
 	      <field name="name">Rekap Presensi</field>
 	      <field name="res_model">hm_presensi_karyawan_rel</field>
 	      <field name="view_mode">tree</field>
-	      <field name="context">{'group_by':['tanggal_org','karyawan_id']}</field>
+	      <field name="context">{'group_by':['tanggal_org','tanggal_org:day']}</field>
 	      <!-- <field name="domain">[('partner_id.customer','=',1)]</field> -->
 	    </record>
 

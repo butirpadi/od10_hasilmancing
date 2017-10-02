@@ -71,7 +71,7 @@
                 <t t-foreach="docs" t-as="o">
                     <div class="row" >
                         <div class="col-xs-3" style="vertical-align:middle;" >
-                            <img  class="img img-responsive" src="/udhasman/static/description/logo.png"/>
+                            <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png"/>
                         </div>
                         <div class="col-xs-9" >
                             <h3 style="font-weight:bold;margin-left:5px;" >JURNAL KAS</h3>

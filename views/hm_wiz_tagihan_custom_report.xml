@@ -15,7 +15,7 @@
                 <t t-foreach="docs" t-as="o">
                     <div class="row" >
                         <div class="col-xs-2 rpt_header text-center" >
-                            <img  class="img img-responsive" src="/udhasman/static/description/logo.png"/>
+                            <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png"/>
                         </div>
                         <div class="col-xs-10 rpt_header" > 
                             <h4>RINCIAN TAGIHAN MATERIAL</h4>

@@ -1,10 +1,10 @@
 <odoo>
     <data>        
 
-        <report id="payroll_driver_report" model="hm_payroll_driver" string="Report Slip Gaji" report_type="qweb-pdf" name="hasilmancing.pay_slip_report_template" menu="True"/>
+        <report id="payroll_staff_report" model="hm_payroll_staff" string="Report Slip Gaji" report_type="qweb-pdf" name="hasilmancing.staff_pay_slip_report_template" menu="True" paperformat="paperformat_slip_gaji"/>
 
 
-        <template id="pay_slip_report_template">
+        <template id="staff_pay_slip_report_template">
             <div class="page" style="font-family:Roman;" >
                 <style>
                     table.no-border tr, table.no-border tr td{
@@ -67,17 +67,10 @@
                             <table class="table no-border slim" >
                                 <tbody>
                                     <tr>
-                                        <td><b>Driver</b></td>
+                                        <td><b>Staff</b></td>
                                         <td><b>:</b></td>
                                         <td>
                                             <t t-esc="o.karyawan_id.name" />                                      
-                                        </td>                                        
-                                    </tr>
-                                    <tr>
-                                        <td><b>Armada</b></td>
-                                        <td><b>:</b></td>
-                                        <td>
-                                            <span t-field="o.karyawan_id.armada_id.name" />                              
                                         </td>                                        
                                     </tr>
                                 </tbody>
@@ -89,43 +82,45 @@
                             <table class="table table-condensed" >
                                 <thead>
                                     <tr>
-                                        <th class="" >Material</th>
-                                        <th class="" >Tujuan</th>
-                                        <th class="text-right" >Vol</th>
-                                        <th class="text-right" >Nett</th>
-                                        <th class="text-right" >Rit</th>
-                                        <th class="text-right" >Harga</th>
+                                        <th class="" >Tanggal</th>
+                                        <th class="text-center" >Pagi</th>
+                                        <th class="text-center" >Siang</th>
+                                        <th class="text-right" >Gaji/Shift</th>
                                         <th class="text-right" >Jumlah</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <t t-foreach="o.material_rel_ids" t-as="mat">
+                                    <t t-foreach="o.payroll_presensi_rel_ids" t-as="pre">
                                         <tr>
                                             <td>
-                                                <span t-field="mat.material_id" />
+                                                <span t-field="pre.tanggal" />
                                             </td>
-                                            <td>
-                                                <span t-field="mat.pekerjaan_id" />
+                                            <td class="text-center" >
+                                                <t t-if="pre.pagi">
+                                                    &#10003;
+                                                </t>
+                                                <t t-if="not pre.pagi">
+                                                    -
+                                                </t>
+                                            </td>
+                                            <td class="text-center" >
+                                                <t t-if="pre.siang">
+                                                    &#10003;
+                                                </t>
+                                                <t t-if="not pre.siang">
+                                                    -
+                                                </t>
                                             </td>
                                             <td class="text-right" >
-                                                <span t-esc="'%.2f'%(mat.vol)" />
+                                                <span t-esc="'{0:,.2f}'.format(o.gaji_per_shift)" />
                                             </td>
                                             <td class="text-right" >
-                                                <span t-esc="'%.2f'%(mat.netto)" />
-                                            </td>
-                                            <td class="text-right" >
-                                                <span t-esc="'%.2f'%(mat.rit)" />
-                                            </td>
-                                            <td class="text-right" >
-                                                <span t-esc="'{0:,.2f}'.format(mat.harga)" />
-                                            </td>
-                                            <td class="text-right" >
-                                                <span t-esc="'{0:,.2f}'.format(mat.jumlah)" />
-                                            </td>
+                                                <span t-esc="'{0:,.2f}'.format(o.gaji_per_shift * (pre.pagi + pre.siang))" />
+                                            </td>                                            
                                         </tr>
                                     </t>     
                                     <tr class="border-black" >
-                                        <td colspan="6">
+                                        <td colspan="4">
                                             Sisa Bayaran Kemarin
                                         </td>
                                         <td class="text-right">
@@ -133,7 +128,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="6">
+                                        <td colspan="4">
                                             DP
                                         </td>
                                         <td class="text-right">
@@ -152,15 +147,7 @@
                                         <th class="text-right">Jumlah</th>
                                     </tr>
                                 </thead>
-                                <tbody>                                    
-                                    <tr>
-                                        <td  class="" style=""  >
-                                            Potongan Bahan
-                                        </td>
-                                        <td class="text-right">
-                                            <span t-esc="'{0:,.2f}'.format(o.potongan_bahan)" />
-                                        </td>
-                                    </tr>
+                                <tbody>  
                                     <tr>
                                         <td  class="" style=""  >
                                             Potongan Bon
@@ -195,7 +182,7 @@
                                             <i><label>Total Potongan</label></i>
                                         </td>
                                         <td class="text-right" >
-                                            <i><span t-esc="'{0:,.2f}'.format(o.potongan_bahan + o.potongan_bon )" /></i>
+                                            <i><span t-esc="'{0:,.2f}'.format(o.potongan_bon )" /></i>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -209,7 +196,7 @@
                         <div class="col-xs-8" >
                             <i>Catatan:
                                 <br/>
-                                <span t-raw="_get_catatan_slip_gaji()" />
+                                <!-- <span t-raw="_get_catatan_slip_gaji()" /> -->
                             </i>
                         </div>
 
@@ -223,6 +210,10 @@
                                         <td class="text-right" >
                                             <span t-esc="'{0:,.2f}'.format(o.nett)" />
                                         </td>
+                                    </tr>
+                                    <tr class="border-black" >
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>

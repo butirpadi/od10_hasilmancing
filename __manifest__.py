@@ -6,12 +6,7 @@
         Aplikasi UD Hasil Mancing""",
 
     'description': """
-        Aplikasi UD Hasil Mancing
-        <br/>Pembelian
-        <br/>Penjualan
-        <br/>Pengiriman
-        <br/>Keuangan
-        <br/>Kepegawaian
+        Aplikasi UD Hasil Mancing meliputi Pembelian, Penjualan, Pengiriman, Keuangan, Kepegawaian
     """,
 
     'author': "butirpadi",
@@ -69,16 +64,18 @@
         'views/hm_finance_jurnal_kas_views.xml',
         'views/hm_report_jurnal.xml',
         'views/hm_wiz_jurnal_view.xml',
-        'views/hm_wiz_report_operasional_alat.xml',
 
         'views/hm_pay_week_view.xml',
         'views/hm_setting_view.xml',
         'views/hm_generate_pay_week.xml',
         'views/hm_generate_pay_driver_view.xml',
         
-        'views/hm_payroll_staff_view.xml',
-        
+        'views/hm_report_payroll_staff.xml',
+        'views/hm_payroll_staff_view.xml',        
         'views/hm_generate_payroll_staff_view.xml',
+
+        'views/hm_report_op_alat.xml',
+        'views/hm_wiz_report_operasional_alat.xml',
         
         'views/hm_ir_sequence_data.xml',
         'views/menu.xml',

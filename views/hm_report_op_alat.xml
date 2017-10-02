@@ -1,0 +1,222 @@
+<odoo>
+    <data>        
+
+        <report id="hm_op_alat_report" model="hm_wiz_report_alat" string="Report Operational Alat" report_type="qweb-pdf" name="hasilmancing.hm_operational_alat_report_template" menu="True" paperformat="paperformat_sale_order"/>
+
+
+        <template id="hm_operational_alat_report_template">
+            <div class="header" >
+                <style>
+                    table.no-border tr, table.no-border tr td{
+                        border : none;
+                    }
+                    table.table.rpt-table-header, table.table.rpt-table-header tr, table.table.rpt-table-header tr td {
+                        border: none;
+                    }
+                    table.table.rpt-table-header tr td{
+                        padding-top:0;
+                        padding-bottom:0;
+                    }
+                    table.slim tr, table.slim tr td{
+                        padding:0;
+                        margin:0;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="o">
+
+                </t>
+            </div>
+            <div class="page">
+                <style>
+                    div.rpt_header label, div.rpt_header p, div.rpt_header h3{
+                        margin:0;
+                        padding:0;
+                    }
+                    div.rpt_header h3{
+                        font-weight:bold;
+                    }
+
+                    .div-round{
+                        border:solid thin darkgrey;
+                        border-radius: 5px;
+                        padding-top:5px;
+                        padding-bottom:5px;
+                        height:125px;
+                    }
+                    .div-round p{
+                        margin: 0;
+                        padding 0;
+                    }
+                    .div-round table{
+                        margin:0;
+                    }
+
+                    table.table.table-bordered, table.table.table-bordered tr th, table.table.table-bordered tr, table.table.table-bordered tr td{
+                        border-color: darkgrey;
+                    }
+
+                    table.table.rpt-table, table.table.rpt-table tr, table.table.rpt-table tr td {
+                        border: none;
+                        border-bottom: solid thin darkgrey;
+                        border-top: solid thin darkgrey;
+                    }
+
+                    table.table.rpt-table-header, table.table.rpt-table-header tr, table.table.rpt-table-header tr td {
+                        border: none;
+                    }
+                    table.table.rpt-table-header tr td{
+                        padding-top:0;
+                        padding-bottom:0;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="o">
+                    <div class="row" >
+                        <div class="col-xs-3" style="vertical-align:middle;" >
+                            <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png" style="width:90%;"/>
+                        </div>
+                        <div class="col-xs-9" >
+                            <h4 style="font-weight:bold;margin-left:5px;" >REKAPITULASI DATA OPERATIONAL ALAT BERAT</h4>
+
+                            <table class="table rpt-table-header table-condensed no-border slim" >
+                                <tbody>
+                                    <tr>
+                                        <td class="col-xs-2" >
+                                            <label>Periode</label>
+                                        </td>
+                                        <td style="width:5px;" >:</td>
+                                        <td class="col-xs-4" >
+                                            <span t-field="o.tanggal_awal" /> - <span t-field="o.tanggal_akhir" />
+                                        </td>
+                                        <td class="col-xs-2" >
+                                            <label>Lokasi Galian</label>
+                                        </td>
+                                        <td style="width:5px;" >:</td>
+                                        <td class="col-xs-4" >
+                                            <t t-esc="o.galian_id.name" />
+                                            <t t-if="not o.galian_id">
+                                                -
+                                            </t>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-xs-2" >
+                                            <label>Alat Berat</label>
+                                        </td>
+                                        <td style="width:5px;" >:</td>
+                                        <td class="col-xs-4" >
+                                            <t t-esc="o.alat_berat_id.name" />
+                                            <t t-if="not o.alat_berat_id">
+                                                -
+                                            </t>
+                                        </td>
+                                        <td class="col-xs-1" >
+                                            
+                                        </td>
+                                        <td style="width:5px;" ></td>
+                                        <td>
+                                            
+                                        </td>
+                                    </tr>                              
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    
+                    <table class="table table-bordered table-condensed">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Tanggal</th>
+                                <th>Ref#</th>
+                                <t t-if="not o.alat_berat_id">
+                                    <th>Alat Berat</th>
+                                </t>
+                                <t t-if="not o.galian_id">
+                                    <th>Lokasi Galian</th>
+                                </t>
+                                <th >Pengawas</th>
+                                <th >Operator</th>
+                                <th class="text-right" >Jam Kerja (Jam)</th>
+                                <th class="text-right" >Solar</th>
+                                <th class="text-right" >Oli</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="sum_jam_kerja" t-value="0" />
+                            <t t-set="sum_solar" t-value="0" />
+                            <t t-set="sum_oli" t-value="0" />
+                            <t t-set="row_idx" t-value="1" />
+                            <t t-foreach="o.op_alat_ids.sorted(key=lambda b: (b.tanggal))" t-as="dt">  
+                                <tr>
+                                    <td class="text-center" >
+                                        <t t-esc="row_idx" />
+                                        <t t-set="row_idx" t-value="row_idx + 1" />
+                                    </td>
+                                    <td>
+                                        <span t-field="dt.tanggal" />
+                                    </td>
+                                    <td>
+                                        <span t-field="dt.name" />
+                                    </td>
+                                    <t t-if="not o.alat_berat_id">
+                                        <td>
+                                            <span t-field="dt.alat_berat_id" />
+                                        </td>
+                                    </t>
+                                    <t t-if="not o.galian_id">
+                                        <td>
+                                            <span t-field="dt.lokasi_galian_id" />
+                                        </td>
+                                    </t>
+                                    <td>
+                                        <span t-field="dt.pengawas_id" />
+                                    </td>
+                                    <td>
+                                        <span t-field="dt.operator_id" />
+                                    </td>
+                                    <td class="text-right" >
+                                         <t t-esc="'{0:,.2f}'.format(float(dt.total_jam_kerja_in_num))" />
+                                         <t t-set="sum_jam_kerja" t-value="sum_jam_kerja + dt.total_jam_kerja_in_num" />
+                                    </td>
+                                    <td class="text-right" >
+                                         <t t-esc="'{0:,.2f}'.format(float(dt.solar))" />
+                                         <t t-set="sum_solar" t-value="sum_solar + dt.solar" />
+                                    </td>
+                                    <td class="text-right" >
+                                        <t t-esc="'{0:,.2f}'.format(float(dt.oli))" />
+                                        <t t-set="sum_oli" t-value="sum_oli + dt.oli" />
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <t t-if="o.alat_berat_id and o.galian_id">
+                                    <td colspan="5" class="text-center" ><b>TOTAL</b></td>
+                                </t>
+                                <t t-if="o.alat_berat_id and (not o.galian_id)">
+                                    <td colspan="6" class="text-center" ><b>TOTAL</b></td>
+                                </t>
+                                <t t-if="o.galian_id and (not o.alat_berat_id)">
+                                    <td colspan="6" class="text-center" ><b>TOTAL</b></td>
+                                </t>
+                                <t t-if="not o.galian_id and not o.alat_berat_id">
+                                    <td colspan="7" class="text-center" ><b>TOTAL</b></td>
+                                </t>
+                                <td class="text-right" >
+                                    <b><t t-esc="'{0:,.2f}'.format(float(sum_jam_kerja))" /></b>
+                                </td>
+                                <td class="text-right" >
+                                    <b><t t-esc="'{0:,.2f}'.format(float(sum_solar))" /></b>
+                                </td>
+                                <td class="text-right" >
+                                    <b><t t-esc="'{0:,.2f}'.format(float(sum_oli))" /></b>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </div>
+            
+        </template>
+    </data>
+</odoo>

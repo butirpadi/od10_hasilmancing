@@ -29,7 +29,7 @@
 	        <form string="payroll form" create="false" delete="false">
 	        	<header>
 	        		<button name="direct_print_slip_gaji" type="object" string="Print Slip Gaji" attrs="{'invisible': [('is_generated','=',False)]}" />
-	        		<button name="direct_print_slip_gaji" type="object" string="Print PDF" attrs="{'invisible': [('is_generated','=',False)]}" />
+	        		<button name="%(payroll_staff_report)d" string="Print PDF" type="action" class="btn" />
 	        		<button name="set_as_paid" type="object" string="Set as Paid" attrs="{'invisible': [('state','=','draft')]}" />
         			<field name="state" widget="statusbar" statusbar_visible="draft,open,done" />
 	        	</header>

@@ -22,6 +22,7 @@ class hm_payroll_driver(models.Model):
 	nett = fields.Float(compute='_compute_nett', string='Nett', store=True)
 	notes = fields.Text('Catatan')
 	is_generated = fields.Boolean('is generated', default=False )
+	catatan_slip_gaji = fields.Text(compute="_compute_get_catatan_gaji", string="Catatan Slip Gaji", store=True)
 	# pay_week_id = fields.Many2one('hm_pay_week')
 	# bulan = fields.Selection([ 
 				# (0,'JANUARI'),
@@ -46,12 +47,18 @@ class hm_payroll_driver(models.Model):
 
 	state = fields.Selection([('draft', 'Draft'),('open', 'Open'),('done', 'Paid')], default='draft')  
 
+	@api.depends('is_generated')
+	def _compute_get_catatan_gaji(self):
+		hmset = self.env['hm_setting'].search([('id','=',1)])
+		for hmpay in self:
+			hmpay.catatan_slip_gaji = hmset.catatan_slip_gaji
+
 	def direct_print_slip_gaji(self):
 		print 'direct print slip gaji'
 
 	# get default catatan
-	def _get_default_catatan(self):
-		catatan = self.env['hm_appkonfig'].search([('name','=','catatan_pay_slip')])
+	# def _get_default_catatan(self):
+	# 	catatan = self.env['hm_appkonfig'].search([('name','=','catatan_pay_slip')])
 
 	# @api.onchange('tahun'):
 	# def tahun_bulan_change(self):

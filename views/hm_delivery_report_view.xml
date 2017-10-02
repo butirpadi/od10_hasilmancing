@@ -37,7 +37,7 @@
                 <t t-foreach="docs" t-as="o">
                     <div class="row" >
                         <div class="col-xs-2 rpt_header" >
-                            <img  class="img img-responsive" src="/udhasman/static/description/logo.png"/>
+                            <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png"/>
                         </div>
                         <div class="col-xs-4 rpt_header" > 
                             <label><p t-field="o.env.user.company_id.name" /></label>
@@ -253,7 +253,7 @@
                 <t t-foreach="docs" t-as="o">
                     <div class="row" >
                         <div class="col-xs-2 rpt_header" >
-                            <img  class="img img-responsive" src="/udhasman/static/description/logo.png"/>
+                            <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png"/>
                         </div>
                         <div class="col-xs-4 rpt_header" > 
                             <label><p t-field="o.env.user.company_id.name" /></label>
@@ -457,7 +457,7 @@
                     
                     <div class="row">
                         <div class="col-xs-2 rpt_header" >
-                            <img  class="img img-responsive" src="/udhasman/static/description/logo.png"/>
+                            <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png"/>
                         </div>
                         <div class="col-xs-4 rpt_header" > 
                             <label><p t-field="o.env.user.company_id.name" /></label>
