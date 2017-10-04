@@ -49,6 +49,8 @@
                 <!-- <menuitem name="Staff" id="hm_menu_presensi_payroll_staff" parent="hm_menu_presensi_payroll" action="hasilmancing.hm_action_presensi" sequence="58"  /> -->
             <menuitem name="Reports" id="hm_menu_report_operational" parent="hm_menu_root_operational" sequence="59" />
                 <menuitem name="Operasional Alat Berat" id="hm_menu_report_alat_berat" parent="hm_menu_report_operational" action="hasilmancing.hm_wiz_operasional_alat_action" sequence="58"  />
+                <menuitem name="Presensi Karyawan" id="hm_menu_report_presensi_karyawan" parent="hm_menu_report_operational" action="hasilmancing.hm_wiz_presensi_act_view" sequence="59"  />
+                <menuitem name="Gaji Driver" id="hm_menu_report_gaji_driver" parent="hm_menu_report_operational" action="hasilmancing.hm_wiz_gaji_act_view" sequence="59"  />
 
 
             <menuitem name="Admin" id="hm_menu_operational_admin" parent="hm_menu_root_operational" sequence="80" />

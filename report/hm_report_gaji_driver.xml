@@ -1,0 +1,214 @@
+<openerp>
+	<data>
+		<!-- REPORT SHIPPING -->
+        <report 
+            id="hm_report_gaji_driver_report" 
+            model="hm_wiz_gaji_driver" 
+            string="Report gaji_driver Karyawan" 
+            report_type="qweb-pdf" 
+            name="hasilmancing.hm_report_gaji_driver_template" 
+            paperformat="paperformat_tagihan"
+            />
+
+        <template id="hm_report_gaji_driver_template">\
+            <div class="page">
+                <style>
+                    div.rpt_header label, div.rpt_header p, div.rpt_header h3{
+                        margin:0;
+                        padding:0;
+                    }
+                    div.rpt_header h3{
+                        font-weight:bold;
+                    }
+
+                    .div-round{
+                        border:solid thin darkgrey;
+                        border-radius: 5px;
+                        padding-top:5px;
+                        padding-bottom:5px;
+                        height:125px;
+                    }
+                    .div-round p{
+                        margin: 0;
+                        padding 0;
+                    }
+                    .div-round table{
+                        margin:0;
+                    }
+
+                    table.table.table-bordered, table.table.table-bordered tr th, table.table.table-bordered tr, table.table.table-bordered tr td{
+                        border-color: darkgrey;
+                    }
+
+                    table.table.rpt-table, table.table.rpt-table tr, table.table.rpt-table tr td {
+                        border: none;
+                        border-bottom: solid thin darkgrey;
+                        border-top: solid thin darkgrey;
+                    }
+
+                    table.table.rpt-table-header, table.table.rpt-table-header tr, table.table.rpt-table-header tr td {
+                        border: none;
+                    }
+                    table.table.rpt-table-header tr td{
+                        padding-top:0;
+                        padding-bottom:0;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="o">
+                    <div class="row" >
+                        <div class="col-xs-3" style="vertical-align:middle;" >
+                            <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png"/>
+                        </div>
+                        <div class="col-xs-9" >
+                            <h3 style="font-weight:bold;margin-left:5px;" >REPORT GAJI KARYAWAN</h3>
+
+                            <table class="table rpt-table-header table-condensed no-border" >
+                                <tbody>
+                                    <tr>
+                                        <td class="col-xs-2" >
+                                            <label>Periode</label>
+                                        </td>
+                                        <td style="width:5px;" >:</td>
+                                        <td class="col-xs-4" >
+                                            <span t-field="o.tanggal_awal" /> - <span t-field="o.tanggal_akhir" />
+                                        </td>
+                                        <td class="col-xs-2" >
+                                            <label>Driver</label>
+                                        </td>
+                                        <td style="width:5px;" >:</td>
+                                        <td class="col-xs-4" >
+                                            <t t-if="o.karyawan_id">
+                                                <span t-field="o.karyawan_id" />
+                                            </t>
+                                            <t t-if="not o.karyawan_id">
+                                                -
+                                            </t>
+                                        </td>
+                                    </tr>  
+                                    <tr>
+                                        <td>
+                                            <label>Status</label>
+                                        </td>
+                                        <td>:</td>
+                                        <td>
+                                            <t t-if="o.pay_state">
+                                                <span t-field="o.pay_state" />
+                                            </t>
+                                            <t t-if="not o.pay_state">
+                                                -
+                                            </t>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>                             
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Ref#</th>
+                                <th class="text-center">Tanggal</th>
+                                <t t-if="not o.karyawan_id">
+                                    <th >Driver</th>
+                                </t>
+                                <t t-if="not o.pay_state">
+                                    <th class="text-center" >Status</th>
+                                </t>
+                                <th class="text-right" >Nett (Rp)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="sum_nett" t-value="0" />
+                            <t t-foreach="o.payroll_ids.sorted(key=lambda b: (b.tanggal))" t-as="mat">  
+                                <tr>
+                                    <td class="text-center" >
+                                        <span t-field="mat.name" />
+                                    </td>
+                                    <td class="text-center" >
+                                        <span t-field="mat.tanggal" />
+                                    </td>
+                                    <t t-if="not o.karyawan_id">
+                                        <td>
+                                            <span t-field="mat.karyawan_id" />
+                                        </td>
+                                    </t>
+                                    <t t-if="not o.pay_state">
+                                        <td class="text-center" >
+                                            <span t-field="mat.state" />
+                                        </td>
+                                    </t>
+                                    <td class="text-right" >
+                                        <span t-esc="'{0:,.2f}'.format(float(mat.nett))" />
+                                        <t t-set="sum_nett" t-value="sum_nett + mat.nett" />
+                                    </td>            
+                                </tr>
+                            </t>
+                            <tr class="border-black" >
+                                <t t-if="o.karyawan_id and o.pay_state">
+                                    <td colspan="2" class="text-center" >
+                                        <label>TOTAL  </label>
+                                    </td>
+                                </t>
+                                <t t-if="o.karyawan_id and not o.pay_state">
+                                    <td colspan="3" class="text-center" >
+                                        <label>TOTAL  </label>
+                                    </td>
+                                </t>
+                                <t t-if="o.pay_state and not o.karyawan_id">
+                                    <td colspan="3" class="text-center" >
+                                        <label>TOTAL  </label>
+                                    </td>
+                                </t>
+                                <t t-if="not o.karyawan_id and not o.pay_state">
+                                    <td colspan="4" class="text-center" >
+                                        <label>TOTAL  </label>
+                                    </td>
+                                </t>
+                                    
+                                <td class="text-right" >
+                                    <label t-esc="'{0:,.2f}'.format(float(sum_nett))" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    
+                </t>
+            </div>
+            <div class="footer">
+                <t t-foreach="docs" t-as="o">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <small>
+                                <span>Page</span>
+                                <span class="page" />
+                                of
+                                <span class="topage" />
+                            </small>
+                        </div>
+                        <div class="col-xs-4 text-center">
+                            <small>
+                                <i>
+                                    Report Gaji Karyawan
+                                </i>
+                            </small>
+                        </div>
+                        <div class="col-xs-4 text-right">
+                            <small>
+                                <i>
+                                    <t t-esc="o.tanggal_awal" /> / <t t-esc="o.tanggal_akhir"  />
+                                </i>
+                            </small>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </template>
+
+
+	</data>
+</openerp>

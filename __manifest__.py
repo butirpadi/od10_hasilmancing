@@ -76,6 +76,10 @@
 
         'views/hm_report_op_alat.xml',
         'views/hm_wiz_report_operasional_alat.xml',
+        'report/hm_report_presensi.xml',
+        'wizard/hm_wiz_presensi_view.xml',
+        'report/hm_report_gaji_driver.xml',
+        'wizard/hm_wiz_gaji_driver_view.xml',
         
         'views/hm_ir_sequence_data.xml',
         'views/menu.xml',

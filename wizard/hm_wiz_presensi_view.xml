@@ -1,0 +1,65 @@
+<odoo>
+	<data>
+		<!-- Actin View -->
+		<act_window id="hm_wiz_presensi_act_view"
+            name="Report Presensi Karyawan"
+            src_model="hm_presensi_karyawan_rel"
+            res_model="hm_wiz_presensi"
+            view_mode="form"
+            target="inline"
+            key2="client_action_multi"
+            />
+
+        <!-- Form View -->
+        <record id="hm_wiz_presensi_form" model="ir.ui.view">
+			<field name="name">Report Presensi Karyawan</field>
+			<field name="model">hm_wiz_presensi</field>
+			<field name="arch" type="xml">
+				<form>
+						<h1>Report Presensi Karyawan</h1>
+						<group>
+							<group>
+							    <label for="tanggal_awal" string="Periode" />
+							    <div class="address_format">
+									<field name="tanggal_awal" required="1" options="{'no_create': true, 'no_edit': true, 'no_open': true}"/>	
+									<field name="tanggal_akhir" required="1" options="{'no_create': true, 'no_edit': true, 'no_open': true}"/>	
+							    </div>								
+							</group>
+							<group>
+								<field name="karyawan_id"  options="{'no_create': true, 'no_edit': true, 'no_open': true}" domain="[('jabatan','=','STF')]" />	
+								<field name="state"  invisible="1"/>			
+							</group>
+						</group>
+
+						<div class="row" >
+							<div class="col-xs-12 text-center" >
+								<button type="object" name="do_submit_report" string="Submit" class="btn btn-primary"  />
+								<button name="%(hm_report_presensi_report)d" string="Print Report" type="action" class="btn" attrs="{'invisible': [('state','=','draft')]}" style="margin-left:5px;" />
+								
+							</div>
+						</div>
+						<notebook >
+							<page string="Data Presensi Karyawan"  >
+								<field name="presensi_ids" readonly="1" >
+									<tree default_order="tanggal asc" >
+										<field name="name"  />
+										<field name="tanggal" string="Tanggal" />
+									</tree>
+								</field>
+							</page>
+							<page string="Presensi Karyawan">
+								<field name="presensi_rel_ids" readonly="1" >
+									<tree default_order="tanggal asc" >
+										<field name="karyawan_id"  />
+										<field name="tanggal_org" string="Tanggal" />
+										<field name="pagi" />
+										<field name="siang" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+				</form>
+			</field>
+		</record>
+	</data>
+</odoo>

@@ -48,3 +48,5 @@ import hm_wiz_report_alat
 import hm_report_payroll_driver_parser
 
 import hm_wiz_presensi
+import hm_wiz_gaji_driver
+import hm_wiz_gaji_staff

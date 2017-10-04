@@ -78,6 +78,7 @@ class hm_generate_pay_driver(models.Model):
 			for x in drivers:
 				new_payroll_driver = {
 						'karyawan_id' : x.id,
+						'tanggal' : self.pay_day,
 						'periode_awal':self.pay_week_id.awal,
 						'periode_akhir':self.pay_week_id.akhir,
 					}

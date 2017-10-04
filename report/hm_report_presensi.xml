@@ -1,0 +1,247 @@
+<openerp>
+	<data>
+		<!-- REPORT SHIPPING -->
+        <report 
+            id="hm_report_presensi_report" 
+            model="hm_wiz_presensi" 
+            string="Report Presensi Karyawan" 
+            report_type="qweb-pdf" 
+            name="hasilmancing.hm_report_presensi_template" 
+            paperformat="paperformat_tagihan"
+            />
+
+        <template id="hm_report_presensi_template">
+            <div class="header" >
+                <style>
+                    table.table.rpt-table-header, table.table.rpt-table-header tr, table.table.rpt-table-header tr td {
+                        border: none;
+                    }
+                    table.table.rpt-table-header tr td{
+                        padding-top:0;
+                        padding-bottom:0;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="o">
+                    
+                </t>
+            </div>
+            <div class="page">
+                <style>
+                    div.rpt_header label, div.rpt_header p, div.rpt_header h3{
+                        margin:0;
+                        padding:0;
+                    }
+                    div.rpt_header h3{
+                        font-weight:bold;
+                    }
+
+                    .div-round{
+                        border:solid thin darkgrey;
+                        border-radius: 5px;
+                        padding-top:5px;
+                        padding-bottom:5px;
+                        height:125px;
+                    }
+                    .div-round p{
+                        margin: 0;
+                        padding 0;
+                    }
+                    .div-round table{
+                        margin:0;
+                    }
+
+                    table.table.table-bordered, table.table.table-bordered tr th, table.table.table-bordered tr, table.table.table-bordered tr td{
+                        border-color: darkgrey;
+                    }
+
+                    table.table.rpt-table, table.table.rpt-table tr, table.table.rpt-table tr td {
+                        border: none;
+                        border-bottom: solid thin darkgrey;
+                        border-top: solid thin darkgrey;
+                    }
+
+                    table.table.rpt-table-header, table.table.rpt-table-header tr, table.table.rpt-table-header tr td {
+                        border: none;
+                    }
+                    table.table.rpt-table-header tr td{
+                        padding-top:0;
+                        padding-bottom:0;
+                    }
+                </style>
+                <t t-foreach="docs" t-as="o">
+                    <div class="row" >
+                        <div class="col-xs-3" style="vertical-align:middle;" >
+                            <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png"/>
+                        </div>
+                        <div class="col-xs-9" >
+                            <h3 style="font-weight:bold;margin-left:5px;" >REPORT PRESENSI KARYAWAN</h3>
+
+                            <table class="table rpt-table-header table-condensed no-border" >
+                                <tbody>
+                                    <tr>
+                                        <td class="col-xs-2" >
+                                            <label>Periode</label>
+                                        </td>
+                                        <td style="width:5px;" >:</td>
+                                        <td class="col-xs-4" >
+                                            <span t-field="o.tanggal_awal" /> - <span t-field="o.tanggal_akhir" />
+                                        </td>
+                                        <td class="col-xs-2" >
+                                            <label>Karyawan</label>
+                                        </td>
+                                        <td style="width:5px;" >:</td>
+                                        <td class="col-xs-4" >
+                                            <t t-if="o.karyawan_id">
+                                                <span t-field="o.karyawan_id" />
+                                            </t>
+                                            <t t-if="not o.karyawan_id">
+                                                -
+                                            </t>
+                                        </td>
+                                    </tr>                               
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <t t-set="by_tanggal" t-value="[]"/>
+                    
+                    <t t-foreach="o.presensi_ids" t-as="l">
+                        <t t-set="by_tanggal" t-value="by_tanggal+[l.tanggal]"/>
+                    </t>
+
+                    <t t-if="o.karyawan_id">
+                        <table class="table table-bordered table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" >Tanggal</th>
+                                    <th class="text-center" >Pagi</th>
+                                    <th class="text-center" >Siang</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="sum_pagi" t-value="0"/>
+                                <t t-set="sum_siang" t-value="0"/>
+                                <t t-foreach="o.presensi_rel_ids.sorted(key=lambda b: (b.tanggal))" t-as="mat">  
+                                    <t t-foreach="set(by_tanggal)" t-as="tgl">
+                                        <t t-if="mat.tanggal == tgl">
+                                            <tr>
+                                                <td class="text-center" >
+                                                    <span t-field="mat.tanggal" />
+                                                </td>
+                                                <td class="text-center" >
+                                                    <t t-if="mat.pagi">
+                                                        &#10003;
+                                                        <t t-set="sum_pagi" t-value="sum_pagi+1"/>
+                                                    </t>
+                                                    <t t-if="not mat.pagi">
+                                                        -
+                                                    </t>
+                                                </td>
+                                                <td class="text-center" >
+                                                    <t t-if="mat.siang">
+                                                        &#10003;
+                                                        <t t-set="sum_siang" t-value="sum_siang+1"/>
+                                                    </t>
+                                                    <t t-if="not mat.siang">
+                                                        -
+                                                    </t>
+                                                </td>            
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </t>
+                                <tr>
+                                    <td class="text-center" >
+                                        <label>TOTAL</label>
+                                    </td>
+                                    <td class="text-center" >
+                                        <t t-esc="sum_pagi" />
+                                    </td>
+                                    <td class="text-center" >
+                                        <t t-esc="sum_siang" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+
+                    <t t-if="not o.karyawan_id">
+                        <table class="table table-bordered table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Tanggal</th>
+                                    <th>Karyawan</th>
+                                    <th class="text-center" >Pagi</th>
+                                    <th class="text-center" >Siang</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.presensi_ids.sorted(key=lambda b: (b.tanggal))" t-as="mat">  
+                                    <t t-foreach="set(by_tanggal)" t-as="tgl">
+                                        <t t-if="mat.tanggal == tgl">
+                                            <tr>
+                                                <td class="text-center" >
+                                                    <span t-field="mat.tanggal" />
+                                                </td>
+                                                <td>
+                                                    <t t-foreach="mat.karyawan_rel_ids" t-as="kary">
+                                                        <span t-field="kary.karyawan_id" /><br/>
+                                                    </t>
+                                                </td>
+                                                <td class="text-center" >
+                                                    <t t-foreach="mat.karyawan_rel_ids" t-as="kary">
+                                                        <t t-if="kary.pagi">
+                                                            &#10003;
+                                                        </t>
+                                                        <t t-if="not kary.pagi">
+                                                            -
+                                                        </t>
+                                                        <br/>
+                                                    </t>
+                                                </td>
+                                                <td class="text-center" >
+                                                    <t t-foreach="mat.karyawan_rel_ids" t-as="kary">
+                                                        <t t-if="kary.siang">
+                                                            &#10003;
+                                                        </t>
+                                                        <t t-if="not kary.siang">
+                                                            -
+                                                        </t>
+                                                        <br/>
+                                                    </t>
+                                                </td>            
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+                    </t>
+                    
+                    
+                </t>
+            </div>
+            <div class="footer">
+                <t t-foreach="docs" t-as="o">
+                    <div class="row">
+                        <div class="col-xs-12 pull-left">
+                            <small>
+                                <span>Page</span>
+                                <span class="page" />
+                                of
+                                <span class="topage" />
+
+                                <i>
+                                    Report Presensi Karyawan <t t-esc="o.tanggal_awal" /> / <t t-esc="o.tanggal_akhir"  />
+                                </i>
+                            </small>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </template>
+
+
+	</data>
+</openerp>
