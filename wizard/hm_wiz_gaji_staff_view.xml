@@ -1,0 +1,60 @@
+<odoo>
+	<data>
+		<!-- Actin View -->
+		<act_window id="hm_wiz_gaji_staff_act_view"
+            name="Report gaji staff"
+            src_model="hm_payroll_staff"
+            res_model="hm_wiz_gaji_staff"
+            view_mode="form"
+            target="inline"
+            key2="client_action_multi"
+            />
+
+        <!-- Form View -->
+        <record id="hm_wiz_gaji_staff_form" model="ir.ui.view">
+			<field name="name">Report Gaji staff</field>
+			<field name="model">hm_wiz_gaji_staff</field>
+			<field name="arch" type="xml">
+				<form>
+						<h1>Report Gaji staff</h1>
+						<group>
+							<group>
+							    <label for="tanggal_awal" string="Periode" />
+							    <div class="address_format">
+									<field name="tanggal_awal" required="1" options="{'no_create': true, 'no_edit': true, 'no_open': true}"/>	
+									<field name="tanggal_akhir" required="1" options="{'no_create': true, 'no_edit': true, 'no_open': true}"/>	
+							    </div>								
+							</group>
+							<group>
+								<field name="karyawan_id"  options="{'no_create': true, 'no_edit': true, 'no_open': true}" domain="[('jabatan','=','STF')]" string="Staff" />	
+								<field name="pay_state" string="Status" />	
+								<field name="state"  invisible="1"/>			
+							</group>
+						</group>
+
+						<div class="row" >
+							<div class="col-xs-12 text-center" >
+								<button type="object" name="do_submit_report" string="Submit" class="btn btn-primary"  />
+								<button name="%(hm_report_gaji_staff_report)d" string="Print Report" type="action" class="btn" attrs="{'invisible': [('state','=','draft')]}" style="margin-left:5px;" />
+								
+							</div>
+						</div>
+						<notebook >
+							<page string="Data Gaji Staff"  >
+								<field name="payroll_ids" readonly="1" >
+									<tree default_order="tanggal asc" >
+										<field name="name" string="Ref#" />
+										<field name="tanggal"  />
+										<field name="karyawan_id" string="Karyawan" />
+										<field name="periode_awal"  />
+										<field name="periode_akhir"  />
+										<field name="nett"  />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+				</form>
+			</field>
+		</record>
+	</data>
+</odoo>

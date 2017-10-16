@@ -30,7 +30,9 @@
 	        	<header>
 	        		<button name="direct_print_slip_gaji" type="object" string="Print Slip Gaji" attrs="{'invisible': [('is_generated','=',False)]}" />
 	        		<button name="%(payroll_staff_report)d" string="Print PDF" type="action" class="btn" />
-	        		<button name="set_as_paid" type="object" string="Set as Paid" attrs="{'invisible': [('state','=','draft')]}" />
+					<button name="set_as_paid" type="object" string="Set as Paid" attrs="{'invisible': [('state','!=','open')]}" />
+	        		<!-- <button name="set_as_paid" type="object" string="Set as Paid" attrs="{'invisible': [('state','=','draft')]}" /> -->
+					<button name="cancel_paid" type="object" string="Cancel Paid" class="btn btn-danger" attrs="{'invisible': [('state','!=','done')]}" />
         			<field name="state" widget="statusbar" statusbar_visible="draft,open,done" />
 	        	</header>
 	          <sheet>

@@ -80,6 +80,7 @@ class hm_generate_payroll_staff(models.Model):
 						'karyawan_id' : x.id,
 						'periode_awal':self.pay_week_id.awal,
 						'periode_akhir':self.pay_week_id.akhir,
+						'tanggal':self.pay_day,
 					}
 				payroll_staffs.append(new_payroll_staff)
 				# print 'Karyawan id : ' + str(x.id)

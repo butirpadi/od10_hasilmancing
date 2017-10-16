@@ -273,7 +273,7 @@
                     </div>
 
                     
-                    <table class="table table-bordered table-condensed">
+                    <table class="table table-condensed">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -285,6 +285,8 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <t t-set="sum_debet" t-value="0"/>
+                            <t t-set="sum_kredit" t-value="0"/>
                             <t t-set="row_idx" t-value="1" />
                             <t t-foreach="o.data_kas.sorted(key=lambda b: (b.tanggal,b.name))" t-as="mat">  
                                 <tr>
@@ -302,19 +304,32 @@
                                         <span t-field="mat.keterangan" />
                                     </td>
                                     <td class="text-right" >
-                                        <span t-field="mat.debet" />
+                                        <span t-esc="'{0:,.2f}'.format(float(mat.debet))" />
+                                        <t t-set="sum_debet" t-value="sum_debet+mat.debet" />
                                     </td>
                                     <td class="text-right" >
-                                        <span t-field="mat.kredit" />
+                                        <span t-esc="'{0:,.2f}'.format(float(mat.kredit))" />
+                                        <t t-set="sum_kredit" t-value="sum_kredit+mat.kredit" />
                                     </td>                                    
                                 </tr>
                             </t>
-                            <tr>
-                                <td colspan="4" >
+                            <tr class="border-black" >
+                                <td colspan="4">
                                     <label>TOTAL</label>
                                 </td>
+                                <td class="text-right" >
+                                    <label t-esc="'{0:,.2f}'.format(float(sum_debet))" />
+                                </td>
+                                <td class="text-right" >
+                                    <label t-esc="'{0:,.2f}'.format(float(sum_kredit))" />
+                                </td>
+                            </tr>
+                            <tr class="border-black" >
+                                <td colspan="4" >
+                                    <label>SALDO</label>
+                                </td>
                                 <td class="text-right" colspan="2" >
-                                    <label t-field="o.total_saldo" />
+                                    <label t-esc="'{0:,.2f}'.format(float(o.total_saldo))" />
                                 </td>
                             </tr>
                             <!-- <tr>

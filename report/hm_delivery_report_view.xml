@@ -13,7 +13,7 @@
         <report 
             id="hm_delivery_order_slip_copy_report" 
             model="sale.order" 
-            string="Surat Jalan &amp; Copy" 
+            string="Copy Surat Jalan" 
             report_type="qweb-pdf" 
             name="hasilmancing.hm_delivery_slip_copy" 
             paperformat="paperformat_surat_jalan_copy"
@@ -39,13 +39,14 @@
                         <div class="col-xs-2 rpt_header" >
                             <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png"/>
                         </div>
-                        <div class="col-xs-4 rpt_header" > 
-                            <label><p t-field="o.env.user.company_id.name" /></label>
-                            <p t-field="o.env.user.company_id.street" />
-                            <p t-field="o.env.user.company_id.city" />
+                        <div class="col-xs-6 rpt_header" > 
+                            <label t-field="o.env.user.company_id.name" />
+                            <br/>
+                            <span t-field="o.env.user.company_id.street" />
+                            <span t-field="o.env.user.company_id.city" />
                             <p>Telp. <span t-field="o.env.user.company_id.phone" /></p>
                         </div>
-                        <div class="col-xs-6 text-right rpt_header" >
+                        <div class="col-xs-4 text-right rpt_header" >
                             <h3>SURAT JALAN</h3> 
                             <label><p t-field="o.picking_id.name" /></label>
                         </div>
@@ -89,11 +90,14 @@
                         border-bottom: solid thin darkgrey;
                         border-top: solid thin darkgrey;
                     }
+                    table.table.no-border, table.table.no-border tr, table.table.no-border tr td {
+                        border: none;
+                    }
                 </style>
                 <t t-foreach="docs" t-as="o">
                     <div class="row row-first-page" >
                         <div class="col-xs-5" >
-                            <table class="table rpt-table table-condensed" >
+                            <table class="table table-condensed no-border" >
                                 <tbody>
                                     <tr>
                                         <td>
@@ -102,27 +106,11 @@
                                         <td>:</td>
                                         <td>
                                             <span t-field="o.partner_id" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label>Pekerjaan</label>
-                                        </td>
-                                        <td>:</td>
-                                        <td>
-                                            <span t-field="o.pekerjaan_id" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label>Alamat</label>
-                                        </td>
-                                        <td>:</td>
-                                        <td>
-                                            <span t-field="o.pekerjaan_id.alamat" />
-                                            <span t-field="o.pekerjaan_id.kecamatan_id" />
-                                            <span t-field="o.pekerjaan_id.kabupaten_id" />
-                                            <span t-field="o.pekerjaan_id.provinsi_id" />
+                                            <p t-field="o.pekerjaan_id" />
+                                            <p t-field="o.pekerjaan_id.alamat" />
+                                            <p t-field="o.pekerjaan_id.kecamatan_id" />
+                                            <p t-field="o.pekerjaan_id.kabupaten_id" />
+                                            <p t-field="o.pekerjaan_id.provinsi_id" />
                                         </td>
                                     </tr>
                                 </tbody>
@@ -130,33 +118,20 @@
                         </div>
                         <div class="col-xs-2" ></div>
                         <div class="col-xs-5" >
-                            <table class="table rpt-table table-condensed" >
+                            <table class="table table-condensed no-border" >
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <label>Tanggal</label>
-                                        </td>
-                                        <td>:</td>
-                                        <td>
-                                            <span t-field="o.tanggal" t-options ='{"format": "dd/MM/yyyy"}' />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
+                                            <label>Tanggal</label><br/>
                                             <label>Armada</label>
                                         </td>
-                                        <td>:</td>
+                                        <td>:<br/>:</td>
                                         <td>
-                                            <span t-field="o.karyawan_id.armada_id.keterangan" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label>Nopol</label>
-                                        </td>
-                                        <td>:</td>
-                                        <td>
-                                            <span t-field="o.karyawan_id.armada_id.name" />
+                                            <span t-field="o.tanggal" t-options ='{"format": "dd/MM/yyyy"}' />
+                                            <br/>
+                                            <span t-field="o.karyawan_id.armada_id.keterangan" /> 
+                                            <t t-if="o.karyawan_id.armada_id.keterangan">/</t> 
+                                            <span t-field="o.nopol_umum" />
                                         </td>
                                     </tr>
                                 </tbody>
@@ -176,7 +151,6 @@
                                         <tr>
                                             <td>
                                                 <span t-field="mat.product_id.name" />
-                                                <br/>
                                                 <br/>
                                                 <br/>
                                             </td>
@@ -255,14 +229,15 @@
                         <div class="col-xs-2 rpt_header" >
                             <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png"/>
                         </div>
-                        <div class="col-xs-4 rpt_header" > 
-                            <label><p t-field="o.env.user.company_id.name" /></label>
-                            <p t-field="o.env.user.company_id.street" />
-                            <p t-field="o.env.user.company_id.city" />
+                        <div class="col-xs-6 rpt_header" > 
+                            <label t-field="o.env.user.company_id.name" />
+                            <br/>
+                            <span t-field="o.env.user.company_id.street" />
+                            <span t-field="o.env.user.company_id.city" />
                             <p>Telp. <span t-field="o.env.user.company_id.phone" /></p>
                         </div>
-                        <div class="col-xs-6 text-right rpt_header" >
-                            <h3>SURAT JALAN</h3> 
+                        <div class="col-xs-4 text-right rpt_header" >
+                            <h3>COPY SURAT JALAN</h3> 
                             <label><p t-field="o.picking_id.name" /></label>
                         </div>
                     </div>
@@ -305,16 +280,14 @@
                         border-bottom: solid thin darkgrey;
                         border-top: solid thin darkgrey;
                     }
-
-                    .row.row-first-page{
-                        border-bottom: dashed thin darkgrey;
-                        height:500px!important;
+                    table.table.no-border, table.table.no-border tr, table.table.no-border tr td {
+                        border: none;
                     }
                 </style>
                 <t t-foreach="docs" t-as="o">
                     <div class="row row-first-page" >
                         <div class="col-xs-5" >
-                            <table class="table rpt-table table-condensed" >
+                            <table class="table table-condensed no-border" >
                                 <tbody>
                                     <tr>
                                         <td>
@@ -323,27 +296,11 @@
                                         <td>:</td>
                                         <td>
                                             <span t-field="o.partner_id" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label>Pekerjaan</label>
-                                        </td>
-                                        <td>:</td>
-                                        <td>
-                                            <span t-field="o.pekerjaan_id" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label>Alamat</label>
-                                        </td>
-                                        <td>:</td>
-                                        <td>
-                                            <span t-field="o.pekerjaan_id.alamat" />
-                                            <span t-field="o.pekerjaan_id.kecamatan_id" />
-                                            <span t-field="o.pekerjaan_id.kabupaten_id" />
-                                            <span t-field="o.pekerjaan_id.provinsi_id" />
+                                            <p t-field="o.pekerjaan_id" />
+                                            <p t-field="o.pekerjaan_id.alamat" />
+                                            <p t-field="o.pekerjaan_id.kecamatan_id" />
+                                            <p t-field="o.pekerjaan_id.kabupaten_id" />
+                                            <p t-field="o.pekerjaan_id.provinsi_id" />
                                         </td>
                                     </tr>
                                 </tbody>
@@ -351,194 +308,20 @@
                         </div>
                         <div class="col-xs-2" ></div>
                         <div class="col-xs-5" >
-                            <table class="table rpt-table table-condensed" >
+                            <table class="table table-condensed no-border" >
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <label>Tanggal</label>
-                                        </td>
-                                        <td>:</td>
-                                        <td>
-                                            <span t-field="o.tanggal" t-options ='{"format": "dd/MM/yyyy"}' />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
+                                            <label>Tanggal</label><br/>
                                             <label>Armada</label>
                                         </td>
-                                        <td>:</td>
+                                        <td>:<br/>:</td>
                                         <td>
-                                            <span t-field="o.karyawan_id.armada_id.keterangan" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label>Nopol</label>
-                                        </td>
-                                        <td>:</td>
-                                        <td>
-                                            <span t-field="o.karyawan_id.armada_id.name" />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="col-xs-12">
-                            <table class="table table-bordered table-condensed" >
-                                <thead>
-                                    <tr>
-                                        <th class="col-xs-10" >MATERIAL</th>
-                                        <th class="col-xs-2 text-right" >Jumlah</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <t t-foreach="o.order_line" t-as="mat">
-                                        <tr>
-                                            <td>
-                                                <span t-field="mat.product_id.name" />
-                                                <br/>
-                                                <br/>
-                                                <br/>
-                                            </td>
-                                            <td class="text-right" >
-                                                1
-                                            </td>
-                                        </tr>
-                                    </t>  
-                                    <tr>
-                                        <td colspan="2" >
+                                            <span t-field="o.tanggal" t-options ='{"format": "dd/MM/yyyy"}' />
                                             <br/>
-                                        </td>
-                                    </tr>                                      
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="col-xs-12" >
-                            <table class="table table-bordered table-condensed" >
-                                <tbody>
-                                    <td style="height:60px;" >
-                                        <label>Catatan :</label>
-                                    </td>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="col-xs-3 text-center" >
-                            <label>Dicetak oleh,</label>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <span t-field="o.env.user.name" />
-                        </div>
-                        <div class="col-xs-1" ></div>
-                        <div class="col-xs-3 text-center" >
-                            <label>Dikirm oleh,</label>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <span t-field="o.karyawan_id.name" />
-                        </div>
-                        <div class="col-xs-1" ></div>
-                        <div class="col-xs-3 text-center " >
-                            <label>Diterima oleh,</label>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <p>(____________________)</p>
-                        </div>
-                    </div>
-                    
-                    <br/>
-                    
-                    <div class="row">
-                        <div class="col-xs-2 rpt_header" >
-                            <img  class="img img-responsive" src="/hasilmancing/static/description/logo_odoo_bg_putih.png"/>
-                        </div>
-                        <div class="col-xs-4 rpt_header" > 
-                            <label><p t-field="o.env.user.company_id.name" /></label>
-                            <p t-field="o.env.user.company_id.street" />
-                            <p t-field="o.env.user.company_id.city" />
-                            <p>Telp. <span t-field="o.env.user.company_id.phone" /></p>
-                        </div>
-                        <div class="col-xs-6 text-right rpt_header" >
-                            <h3>COPY SURAT JALAN</h3> 
-                            <label><p t-field="o.picking_id.name" /></label>
-                        </div>                            
-                        <div class="col-xs-12 header"></div>
-                    </div>
-                    <br/>
-                    <br/>
-                    <div class="row" >
-                        <div class="col-xs-5" >
-                            <table class="table rpt-table table-condensed" >
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <label>Kepada</label>
-                                        </td>
-                                        <td>:</td>
-                                        <td>
-                                            <span t-field="o.partner_id" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label>Pekerjaan</label>
-                                        </td>
-                                        <td>:</td>
-                                        <td>
-                                            <span t-field="o.pekerjaan_id" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label>Alamat</label>
-                                        </td>
-                                        <td>:</td>
-                                        <td>
-                                            <span t-field="o.pekerjaan_id.alamat" />
-                                            <span t-field="o.pekerjaan_id.kecamatan_id" />
-                                            <span t-field="o.pekerjaan_id.kabupaten_id" />
-                                            <span t-field="o.pekerjaan_id.provinsi_id" />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-xs-2" ></div>
-                        <div class="col-xs-5" >
-                            <table class="table rpt-table table-condensed" >
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <label>Tanggal</label>
-                                        </td>
-                                        <td>:</td>
-                                        <td>
-                                            <span t-field="o.tanggal" t-options ='{"format": "dd/MM/yyyy"}' />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label>Armada</label>
-                                        </td>
-                                        <td>:</td>
-                                        <td>
-                                            <span t-field="o.karyawan_id.armada_id.keterangan" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label>Nopol</label>
-                                        </td>
-                                        <td>:</td>
-                                        <td>
-                                            <span t-field="o.karyawan_id.armada_id.name" />
+                                            <span t-field="o.karyawan_id.armada_id.keterangan" /> 
+                                            <t t-if="o.karyawan_id.armada_id.keterangan">/</t> 
+                                            <span t-field="o.nopol_umum" />
                                         </td>
                                     </tr>
                                 </tbody>
@@ -558,7 +341,6 @@
                                         <tr>
                                             <td>
                                                 <span t-field="mat.product_id.name" />
-                                                <br/>
                                                 <br/>
                                                 <br/>
                                             </td>

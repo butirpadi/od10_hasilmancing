@@ -48,7 +48,7 @@ class hm_sale_order(models.Model):
 									], string='Status Nota Timbang', default='draft')
 	order_line_len = fields.Integer('Order Line Length',compute="_compute_get_order_line_length")
 	material = fields.Many2one('product.product', 'Material', compute="_compute_set_material", store=True,)
-
+	nopol_umum = fields.Char('Nopol')
 
 	# spesial function 
 	# auto confirm semua sale order yang status nya draft
@@ -211,6 +211,8 @@ class hm_sale_order(models.Model):
 		print 'on karyawan_id change'
 		for so in self:
 			so.armada_id = so.karyawan_id.armada_id
+			# set nopol kendaraan auto
+			so.nopol_umum = so.karyawan_id.armada_id.name
 	        
 
 	# @api.model

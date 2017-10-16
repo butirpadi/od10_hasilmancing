@@ -207,7 +207,7 @@
 
                     <!-- KUBIKASI -->
                     <t t-if="jml_kubikasi&gt;0">
-                        <table class="table table-bordered table-condensed">
+                        <table class="table  table-condensed">
                             <thead>
                                 <tr>
                                     <th rowspan="2" class="col-xs-1"  >No</th>

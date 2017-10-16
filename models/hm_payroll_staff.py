@@ -169,6 +169,12 @@ class hm_payroll_staff(models.Model):
 				'state' : 'done'
 			})
 
+	def cancel_paid(self):
+		print 'Cancel paid'
+		self.state = 'open'
+		self.write({
+				'state' : 'open'
+			})
 
 		
 

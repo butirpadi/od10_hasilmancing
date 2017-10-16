@@ -126,7 +126,8 @@
                             <field name="date_order" invisible="1"/>
                             <field name="tanggal" required="1" attrs="{'readonly':['|',('state','=','done'),('status_nota_timbang','=','done')]}" />
                             <field name="karyawan_id" options='{"no_create":True, "no_edit":True, "no_open":True}' domain="[('jabatan','=','DRV')]" attrs="{'readonly':['|',('state','=','done'),('status_nota_timbang','=','done')]}" />
-                            <field name="armada_id" options='{"no_create":True, "no_edit":True, "no_open":True}' readonly="1" attrs="{'readonly':[('state','=','done')]}" />
+                            <field name="armada_id" options='{"no_create":True, "no_edit":True, "no_open":True}' readonly="1" attrs="{'readonly':[('state','=','done')]}" string="Armada/Nopol" invisible="1" />
+                            <field name="nopol_umum" />
                             <field name="validity_date" attrs="{'invisible': [('state', 'in', ['sale', 'done'])]}" invisible="1" />
                             <field name="confirmation_date" attrs="{'invisible': [('state', 'in', ['draft', 'sent', 'cancel'])]}" invisible="1" />
                             <field name="pricelist_id" groups="product.group_sale_pricelist" invisible="1" />
